@@ -1,6 +1,7 @@
 # Android
 
-✔ Commit Message Convention
+Commit Message Convention
+
 CHORE: 코드 수정, 내부 파일 수정
 
 FEAT: 새로운 기능 추가
