@@ -1,4 +1,4 @@
-package com.example.taveconnect.Activity
+package com.example.taveconnect
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
