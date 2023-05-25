@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/main"
+        android:title="메뉴"
+        android:icon="@drawable/ic_home"
+        app:showAsAction="always"/>
+
+    <item android:id="@+id/explanation"
+        android:title="설명"
+        android:icon="@drawable/ic_explain"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/rank"
+        android:title="랭킹"
+        android:icon="@drawable/ic_rank"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/option"
+        android:title="설정"
+        android:icon="@drawable/ic_option"
+        app:showAsAction="always" />
+
+
+
+</menu>
