@@ -11,14 +11,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //Intent 를 활용해서 액티비티 이동하기
-        val intent = Intent(this, LoginActivity::class.java)
-
         //버튼 지정
-        val BtnKakao = findViewById<Button>(R.id.btnKakao)
+        val BtnKakao = findViewById<Button>(R.id.btn_kakao)
+
         //클릭리스너
         BtnKakao.setOnClickListener {
-            //액티비티 이동
+            val intent = Intent(this,LoginActivity::class.java)
             startActivity(intent)
         }
 

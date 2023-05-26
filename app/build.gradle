@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -49,8 +50,8 @@ dependencies {
     // AndroidX Fragment 라이브러리
     implementation("androidx.fragment:fragment-ktx:1.5.7")
 
-    // Kakao Login
-    implementation 'com.kakao.sdk:v2-user:2.10.0'
+    // 원형 프로필
+    implementation 'androidx.cardview:cardview:1.0.0'
 
     // 프로필 이미지
     implementation 'com.github.bumptech.glide:glide:4.9.0'
