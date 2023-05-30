@@ -7,6 +7,7 @@ import com.example.taveconnect.databinding.ActivityHomeBinding
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -14,4 +15,5 @@ class HomeActivity : AppCompatActivity() {
         setContentView(view)
 
     }
+
 }
