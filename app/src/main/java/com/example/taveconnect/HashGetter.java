@@ -9,8 +9,12 @@ import android.util.Base64;
 
 import java.security.MessageDigest;
 
+
+
+
 public class HashGetter {
-    /*public static String getHashKey(Context context) {
+    /*
+    public static String getHashKey(Context context) {
         final String TAG = "KeyHash";
         String keyHash = null;
         try {
