@@ -9,19 +9,17 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.example.taveconnect.R
 import com.kakao.sdk.user.UserApiClient
-
+import com.example.taveconnect.databinding.ActivityLoginBinding
 
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        val binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         //버튼 지정
-        val BtnEnjoy = findViewById<Button>(R.id.btn_enjoy)
-
-        //클릭리스너
-        BtnEnjoy.setOnClickListener {
+        binding.btnEnjoy.setOnClickListener {
             val intent = Intent(this,HomeActivity::class.java)
             startActivity(intent)
         }
