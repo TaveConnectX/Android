@@ -19,6 +19,21 @@
         <!-- android:name 설정 -->
         android:name=".GlobalApplication"
 
+        <!-- 리다이렉션을 통해 인가코드를 받기 위함 -->
+        <activity
+            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!-- Redirect URI: "kakao${7d6af00ceade6023ddf611602f60df60}://oauth" -->
+                <data android:host="oauth"
+                    android:scheme="kakao7d6af00ceade6023ddf611602f60df60" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
