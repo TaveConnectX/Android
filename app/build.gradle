@@ -4,6 +4,8 @@ plugins {
     id 'kotlin-kapt'
 }
 
+
+
 android {
     namespace 'com.example.taveconnect'
     compileSdk 33
@@ -11,6 +13,8 @@ android {
     viewBinding {
         enable = true
     }
+
+
 
     defaultConfig {
         applicationId "com.example.taveconnect"
@@ -60,5 +64,5 @@ dependencies {
 
 
     // 카카오 로그인
-    //implementation "com.kakao.sdk:v2-user:2.13.0"
+    implementation "com.kakao.sdk:v2-user:2.14.0"
 }
