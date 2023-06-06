@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.taveconnect.databinding.FragmentRankingBinding
+import com.example.taveconnect.databinding.FragmentBurgerBinding
 
-class RankingFragment : Fragment(R.layout.fragment_ranking) {
-    private var _binding: FragmentRankingBinding? = null
+class BurgerFragment : Fragment(R.layout.fragment_burger) {
+    private var _binding: FragmentBurgerBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -16,7 +16,7 @@ class RankingFragment : Fragment(R.layout.fragment_ranking) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentRankingBinding.inflate(inflater, container, false)
+        _binding = FragmentBurgerBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
     }
