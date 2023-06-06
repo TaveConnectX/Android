@@ -6,64 +6,64 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:orientation="vertical"
-    tools:context=".ListFragment">
+    tools:context=".DifficultyFragment">
 
-
-    <Button
-        android:id="@+id/btn_new_game"
+    <TextView
+        android:id="@+id/tv_difficulty"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="새로운 게임"
+        android:text="난이도"
         android:textColor="@color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_game_ing"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btn_easy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btn_game_ing"
+        android:id="@+id/btn_easy"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="이어하기"
+        android:text="쉬움"
         android:textColor="@color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_previous"
+        app:layout_constraintBottom_toTopOf="@+id/tv_difficulty"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_new_game" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_normal" />
 
     <Button
-        android:id="@+id/btn_previous"
+        android:id="@+id/btn_normal"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="직전게임"
+        android:text="보통"
         android:textColor="@color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_my_page"
+        app:layout_constraintBottom_toTopOf="@+id/btn_hard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_game_ing" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_easy" />
 
     <Button
-        android:id="@+id/btn_my_page"
+        android:id="@+id/btn_hard"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="내 정보"
+        android:text="어려움"
         android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_previous" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_normal" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
