@@ -4,6 +4,8 @@ plugins {
     id 'kotlin-kapt'
 }
 
+
+
 android {
     namespace 'com.example.taveconnect'
     compileSdk 33
@@ -11,6 +13,8 @@ android {
     viewBinding {
         enable = true
     }
+
+
 
     defaultConfig {
         applicationId "com.example.taveconnect"
@@ -40,9 +44,9 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     testImplementation 'junit:junit:4.13.2'
@@ -56,11 +60,9 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
 
     // 프로필 이미지
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'com.github.bumptech.glide:glide:4.15.1'
 
-    // [카카오] 전체 모듈 설치, 2.11.0 버전부터 지원
-    // implementation "com.kakao.sdk:v2-all:2.13.0"
 
     // 카카오 로그인
-    //implementation "com.kakao.sdk:v2-user:2.13.0"
+    implementation "com.kakao.sdk:v2-user:2.14.0"
 }
