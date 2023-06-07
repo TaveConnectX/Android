@@ -6,9 +6,16 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Message
 import android.util.Log
+import android.webkit.WebChromeClient
+import android.webkit.WebResourceRequest
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.Toast
+
 import com.example.taveconnect.R
 import com.example.taveconnect.databinding.ActivityLoginBinding
 import com.example.taveconnect.databinding.ActivityMainBinding
@@ -18,14 +25,119 @@ import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
+import java.net.URISyntaxException
 
 
 class MainActivity : AppCompatActivity() {
+
+    private var doubleBackToExitPressedOnce = false
+    private lateinit var webView: WebView
+    private lateinit var webViewLayout: FrameLayout
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+/*
+
+        binding.webView.settings.run {
+            javaScriptEnabled = true
+            domStorageEnabled = true
+            javaScriptCanOpenWindowsAutomatically = true
+            setSupportMultipleWindows(true)
+        }
+
+        webView.webChromeClient = object: WebChromeClient() {
+            // 팝업열기
+
+            override fun onCreateWindow(
+                view: WebView?,
+                isDialog: Boolean,
+                isUserGesture: Boolean,
+                resultMsg: Message?
+            ): Boolean {
+                // 웹뷰 만들기
+                var childWebView = view?.let { WebView(it.context) }
+                childWebView?.run {
+                    settings.run {
+                        javaScriptEnabled = true
+                        javaScriptCanOpenWindowsAutomatically = true
+                        setSupportMultipleWindows(true)
+                    }
+                    if (view != null) {
+                        layoutParams = view.layoutParams
+                    }
+                    if (view != null) {
+                        webViewClient = view.webViewClient
+                    }
+                    if (view != null) {
+                        webChromeClient = view.webChromeClient
+                    }
+                }
+
+                // 화면에 추가하기
+                webViewLayout.addView(childWebView)
+
+                val transport = resultMsg?.obj as WebView.WebViewTransport
+                transport.webView = childWebView
+                resultMsg.sendToTarget()
+
+                return true
+
+            }
+
+            // 팝업 닫기
+            override fun onCloseWindow(window: WebView?) {
+                super.onCloseWindow(window)
+
+                webViewLayout.removeView(window)
+
+            }
+        }
+
+        webView.webViewClient = object: WebViewClient() {
+            override fun shouldOverrideUrlLoading(
+                view: WebView?,
+                request: WebResourceRequest?
+            ): Boolean {
+                if (request != null) {
+                    if (request.url.scheme == "https") {
+
+                    }
+                }
+                if (request != null) {
+                    if (request.url.scheme == "intent") {
+                        try {
+                            val intent = Intent.parseUri(request.url.toString(),
+                                Intent.URI_INTENT_SCHEME)
+                            if (intent.resolveActivity(packageManager) != null) {
+                                startActivity(intent)
+                                return true
+                            }
+
+                            val fallbackUrl =
+                                intent.getStringExtra("browser_fallback_url")
+                            if (fallbackUrl != null) {
+                                if (view != null) {
+                                    view.loadUrl(fallbackUrl)
+                                }
+                                return true
+                            }
+                        } catch (e: URISyntaxException) {
+
+                        }
+                    }
+                }
+
+                return false
+            }
+        }
+
+        webView.loadUrl("https://www.googsu.com/kakao_talk_message.html")
+
+*/
+
 
 
         // 키 해시 확인하기

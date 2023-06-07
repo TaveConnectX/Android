@@ -6,64 +6,91 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:orientation="vertical"
-    tools:context=".ListFragment">
-
+    tools:context=".BurgerFragment">
 
     <Button
-        android:id="@+id/btn_new_game"
+        android:id="@+id/btn_burger"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/ic_burger"
+        app:layout_constraintBottom_toTopOf="@+id/btn_go_main"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/btn_go_main"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:layout_weight="1"
-        android:text="새로운 게임"
+        android:text="메인 화면으로 나가기"
         android:textColor="@color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_game_ing"
+        app:layout_constraintBottom_toTopOf="@+id/btn_new_start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btn_game_ing"
+        android:id="@+id/btn_new_start"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="이어하기"
+        android:text="새로 시작하기"
         android:textColor="@color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_previous"
+        app:layout_constraintBottom_toTopOf="@+id/btn_setting"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_new_game" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_go_main" />
 
     <Button
-        android:id="@+id/btn_previous"
+        android:id="@+id/btn_setting"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="직전게임"
+        android:text="게임 설정"
         android:textColor="@color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_my_page"
+        app:layout_constraintBottom_toTopOf="@+id/btn_explain"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_game_ing" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_new_start" />
 
     <Button
-        android:id="@+id/btn_my_page"
+        android:id="@+id/btn_explain"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="내 정보"
+        android:text="게임 설명"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_setting" />
+
+    <Button
+        android:id="@+id/btn_back"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:layout_weight="1"
+        android:text="돌아가기"
         android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_previous" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_explain" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
