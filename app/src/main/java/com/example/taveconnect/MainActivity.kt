@@ -39,106 +39,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-/*
-
-        binding.webView.settings.run {
-            javaScriptEnabled = true
-            domStorageEnabled = true
-            javaScriptCanOpenWindowsAutomatically = true
-            setSupportMultipleWindows(true)
-        }
-
-        webView.webChromeClient = object: WebChromeClient() {
-            // 팝업열기
-
-            override fun onCreateWindow(
-                view: WebView?,
-                isDialog: Boolean,
-                isUserGesture: Boolean,
-                resultMsg: Message?
-            ): Boolean {
-                // 웹뷰 만들기
-                var childWebView = view?.let { WebView(it.context) }
-                childWebView?.run {
-                    settings.run {
-                        javaScriptEnabled = true
-                        javaScriptCanOpenWindowsAutomatically = true
-                        setSupportMultipleWindows(true)
-                    }
-                    if (view != null) {
-                        layoutParams = view.layoutParams
-                    }
-                    if (view != null) {
-                        webViewClient = view.webViewClient
-                    }
-                    if (view != null) {
-                        webChromeClient = view.webChromeClient
-                    }
-                }
-
-                // 화면에 추가하기
-                webViewLayout.addView(childWebView)
-
-                val transport = resultMsg?.obj as WebView.WebViewTransport
-                transport.webView = childWebView
-                resultMsg.sendToTarget()
-
-                return true
-
-            }
-
-            // 팝업 닫기
-            override fun onCloseWindow(window: WebView?) {
-                super.onCloseWindow(window)
-
-                webViewLayout.removeView(window)
-
-            }
-        }
-
-        webView.webViewClient = object: WebViewClient() {
-            override fun shouldOverrideUrlLoading(
-                view: WebView?,
-                request: WebResourceRequest?
-            ): Boolean {
-                if (request != null) {
-                    if (request.url.scheme == "https") {
-
-                    }
-                }
-                if (request != null) {
-                    if (request.url.scheme == "intent") {
-                        try {
-                            val intent = Intent.parseUri(request.url.toString(),
-                                Intent.URI_INTENT_SCHEME)
-                            if (intent.resolveActivity(packageManager) != null) {
-                                startActivity(intent)
-                                return true
-                            }
-
-                            val fallbackUrl =
-                                intent.getStringExtra("browser_fallback_url")
-                            if (fallbackUrl != null) {
-                                if (view != null) {
-                                    view.loadUrl(fallbackUrl)
-                                }
-                                return true
-                            }
-                        } catch (e: URISyntaxException) {
-
-                        }
-                    }
-                }
-
-                return false
-            }
-        }
-
-        webView.loadUrl("https://www.googsu.com/kakao_talk_message.html")
-
-*/
-
-
 
         // 키 해시 확인하기
         var keyHash = Utility.getKeyHash(this)
@@ -192,8 +92,8 @@ class MainActivity : AppCompatActivity() {
                 }
                 else if (tokenInfo != null) {
                     Log.i("LOGIN", "토큰 정보 보기 성공" +
-                    "\n회원번호: ${tokenInfo.id}" +
-                    "\n만료시간: ${tokenInfo.expiresIn} 초")
+                            "\n회원번호: ${tokenInfo.id}" +
+                            "\n만료시간: ${tokenInfo.expiresIn} 초")
                 }
             }
         }
