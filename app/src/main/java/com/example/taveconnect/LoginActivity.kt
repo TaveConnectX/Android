@@ -18,6 +18,8 @@ class LoginActivity : AppCompatActivity() {
         val binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.tvName.text
+
         //버튼 지정
         binding.btnEnjoy.setOnClickListener {
             val intent = Intent(this,HomeActivity::class.java)
