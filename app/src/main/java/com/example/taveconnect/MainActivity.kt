@@ -1,39 +1,22 @@
 package com.example.taveconnect
 
-import android.content.ContentValues
-import android.content.ContentValues.TAG
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Message
 import android.util.Log
-import android.webkit.WebChromeClient
-import android.webkit.WebResourceRequest
-import android.webkit.WebView
-import android.webkit.WebViewClient
-import android.widget.Button
-import android.widget.FrameLayout
 import android.widget.Toast
-
-import com.example.taveconnect.R
-import com.example.taveconnect.databinding.ActivityLoginBinding
 import com.example.taveconnect.databinding.ActivityMainBinding
 import com.kakao.sdk.auth.model.OAuthToken
-import com.kakao.sdk.common.model.AuthErrorCause
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
-import java.net.URISyntaxException
+import com.kakao.sdk.common.model.AuthErrorCause.*
+
+
 
 
 class MainActivity : AppCompatActivity() {
-
-    private var doubleBackToExitPressedOnce = false
-    private lateinit var webView: WebView
-    private lateinit var webViewLayout: FrameLayout
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,20 +27,49 @@ class MainActivity : AppCompatActivity() {
         var keyHash = Utility.getKeyHash(this)
         Log.d("KeyHash", keyHash)
 
+
+        // 카카오 로그인
+        // 카카오계정으로 로그인 공통 callback 구성
+        // 카카오톡 로그인 불가 -> 카카오 계정으로 로그인 할 경우
+        val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
+            if (error != null) {
+                when {
+                    error.toString() == AccessDenied.toString() -> {
+                        Toast.makeText(this, "접근이 거부 됨(동의 취소)", Toast.LENGTH_SHORT).show()
+                    }
+                    error.toString() == InvalidClient.toString() -> {
+                        Toast.makeText(this, "유효하지 않은 앱", Toast.LENGTH_SHORT).show()
+                    }
+                    error.toString() == InvalidGrant.toString() -> {
+                        Toast.makeText(this, "인증 수단이 유효하지 않아 인증할 수 없는 상태", Toast.LENGTH_SHORT).show()
+                    }
+                    error.toString() == InvalidRequest.toString() -> {
+                        Toast.makeText(this, "요청 파라미터 오류", Toast.LENGTH_SHORT).show()
+                    }
+                    error.toString() == InvalidScope.toString() -> {
+                        Toast.makeText(this, "유효하지 않은 scope ID", Toast.LENGTH_SHORT).show()
+                    }
+                    error.toString() == Misconfigured.toString() -> {
+                        Toast.makeText(this, "설정이 올바르지 않음(android key hash)", Toast.LENGTH_SHORT).show()
+                    }
+                    error.toString() == ServerError.toString() -> {
+                        Toast.makeText(this, "서버 내부 에러", Toast.LENGTH_SHORT).show()
+                    }
+                    error.toString() == Unauthorized.toString() -> {
+                        Toast.makeText(this, "앱이 요청 권한이 없음", Toast.LENGTH_SHORT).show()
+                    }
+                    else -> {
+                        Toast.makeText(this, "기타 에러", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } else if (token != null) {
+                Log.i("LOGIN", "카카오계정으로 로그인 성공 ${token.accessToken}")
+            }
+        }
+        
         //클릭리스너
         binding.btnKakao.setOnClickListener {
             Log.d("LOGIN", "로그인 시도")
-            // 카카오 로그인
-            // 카카오계정으로 로그인 공통 callback 구성
-            // 카카오톡 로그인 불가 -> 카카오 계정으로 로그인 할 경우
-            val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
-                if (error != null) {
-                    Log.e("LOGIN", "카카오계정으로 로그인 실패", error)
-                } else if (token != null) {
-                    Log.i("LOGIN", "카카오계정으로 로그인 성공 ${token.accessToken}")
-                }
-            }
-
 
             // 카카오톡 설치 됨 -> 카카오 로그인, 설치 안됨 -> 카카오 계정으로 로그인
             if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
@@ -76,9 +88,12 @@ class MainActivity : AppCompatActivity() {
                     } else if (token != null) {
                         Log.i("LOGIN", "카카오톡으로 로그인 성공 ${token.accessToken}")
 
-                        val intent = Intent(this, LoginActivity::class.java)
-                        startActivity(intent)
+                        startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                         finish()
+
+
+                        // val intent = Intent(this, LoginActivity::class.java)
+                        // startActivity(intent)
                     }
                 }
             } else {
@@ -96,6 +111,8 @@ class MainActivity : AppCompatActivity() {
                             "\n만료시간: ${tokenInfo.expiresIn} 초")
                 }
             }
+
+            // scope 목록을 전달하여 카카오 로그인 요청
         }
     }
 }
