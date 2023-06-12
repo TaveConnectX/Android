@@ -84,7 +84,8 @@ class MainActivity : AppCompatActivity() {
                 Log.d("kakao_refresh_token", "$refreshToken")
 
 
-                startActivity(Intent(this, LoginActivity::class.java))
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                 finish()
             }
         }
