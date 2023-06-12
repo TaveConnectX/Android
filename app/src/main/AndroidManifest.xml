@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.taveconnect">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <queries>
+        <package android:name="com.paypal.android.p2pmobile" />
+        <package android:name="com.example.other.package" />
+    </queries>
 
     <!-- 인터넷 사용 권한 설정-->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -30,8 +34,8 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="oauth2"
-                    android:scheme="@string/kakao_redirection_scheme" />
+                    android:host="oauth"
+                    android:scheme="kakao7d6af00ceade6023ddf611602f60df60" />
             </intent-filter>
         </activity>
 

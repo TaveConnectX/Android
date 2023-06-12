@@ -18,17 +18,23 @@ import com.kakao.sdk.common.model.AuthErrorCause.*
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // 키 해시 확인하기
         var keyHash = Utility.getKeyHash(this)
         Log.d("KeyHash", keyHash)
 
+        kakaoLogin()
+    }
 
-        // 카카오 로그인
+    private fun kakaoLogin() {
+
         // 카카오계정으로 로그인 공통 callback 구성
         // 카카오톡 로그인 불가 -> 카카오 계정으로 로그인 할 경우
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
@@ -64,16 +70,35 @@ class MainActivity : AppCompatActivity() {
                 }
             } else if (token != null) {
                 Log.i("LOGIN", "카카오계정으로 로그인 성공 ${token.accessToken}")
+
+                val tokenKakao =
+                    getSharedPreferences("kakaoToken", AppCompatActivity.MODE_PRIVATE)
+
+                tokenKakao.edit().putString("access", token.accessToken).apply()
+                val accessToken = tokenKakao.getString("access", "")
+
+                tokenKakao.edit().putString("refresh", token.refreshToken).apply()
+                val refreshToken = tokenKakao.getString("refresh", "")
+
+                Log.d("kakao_access_token", "$accessToken")
+                Log.d("kakao_refresh_token", "$refreshToken")
+
+
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+                finish()
             }
         }
-        
+
         //클릭리스너
         binding.btnKakao.setOnClickListener {
             Log.d("LOGIN", "로그인 시도")
 
             // 카카오톡 설치 됨 -> 카카오 로그인, 설치 안됨 -> 카카오 계정으로 로그인
             if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
-                UserApiClient.instance.loginWithKakaoTalk(this) { token, error ->
+                UserApiClient.instance.loginWithKakaoTalk(this, callback = callback) // { token, error ->
+                    /*
+
                     if (error != null) {
                         Log.e("LOGIN", "카카오톡으로 로그인 실패", error)
 
@@ -88,14 +113,12 @@ class MainActivity : AppCompatActivity() {
                     } else if (token != null) {
                         Log.i("LOGIN", "카카오톡으로 로그인 성공 ${token.accessToken}")
 
-                        startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-                        finish()
 
 
                         // val intent = Intent(this, LoginActivity::class.java)
                         // startActivity(intent)
                     }
-                }
+                } */
             } else {
                 UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
             }
@@ -104,11 +127,12 @@ class MainActivity : AppCompatActivity() {
             UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
                 if (error != null) {
                     Log.e("LOGIN", "토큰 정보 보기 실패", error)
-                }
-                else if (tokenInfo != null) {
-                    Log.i("LOGIN", "토큰 정보 보기 성공" +
-                            "\n회원번호: ${tokenInfo.id}" +
-                            "\n만료시간: ${tokenInfo.expiresIn} 초")
+                } else if (tokenInfo != null) {
+                    Log.i(
+                        "LOGIN", "토큰 정보 보기 성공" +
+                                "\n회원번호: ${tokenInfo.id}" +
+                                "\n만료시간: ${tokenInfo.expiresIn} 초"
+                    )
                 }
             }
 
