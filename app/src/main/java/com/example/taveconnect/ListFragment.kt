@@ -1,5 +1,6 @@
 package com.example.taveconnect
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,5 +20,20 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         _binding = FragmentListBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // btnNewGame 버튼 클릭 이벤트 처리
+        binding.btnNewGame.setOnClickListener {
+            val intent = Intent(activity, GameActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
