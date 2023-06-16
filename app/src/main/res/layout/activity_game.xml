@@ -31,6 +31,7 @@
         app:layout_constraintVertical_bias="1">
 
         <android.widget.Button
+            android:id="@+id/btn_gm1"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_weight="1"
@@ -38,6 +39,7 @@
             tools:ignore="SpeakableTextPresentCheck" />
 
         <android.widget.Button
+            android:id="@+id/btn_gm2"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_weight="1"
@@ -45,6 +47,7 @@
             tools:ignore="SpeakableTextPresentCheck" />
 
         <android.widget.Button
+            android:id="@+id/btn_gm3"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_weight="1"
@@ -52,6 +55,7 @@
             tools:ignore="SpeakableTextPresentCheck" />
 
         <android.widget.Button
+            android:id="@+id/btn_gm4"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_weight="1"
@@ -59,6 +63,7 @@
             tools:ignore="SpeakableTextPresentCheck" />
 
         <android.widget.Button
+            android:id="@+id/btn_gm5"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_weight="1"
@@ -66,6 +71,7 @@
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         <android.widget.Button
+            android:id="@+id/btn_gm6"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_weight="1"
@@ -73,6 +79,7 @@
             tools:ignore="SpeakableTextPresentCheck" />
 
         <android.widget.Button
+            android:id="@+id/btn_gm7"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_weight="1"
@@ -95,51 +102,66 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TableRow
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#000000">
 
             <ImageView
+                android:id="@+id/iv_gm_1_6"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                android:visibility="visible"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_2_6"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_3_6"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_4_6"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_5_6"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_6_6"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_7_6"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
         </TableRow>
 
         <TableRow
@@ -148,46 +170,60 @@
             android:background="#000000">
 
             <ImageView
+                android:id="@+id/iv_gm_1_5"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_2_5"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_3_5"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_4_5"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_5_5"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_6_5"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_7_5"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
         </TableRow>
 
         <TableRow
@@ -196,46 +232,60 @@
             android:background="#000000">
 
             <ImageView
+                android:id="@+id/iv_gm_1_4"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_2_4"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_3_4"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_4_4"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_5_4"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_6_4"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_7_4"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
         </TableRow>
 
         <TableRow
@@ -244,46 +294,60 @@
             android:background="#000000">
 
             <ImageView
+                android:id="@+id/iv_gm_1_3"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_2_3"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_3_3"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_4_3"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_5_3"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_6_3"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_7_3"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
         </TableRow>
 
         <TableRow
@@ -292,46 +356,60 @@
             android:background="#000000">
 
             <ImageView
+                android:id="@+id/iv_gm_1_2"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_2_2"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_3_2"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_4_2"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_5_2"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_6_2"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_7_2"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
         </TableRow>
 
         <TableRow
@@ -340,94 +418,60 @@
             android:background="#000000">
 
             <ImageView
+                android:id="@+id/iv_gm_1_1"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_2_1"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_3_1"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_4_1"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_5_1"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_6_1"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
 
             <ImageView
+                android:id="@+id/iv_gm_7_1"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
-                android:background="#ffffff" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#000000">
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="0.5dp"
-                android:background="#ffffff" />
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="0.5dp"
-                android:background="#ffffff" />
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="0.5dp"
-                android:background="#ffffff" />
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="0.5dp"
-                android:background="#ffffff" />
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="0.5dp"
-                android:background="#ffffff" />
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="0.5dp"
-                android:background="#ffffff" />
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="0.5dp"
-                android:background="#ffffff" />
+                android:background="#ffffff"
+                app:srcCompat="@drawable/nothing" />
         </TableRow>
     </TableLayout>
 
