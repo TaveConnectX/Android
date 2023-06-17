@@ -7,6 +7,7 @@ import android.os.PersistableBundle
 import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.example.taveconnect.R
 import com.kakao.sdk.user.UserApiClient
 import com.example.taveconnect.databinding.ActivityLoginBinding
@@ -32,7 +33,8 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    // 닉네임 받아오기
+
+    // 닉네임, 프로필 받아오기
 
     private fun loginInfo() {
 
@@ -44,6 +46,15 @@ class LoginActivity : AppCompatActivity() {
             else if (user != null) {
                 Log.i("LOGIN", "사용자 정보 요청 성공")
                 binding.tvName.text = user.kakaoAccount?.profile?.nickname
+                val profile = user.kakaoAccount?.profile?.profileImageUrl
+
+                Glide.with(this)
+                    .load(profile)
+                    .placeholder(binding.ivProfile.drawable)
+                    .error(binding.ivProfile.drawable)
+                    .fallback(binding.ivProfile.drawable)
+                    .circleCrop()
+                    .into(binding.ivProfile)
             }
         }
 
