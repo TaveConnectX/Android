@@ -96,29 +96,7 @@ class MainActivity : AppCompatActivity() {
 
             // 카카오톡 설치 됨 -> 카카오 로그인, 설치 안됨 -> 카카오 계정으로 로그인
             if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
-                UserApiClient.instance.loginWithKakaoTalk(this, callback = callback) // { token, error ->
-                    /*
-
-                    if (error != null) {
-                        Log.e("LOGIN", "카카오톡으로 로그인 실패", error)
-
-                        // 사용자가 카카오톡 설치 후 디바이스 권한 요청 화면에서 로그인을 취소
-                        // 의도적은 로그인 취소로 판단, 카카오계정으로 로그인 시도 없이 뒤로가기
-                        if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
-                            return@loginWithKakaoTalk
-                        }
-
-                        // 카카오톡에 연결된 카카오 계정이 없는 경우 카카오 계정으로 로그인 시도
-                        UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
-                    } else if (token != null) {
-                        Log.i("LOGIN", "카카오톡으로 로그인 성공 ${token.accessToken}")
-
-
-
-                        // val intent = Intent(this, LoginActivity::class.java)
-                        // startActivity(intent)
-                    }
-                } */
+                UserApiClient.instance.loginWithKakaoTalk(this, callback = callback)
             } else {
                 UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
             }
@@ -136,7 +114,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            // scope 목록을 전달하여 카카오 로그인 요청
         }
     }
 }
