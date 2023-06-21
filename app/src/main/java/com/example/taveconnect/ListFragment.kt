@@ -22,12 +22,13 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         return view
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // btnNewGame 버튼 클릭 이벤트 처리
         binding.btnNewGame.setOnClickListener {
-            val intent = Intent(activity, GameActivity::class.java)
+            val intent = Intent(activity, DifficultyActivity::class.java)
             startActivity(intent)
         }
     }
@@ -36,4 +37,5 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         super.onDestroyView()
         _binding = null
     }
+
 }

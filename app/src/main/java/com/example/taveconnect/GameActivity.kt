@@ -37,25 +37,14 @@ class GameActivity : AppCompatActivity() {
 
         // 타이머 구현
         val tv_sec = findViewById<TextView>(R.id.tv_second)
-        val countDownTimer = object : CountDownTimer(15000, 1000) {
+        val sec = intent.getLongExtra("seconds", 0)
+        val countDownTimer = object : CountDownTimer(sec, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 val num = (millisUntilFinished / 1000).toInt()
                 tv_sec!!.text = Integer.toString(num + 1)
             }
 
-
-            override fun onFinish() {
-                /*if(turn == 0)
-                {
-                    turn = 1
-                    setTurn(turn)
-                }
-                else if(turn == 1)
-                {
-                    turn = 0
-                    setTurn(turn)
-                }*/
-            }
+            override fun onFinish() { }
         }.start()
 
         showBurger()

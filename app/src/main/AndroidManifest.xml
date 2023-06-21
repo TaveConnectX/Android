@@ -72,6 +72,11 @@
             android:exported="true">
 
         </activity>
+        <activity
+            android:name=".DifficultyActivity"
+            android:exported="true">
+
+        </activity>
     </application>
 
 </manifest>
