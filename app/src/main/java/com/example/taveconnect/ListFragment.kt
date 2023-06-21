@@ -20,4 +20,22 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         val view = binding.root
         return view
     }
+<<<<<<< Updated upstream
+=======
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // btnNewGame 버튼 클릭 이벤트 처리
+        binding.btnNewGame.setOnClickListener {
+            val intent = Intent(activity, DifficultyActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+>>>>>>> Stashed changes
 }
