@@ -13,34 +13,25 @@ class DifficultyActivity : AppCompatActivity() {
         binding = ActivityDifficultyBinding.inflate(layoutInflater)
         val view = binding.root
 
-        var num = 0
-        var sec = 0
-
         setContentView(view)
 
         binding.btnEasy.setOnClickListener {
             val intent = Intent(this,GameActivity::class.java)
-            num = 1
+            intent.putExtra("difficulty", "easy")
             startActivity(intent)
         }
 
         binding.btnNormal.setOnClickListener {
             val intent = Intent(this,GameActivity::class.java)
-            num = 2
+            intent.putExtra("difficulty", "normal")
             startActivity(intent)
         }
 
         binding.btnHard.setOnClickListener {
             val intent = Intent(this,GameActivity::class.java)
-            num = 3
+            intent.putExtra("difficulty", "hard")
             startActivity(intent)
         }
-
-        if(num == 1) sec = 0
-        else if(num == 2) sec = 30000
-        else if(num == 3) sec = 15000
-
-        intent.putExtra("seconds", sec)
 
     }
 

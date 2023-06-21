@@ -37,19 +37,30 @@ class GameActivity : AppCompatActivity() {
 
         // 타이머 구현
         val tv_sec = findViewById<TextView>(R.id.tv_second)
-        val sec = intent.getLongExtra("seconds", 0)
-        val countDownTimer = object : CountDownTimer(sec, 1000) {
+        val difficulty = intent.getStringExtra("difficulty")
+        val sec = when (difficulty) {
+            "easy" -> 0 // 쉬운 난이도의 타이머 시간 (예: 60초)
+            "normal" -> 30000 // 보통 난이도의 타이머 시간 (예: 30초)
+            "hard" -> 15000 // 어려운 난이도의 타이머 시간 (예: 15초)
+            else -> 30000 // 기본값으로 설정할 타이머 시간 (예: 30초)
+        }
+        val countDownTimer = object : CountDownTimer(sec.toLong(), 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 val num = (millisUntilFinished / 1000).toInt()
                 tv_sec!!.text = Integer.toString(num + 1)
             }
 
-            override fun onFinish() { }
+            override fun onFinish() {
+                if(turn == 0)
+                    setTurn(3)
+                else if(turn == 1)
+                    setTurn(2)
+            }
         }.start()
 
         showBurger()
 
-        
+
         // 1열
         binding.btnGm1.setOnClickListener {
 
