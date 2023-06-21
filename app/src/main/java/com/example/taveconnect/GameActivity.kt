@@ -9,7 +9,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.taveconnect.databinding.ActivityGameBinding
-import com.example.taveconnect.databinding.FragmentBurgerBinding
 import java.util.Random
 
 private var turn: Int = 0
@@ -88,8 +87,10 @@ class GameActivity : AppCompatActivity() {
                     imageView.setImageResource(R.drawable.ic_black)
                     val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
                     if(checkFourConnectedB(arrays) == true) {
+                        countDownTimer.cancel()
                         turn = 2
                         setTurn(turn)
+                        break
                     }
                     turn = 1
                     setTurn(turn)
@@ -123,8 +124,10 @@ class GameActivity : AppCompatActivity() {
                     imageView.setImageResource(R.drawable.ic_black)
                     val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
                     if(checkFourConnectedB(arrays) == true) {
+                        countDownTimer.cancel()
                         turn = 2
                         setTurn(turn)
+                        break
                     }
                     turn = 1
                     setTurn(turn)
@@ -158,8 +161,10 @@ class GameActivity : AppCompatActivity() {
                     imageView.setImageResource(R.drawable.ic_black)
                     val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
                     if(checkFourConnectedB(arrays) == true) {
+                        countDownTimer.cancel()
                         turn = 2
                         setTurn(turn)
+                        break
                     }
                     turn = 1
                     setTurn(turn)
@@ -193,8 +198,10 @@ class GameActivity : AppCompatActivity() {
                     imageView.setImageResource(R.drawable.ic_black)
                     val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
                     if(checkFourConnectedB(arrays) == true) {
+                        countDownTimer.cancel()
                         turn = 2
                         setTurn(turn)
+                        break
                     }
                     turn = 1
                     setTurn(turn)
@@ -228,8 +235,10 @@ class GameActivity : AppCompatActivity() {
                     imageView.setImageResource(R.drawable.ic_black)
                     val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
                     if(checkFourConnectedB(arrays) == true) {
+                        countDownTimer.cancel()
                         turn = 2
                         setTurn(turn)
+                        break
                     }
                     turn = 1
                     setTurn(turn)
@@ -263,8 +272,10 @@ class GameActivity : AppCompatActivity() {
                     imageView.setImageResource(R.drawable.ic_black)
                     val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
                     if(checkFourConnectedB(arrays) == true) {
+                        countDownTimer.cancel()
                         turn = 2
                         setTurn(turn)
+                        break
                     }
                     turn = 1
                     setTurn(turn)
@@ -298,8 +309,10 @@ class GameActivity : AppCompatActivity() {
                     imageView.setImageResource(R.drawable.ic_black)
                     val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
                     if(checkFourConnectedB(arrays) == true) {
+                        countDownTimer.cancel()
                         turn = 2
                         setTurn(turn)
+                        break
                     }
                     turn = 1
                     setTurn(turn)
@@ -319,57 +332,58 @@ class GameActivity : AppCompatActivity() {
 
     // 4목 완성 확인
     fun checkFourConnectedB(arrays: Array<IntArray>): Boolean {
-        // 가로 방향으로 1이 4개로 연결되는지 확인
+        // Check horizontal direction for black (1) and white (2) stones
         for (row in arrays.indices) {
             for (col in 0 until arrays[row].size - 3) {
-                if (arrays[row][col] == 1 &&
-                    arrays[row][col + 1] == 1 &&
-                    arrays[row][col + 2] == 1 &&
-                    arrays[row][col + 3] == 1
+                if ((arrays[row][col] == 1 || arrays[row][col] == 2) &&
+                    arrays[row][col] == arrays[row][col + 1] &&
+                    arrays[row][col] == arrays[row][col + 2] &&
+                    arrays[row][col] == arrays[row][col + 3]
                 ) {
                     return true
                 }
             }
         }
 
-        // 세로 방향으로 1이 4개로 연결되는지 확인
+        // Check vertical direction for black (1) and white (2) stones
         for (col in arrays[0].indices) {
             for (row in 0 until arrays.size - 3) {
-                if (arrays[row][col] == 1 &&
-                    arrays[row + 1][col] == 1 &&
-                    arrays[row + 2][col] == 1 &&
-                    arrays[row + 3][col] == 1
+                if ((arrays[row][col] == 1 || arrays[row][col] == 2) &&
+                    arrays[row][col] == arrays[row + 1][col] &&
+                    arrays[row][col] == arrays[row + 2][col] &&
+                    arrays[row][col] == arrays[row + 3][col]
                 ) {
                     return true
                 }
             }
         }
 
-        // 대각선 방향(\)으로 1이 4개로 연결되는지 확인
+        // Check diagonal direction (\) for black (1) and white (2) stones
         for (row in 0 until arrays.size - 3) {
             for (col in 0 until arrays[row].size - 3) {
-                if (arrays[row][col] == 1 &&
-                    arrays[row + 1][col + 1] == 1 &&
-                    arrays[row + 2][col + 2] == 1 &&
-                    arrays[row + 3][col + 3] == 1
+                if ((arrays[row][col] == 1 || arrays[row][col] == 2) &&
+                    arrays[row][col] == arrays[row + 1][col + 1] &&
+                    arrays[row][col] == arrays[row + 2][col + 2] &&
+                    arrays[row][col] == arrays[row + 3][col + 3]
                 ) {
                     return true
                 }
             }
         }
 
-        // 대각선 방향(/)으로 1이 4개로 연결되는지 확인
+        // Check diagonal direction (/) for black (1) and white (2) stones
         for (row in 0 until arrays.size - 3) {
             for (col in 3 until arrays[row].size) {
-                if (arrays[row][col] == 1 &&
-                    arrays[row + 1][col - 1] == 1 &&
-                    arrays[row + 2][col - 2] == 1 &&
-                    arrays[row + 3][col - 3] == 1
+                if ((arrays[row][col] == 1 || arrays[row][col] == 2) &&
+                    arrays[row][col] == arrays[row + 1][col - 1] &&
+                    arrays[row][col] == arrays[row + 2][col - 2] &&
+                    arrays[row][col] == arrays[row + 3][col - 3]
                 ) {
                     return true
                 }
             }
         }
+
         return false
     }
 
@@ -441,6 +455,7 @@ class GameActivity : AppCompatActivity() {
                     val ivId = resources.getIdentifier(coord, "id", packageName)
                     val imageView = findViewById<ImageView>(ivId)
                     imageView.setImageResource(R.drawable.ic_white)
+
                     break
                 }
                 i++
