@@ -49,8 +49,7 @@ class GameActivity : AppCompatActivity() {
 
         showBurger()
 
-
-
+        
         // 1열
         binding.btnGm1.setOnClickListener {
 

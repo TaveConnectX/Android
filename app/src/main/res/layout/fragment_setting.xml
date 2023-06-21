@@ -37,11 +37,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:max="50"
-<<<<<<< Updated upstream
             android:progress="30" />
-=======
-            android:progress="20" />
->>>>>>> Stashed changes
+
     </LinearLayout>
 
 
