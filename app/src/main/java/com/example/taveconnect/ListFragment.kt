@@ -1,5 +1,6 @@
 package com.example.taveconnect
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,8 +21,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         val view = binding.root
         return view
     }
-<<<<<<< Updated upstream
-=======
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,5 +37,5 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         super.onDestroyView()
         _binding = null
     }
->>>>>>> Stashed changes
+
 }
