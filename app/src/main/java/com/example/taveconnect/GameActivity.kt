@@ -100,6 +100,11 @@ class GameActivity : AppCompatActivity() {
                         setTurn(turn)
                         countDownTimer.onFinish()
                         countDownTimer.start()
+                        if(checkFourConnectedB(arrays) == true) {
+                            countDownTimer.cancel()
+                            turn = 3
+                            setTurn(turn)
+                        }
                     }, 3000)
                     break
                 }
@@ -137,6 +142,11 @@ class GameActivity : AppCompatActivity() {
                         setTurn(turn)
                         countDownTimer.onFinish()
                         countDownTimer.start()
+                        if(checkFourConnectedB(arrays) == true) {
+                            countDownTimer.cancel()
+                            turn = 3
+                            setTurn(turn)
+                        }
                     }, 3000)
                     break
                 }
@@ -174,6 +184,11 @@ class GameActivity : AppCompatActivity() {
                         setTurn(turn)
                         countDownTimer.onFinish()
                         countDownTimer.start()
+                        if(checkFourConnectedB(arrays) == true) {
+                            countDownTimer.cancel()
+                            turn = 3
+                            setTurn(turn)
+                        }
                     }, 3000)
                     break
                 }
@@ -211,6 +226,11 @@ class GameActivity : AppCompatActivity() {
                         setTurn(turn)
                         countDownTimer.onFinish()
                         countDownTimer.start()
+                        if(checkFourConnectedB(arrays) == true) {
+                            countDownTimer.cancel()
+                            turn = 3
+                            setTurn(turn)
+                        }
                     }, 3000)
                     break
                 }
@@ -248,6 +268,11 @@ class GameActivity : AppCompatActivity() {
                         setTurn(turn)
                         countDownTimer.onFinish()
                         countDownTimer.start()
+                        if(checkFourConnectedB(arrays) == true) {
+                            countDownTimer.cancel()
+                            turn = 3
+                            setTurn(turn)
+                        }
                     }, 3000)
                     break
                 }
@@ -285,6 +310,11 @@ class GameActivity : AppCompatActivity() {
                         setTurn(turn)
                         countDownTimer.onFinish()
                         countDownTimer.start()
+                        if(checkFourConnectedB(arrays) == true) {
+                            countDownTimer.cancel()
+                            turn = 3
+                            setTurn(turn)
+                        }
                     }, 3000)
                     break
                 }
@@ -322,6 +352,11 @@ class GameActivity : AppCompatActivity() {
                         setTurn(turn)
                         countDownTimer.onFinish()
                         countDownTimer.start()
+                        if(checkFourConnectedB(arrays) == true) {
+                            countDownTimer.cancel()
+                            turn = 3
+                            setTurn(turn)
+                        }
                     }, 3000)
                     break
                 }
@@ -507,6 +542,7 @@ class GameActivity : AppCompatActivity() {
                     val ivId = resources.getIdentifier(coord, "id", packageName)
                     val imageView = findViewById<ImageView>(ivId)
                     imageView.setImageResource(R.drawable.ic_white)
+
                     break
                 }
                 i++
@@ -552,7 +588,6 @@ class GameActivity : AppCompatActivity() {
 
 }
 
-// 4개 연결 확인하고 이기는 거 출력되게 수정하기(함수 변경 + 조합 + 순서 조합해서)
 // 이기거나 지면 화면 새로 띄울지 얘기해보기
 // 효과음이나 배경음악 쓸 건지
 
