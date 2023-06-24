@@ -1,6 +1,7 @@
 package com.example.taveconnect
 
 import android.content.Intent
+import android.media.SoundPool
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
@@ -19,6 +20,7 @@ class GameActivity : AppCompatActivity() {
     private lateinit var binding: ActivityGameBinding
     // Fragment 매니저
     val manager = supportFragmentManager
+    val soundPool = SoundPool.Builder().build()
 
     val col1 = IntArray(6) { 0 }
     val col2 = IntArray(6) { 0 }
@@ -33,6 +35,9 @@ class GameActivity : AppCompatActivity() {
         binding = ActivityGameBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        // 효과음
+        var soundId = soundPool.load(this, R.raw.hit, 1)
 
         // 타이머 구현
         val tv_sec = findViewById<TextView>(R.id.tv_second)
@@ -91,6 +96,7 @@ class GameActivity : AppCompatActivity() {
                     val ivId = resources.getIdentifier(coord, "id", packageName)
                     val imageView = findViewById<ImageView>(ivId)
                     imageView.setImageResource(R.drawable.ic_black)
+                    soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                     val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
                     if(checkFourConnectedB(arrays) == true) {
                         countDownTimer.cancel()
@@ -102,6 +108,7 @@ class GameActivity : AppCompatActivity() {
                     setTurn(turn)
                     Handler(Looper.getMainLooper()).postDelayed({
                         whiteRandom()
+                        soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                         turn = 0
                         setTurn(turn)
                         countDownTimer.onFinish()
@@ -133,6 +140,7 @@ class GameActivity : AppCompatActivity() {
                     val ivId = resources.getIdentifier(coord, "id", packageName)
                     val imageView = findViewById<ImageView>(ivId)
                     imageView.setImageResource(R.drawable.ic_black)
+                    soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                     val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
                     if(checkFourConnectedB(arrays) == true) {
                         countDownTimer.cancel()
@@ -144,6 +152,7 @@ class GameActivity : AppCompatActivity() {
                     setTurn(turn)
                     Handler(Looper.getMainLooper()).postDelayed({
                         whiteRandom()
+                        soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                         turn = 0
                         setTurn(turn)
                         countDownTimer.onFinish()
@@ -175,6 +184,7 @@ class GameActivity : AppCompatActivity() {
                     val ivId = resources.getIdentifier(coord, "id", packageName)
                     val imageView = findViewById<ImageView>(ivId)
                     imageView.setImageResource(R.drawable.ic_black)
+                    soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                     val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
                     if(checkFourConnectedB(arrays) == true) {
                         countDownTimer.cancel()
@@ -186,6 +196,7 @@ class GameActivity : AppCompatActivity() {
                     setTurn(turn)
                     Handler(Looper.getMainLooper()).postDelayed({
                         whiteRandom()
+                        soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                         turn = 0
                         setTurn(turn)
                         countDownTimer.onFinish()
@@ -217,6 +228,7 @@ class GameActivity : AppCompatActivity() {
                     val ivId = resources.getIdentifier(coord, "id", packageName)
                     val imageView = findViewById<ImageView>(ivId)
                     imageView.setImageResource(R.drawable.ic_black)
+                    soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                     val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
                     if(checkFourConnectedB(arrays) == true) {
                         countDownTimer.cancel()
@@ -228,6 +240,7 @@ class GameActivity : AppCompatActivity() {
                     setTurn(turn)
                     Handler(Looper.getMainLooper()).postDelayed({
                         whiteRandom()
+                        soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                         turn = 0
                         setTurn(turn)
                         countDownTimer.onFinish()
@@ -259,6 +272,7 @@ class GameActivity : AppCompatActivity() {
                     val ivId = resources.getIdentifier(coord, "id", packageName)
                     val imageView = findViewById<ImageView>(ivId)
                     imageView.setImageResource(R.drawable.ic_black)
+                    soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                     val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
                     if(checkFourConnectedB(arrays) == true) {
                         countDownTimer.cancel()
@@ -270,6 +284,7 @@ class GameActivity : AppCompatActivity() {
                     setTurn(turn)
                     Handler(Looper.getMainLooper()).postDelayed({
                         whiteRandom()
+                        soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                         turn = 0
                         setTurn(turn)
                         countDownTimer.onFinish()
@@ -301,6 +316,7 @@ class GameActivity : AppCompatActivity() {
                     val ivId = resources.getIdentifier(coord, "id", packageName)
                     val imageView = findViewById<ImageView>(ivId)
                     imageView.setImageResource(R.drawable.ic_black)
+                    soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                     val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
                     if(checkFourConnectedB(arrays) == true) {
                         countDownTimer.cancel()
@@ -312,6 +328,7 @@ class GameActivity : AppCompatActivity() {
                     setTurn(turn)
                     Handler(Looper.getMainLooper()).postDelayed({
                         whiteRandom()
+                        soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                         turn = 0
                         setTurn(turn)
                         countDownTimer.onFinish()
@@ -343,6 +360,7 @@ class GameActivity : AppCompatActivity() {
                     val ivId = resources.getIdentifier(coord, "id", packageName)
                     val imageView = findViewById<ImageView>(ivId)
                     imageView.setImageResource(R.drawable.ic_black)
+                    soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                     val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
                     if(checkFourConnectedB(arrays) == true) {
                         countDownTimer.cancel()
@@ -354,6 +372,7 @@ class GameActivity : AppCompatActivity() {
                     setTurn(turn)
                     Handler(Looper.getMainLooper()).postDelayed({
                         whiteRandom()
+                        soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                         turn = 0
                         setTurn(turn)
                         countDownTimer.onFinish()
