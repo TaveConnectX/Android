@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,10 +9,11 @@
     tools:context=".ExplainFragment">
 
     <TextView
-        android:layout_margin="30dp"
-        android:layout_weight="0"
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:layout_weight="0"
         android:text="Connect X 즐기는 방법"
         android:textAlignment="center"
         android:textSize="28dp"
@@ -19,17 +21,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:ignore="MissingConstraints">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
@@ -38,9 +44,13 @@
                 android:text=" Connect4는 먼저 4목을 완성하는 플레이어가 승리하는 게임입니다."
                 android:textAlignment="textStart"
                 android:textColor="#000000"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/textView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
@@ -49,22 +59,29 @@
                 android:text=" 게임은 번갈아 진행되며, 자신의 차례마다 말을 게임 보드의 열에 놓을 수 있습니다. 말은 선택된 열의 가장 아래의 빈 칸에 놓여집니다."
                 android:textAlignment="textStart"
                 android:textColor="#000000"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
             <TextView
+                android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
-                android:layout_marginBottom="30dp"
                 android:layout_weight="0"
                 android:lineSpacingExtra="24sp"
                 android:text=" 게임의 난이도에 따라 타임아웃이 존재할 수 있습니다. 만일 제한 시간이 끝나도록 말을 두지 않으면, 게임에서 패배합니다."
                 android:textAlignment="textStart"
                 android:textColor="#000000"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 
-</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
