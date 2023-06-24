@@ -31,6 +31,12 @@ class ListFragment : Fragment(R.layout.fragment_list) {
             val intent = Intent(activity, DifficultyActivity::class.java)
             startActivity(intent)
         }
+
+        // btnPreviousGame 버튼 클릭 이벤트 처리
+        binding.btnPrevious.setOnClickListener {
+            val intent = Intent(activity, ReviewActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onDestroyView() {
