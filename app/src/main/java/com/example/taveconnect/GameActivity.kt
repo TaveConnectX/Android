@@ -1,9 +1,11 @@
 package com.example.taveconnect
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -68,9 +70,13 @@ class GameActivity : AppCompatActivity() {
 
         showBurger()
 
+        binding.tvOut.setOnClickListener{
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+        }
 
         // 1열
-        binding.btnGm1.setOnClickListener {
+        fun onImageViewClick1(view: View) {
 
             countDownTimer.onFinish()
             countDownTimer.start()
@@ -112,7 +118,7 @@ class GameActivity : AppCompatActivity() {
             }
         }
 
-        binding.btnGm2.setOnClickListener {
+        fun onImageViewClick2(view: View) {
 
             countDownTimer.onFinish()
             countDownTimer.start()
@@ -154,7 +160,7 @@ class GameActivity : AppCompatActivity() {
             }
         }
 
-        binding.btnGm3.setOnClickListener {
+        fun onImageViewClick3(view: View) {
 
             countDownTimer.onFinish()
             countDownTimer.start()
@@ -196,7 +202,7 @@ class GameActivity : AppCompatActivity() {
             }
         }
 
-        binding.btnGm4.setOnClickListener {
+        fun onImageViewClick4(view: View) {
 
             countDownTimer.onFinish()
             countDownTimer.start()
@@ -238,7 +244,7 @@ class GameActivity : AppCompatActivity() {
             }
         }
 
-        binding.btnGm5.setOnClickListener {
+        fun onImageViewClick5(view: View) {
 
             countDownTimer.onFinish()
             countDownTimer.start()
@@ -280,7 +286,7 @@ class GameActivity : AppCompatActivity() {
             }
         }
 
-        binding.btnGm6.setOnClickListener {
+        fun onImageViewClick6(view: View) {
 
             countDownTimer.onFinish()
             countDownTimer.start()
@@ -322,7 +328,7 @@ class GameActivity : AppCompatActivity() {
             }
         }
 
-        binding.btnGm7.setOnClickListener {
+        fun onImageViewClick7(view: View) {
 
             countDownTimer.onFinish()
             countDownTimer.start()
@@ -363,6 +369,141 @@ class GameActivity : AppCompatActivity() {
                 i++
             }
         }
+
+        binding.ivGm11.setOnClickListener {
+            onImageViewClick1(it)
+        }
+        binding.ivGm12.setOnClickListener {
+            onImageViewClick1(it)
+        }
+        binding.ivGm13.setOnClickListener {
+            onImageViewClick1(it)
+        }
+        binding.ivGm14.setOnClickListener {
+            onImageViewClick1(it)
+        }
+        binding.ivGm15.setOnClickListener {
+            onImageViewClick1(it)
+        }
+        binding.ivGm16.setOnClickListener {
+            onImageViewClick1(it)
+        }
+
+        binding.ivGm21.setOnClickListener {
+            onImageViewClick2(it)
+        }
+        binding.ivGm22.setOnClickListener {
+            onImageViewClick2(it)
+        }
+        binding.ivGm23.setOnClickListener {
+            onImageViewClick2(it)
+        }
+        binding.ivGm24.setOnClickListener {
+            onImageViewClick2(it)
+        }
+        binding.ivGm25.setOnClickListener {
+            onImageViewClick2(it)
+        }
+        binding.ivGm26.setOnClickListener {
+            onImageViewClick2(it)
+        }
+
+        binding.ivGm31.setOnClickListener {
+            onImageViewClick3(it)
+        }
+        binding.ivGm32.setOnClickListener {
+            onImageViewClick3(it)
+        }
+        binding.ivGm33.setOnClickListener {
+            onImageViewClick3(it)
+        }
+        binding.ivGm34.setOnClickListener {
+            onImageViewClick3(it)
+        }
+        binding.ivGm35.setOnClickListener {
+            onImageViewClick3(it)
+        }
+        binding.ivGm36.setOnClickListener {
+            onImageViewClick3(it)
+        }
+
+        binding.ivGm41.setOnClickListener {
+            onImageViewClick4(it)
+        }
+        binding.ivGm42.setOnClickListener {
+            onImageViewClick4(it)
+        }
+        binding.ivGm43.setOnClickListener {
+            onImageViewClick4(it)
+        }
+        binding.ivGm44.setOnClickListener {
+            onImageViewClick4(it)
+        }
+        binding.ivGm45.setOnClickListener {
+            onImageViewClick4(it)
+        }
+        binding.ivGm46.setOnClickListener {
+            onImageViewClick4(it)
+        }
+
+        binding.ivGm51.setOnClickListener {
+            onImageViewClick5(it)
+        }
+        binding.ivGm52.setOnClickListener {
+            onImageViewClick5(it)
+        }
+        binding.ivGm53.setOnClickListener {
+            onImageViewClick5(it)
+        }
+        binding.ivGm54.setOnClickListener {
+            onImageViewClick5(it)
+        }
+        binding.ivGm55.setOnClickListener {
+            onImageViewClick5(it)
+        }
+        binding.ivGm56.setOnClickListener {
+            onImageViewClick5(it)
+        }
+
+        binding.ivGm61.setOnClickListener {
+            onImageViewClick6(it)
+        }
+        binding.ivGm62.setOnClickListener {
+            onImageViewClick6(it)
+        }
+        binding.ivGm63.setOnClickListener {
+            onImageViewClick6(it)
+        }
+        binding.ivGm64.setOnClickListener {
+            onImageViewClick6(it)
+        }
+        binding.ivGm65.setOnClickListener {
+            onImageViewClick6(it)
+        }
+        binding.ivGm66.setOnClickListener {
+            onImageViewClick6(it)
+        }
+
+        binding.ivGm71.setOnClickListener {
+            onImageViewClick7(it)
+        }
+        binding.ivGm72.setOnClickListener {
+            onImageViewClick7(it)
+        }
+        binding.ivGm73.setOnClickListener {
+            onImageViewClick7(it)
+        }
+        binding.ivGm74.setOnClickListener {
+            onImageViewClick7(it)
+        }
+        binding.ivGm75.setOnClickListener {
+            onImageViewClick7(it)
+        }
+        binding.ivGm76.setOnClickListener {
+            onImageViewClick7(it)
+        }
+
+
     }
 
     // 4목 완성 확인
@@ -558,22 +699,10 @@ class GameActivity : AppCompatActivity() {
         {   tv_turn.text = "Your Turn"  }
         else if(t==2)
         {   tv_turn.text = "You Win!!"
-            binding.btnGm1.isEnabled = false
-            binding.btnGm2.isEnabled = false
-            binding.btnGm3.isEnabled = false
-            binding.btnGm4.isEnabled = false
-            binding.btnGm5.isEnabled = false
-            binding.btnGm6.isEnabled = false
-            binding.btnGm7.isEnabled = false    }
+            binding.tvOut.visibility = View.VISIBLE }
         else if(t==3)
         {   tv_turn.text = "You Lost.."
-            binding.btnGm1.isEnabled = false
-            binding.btnGm2.isEnabled = false
-            binding.btnGm3.isEnabled = false
-            binding.btnGm4.isEnabled = false
-            binding.btnGm5.isEnabled = false
-            binding.btnGm6.isEnabled = false
-            binding.btnGm7.isEnabled = false    }
+            binding.tvOut.visibility = View.VISIBLE }
     }
 
 

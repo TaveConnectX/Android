@@ -6,87 +6,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".GameActivity">
 
+    <TextView
+        android:id="@+id/tv_out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="게임에서 나가기"
+        android:textColor="#000000"
+        android:textSize="28sp"
+        android:visibility="gone"
+        app:layout_constraintVertical_bias="0.65"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/btn_burger"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:background="@drawable/ic_burger"
-        app:layout_constraintBottom_toTopOf="@+id/lin_game"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintVertical_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
-
-    <LinearLayout
-        android:id="@+id/lin_game"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1">
-
-        <android.widget.Button
-            android:id="@+id/btn_gm1"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:background="@drawable/ic_arrow"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-        <android.widget.Button
-            android:id="@+id/btn_gm2"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:background="@drawable/ic_arrow"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-        <android.widget.Button
-            android:id="@+id/btn_gm3"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:background="@drawable/ic_arrow"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-        <android.widget.Button
-            android:id="@+id/btn_gm4"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:background="@drawable/ic_arrow"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-        <android.widget.Button
-            android:id="@+id/btn_gm5"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:background="@drawable/ic_arrow"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-        <android.widget.Button
-            android:id="@+id/btn_gm6"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:background="@drawable/ic_arrow"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-        <android.widget.Button
-            android:id="@+id/btn_gm7"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:background="@drawable/ic_arrow"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-    </LinearLayout>
 
     <TableLayout
         android:id="@+id/tableLayout"
@@ -112,8 +57,11 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
+                android:clickable="true"
+                android:onClick="onImageViewClick1"
                 android:visibility="visible"
-                app:srcCompat="@drawable/nothing" />
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_2_6"
@@ -121,7 +69,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick2"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_3_6"
@@ -129,7 +80,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick3"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_4_6"
@@ -137,7 +91,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick4"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_5_6"
@@ -145,7 +102,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick5"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_6_6"
@@ -153,7 +113,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick6"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_7_6"
@@ -161,7 +124,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick7"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
         </TableRow>
 
         <TableRow
@@ -175,7 +141,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick1"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_2_5"
@@ -183,7 +152,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick2"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_3_5"
@@ -191,7 +163,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick3"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_4_5"
@@ -199,7 +174,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick4"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_5_5"
@@ -207,7 +185,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick5"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_6_5"
@@ -215,7 +196,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick6"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_7_5"
@@ -223,7 +207,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick7"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
         </TableRow>
 
         <TableRow
@@ -237,7 +224,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick1"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_2_4"
@@ -245,7 +235,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick2"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_3_4"
@@ -253,7 +246,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick3"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_4_4"
@@ -261,7 +257,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick4"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_5_4"
@@ -269,7 +268,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick5"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_6_4"
@@ -277,7 +279,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick6"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_7_4"
@@ -285,7 +290,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick7"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
         </TableRow>
 
         <TableRow
@@ -299,7 +307,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick1"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_2_3"
@@ -307,7 +318,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick2"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_3_3"
@@ -315,7 +329,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick3"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_4_3"
@@ -323,7 +340,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick4"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_5_3"
@@ -331,7 +351,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick5"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_6_3"
@@ -339,7 +362,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick6"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_7_3"
@@ -347,7 +373,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick7"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
         </TableRow>
 
         <TableRow
@@ -361,7 +390,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick1"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_2_2"
@@ -369,7 +401,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick2"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_3_2"
@@ -377,7 +412,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick3"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_4_2"
@@ -385,7 +423,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick4"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_5_2"
@@ -393,7 +434,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick5"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_6_2"
@@ -401,7 +445,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick6"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_7_2"
@@ -409,7 +456,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick7"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
         </TableRow>
 
         <TableRow
@@ -423,7 +473,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick1"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_2_1"
@@ -431,7 +484,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick2"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_3_1"
@@ -439,7 +495,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick3"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_4_1"
@@ -447,7 +506,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick4"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_5_1"
@@ -455,7 +517,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick5"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_6_1"
@@ -463,7 +528,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick6"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/iv_gm_7_1"
@@ -471,7 +539,10 @@
                 android:layout_height="50dp"
                 android:layout_margin="0.5dp"
                 android:background="#ffffff"
-                app:srcCompat="@drawable/nothing" />
+                android:clickable="true"
+                android:onClick="onImageViewClick7"
+                app:srcCompat="@drawable/nothing"
+                tools:ignore="SpeakableTextPresentCheck" />
         </TableRow>
     </TableLayout>
 
