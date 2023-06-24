@@ -12,5 +12,11 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+
+        <!-- 타이틀 바 삭제 -->
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+
     </style>
 </resources>
