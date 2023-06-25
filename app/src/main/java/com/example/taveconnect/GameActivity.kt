@@ -1,5 +1,6 @@
 package com.example.taveconnect
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
@@ -582,9 +583,12 @@ class GameActivity : AppCompatActivity() {
     // BurgerFragment 클릭 이벤트
     fun showBurger() {
         binding.btnBurger.setOnClickListener {
-            Toast.makeText(this, "버거 프래그먼트 불러오기", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, BurgerActivity::class.java)
+            startActivity(intent)
         }
     }
+
+
 
 }
 
