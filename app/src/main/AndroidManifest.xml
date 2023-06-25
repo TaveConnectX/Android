@@ -77,9 +77,13 @@
             android:exported="true">
 
         </activity>
-
         <activity
             android:name=".BurgerActivity"
+            android:exported="true" />
+          
+     
+        <activity
+            android:name=".ReviewActivity"
             android:exported="true">
 
         </activity>
