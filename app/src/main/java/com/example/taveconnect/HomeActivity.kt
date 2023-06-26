@@ -2,9 +2,12 @@ package com.example.taveconnect
 
 import android.content.ContentValues
 import android.content.ContentValues.TAG
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
+import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.taveconnect.databinding.ActivityHomeBinding
 import com.kakao.sdk.auth.model.OAuthToken
@@ -24,7 +27,9 @@ class HomeActivity : AppCompatActivity() {
         showInit()
         initBottomNav()
 
+
     }
+
 
     // 초기 Fragment 설정
     fun showInit() {
