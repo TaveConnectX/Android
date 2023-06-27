@@ -39,7 +39,5 @@ class MenuFragment: Fragment(R.layout.fragment_menu) {
             startActivity(intent)
         }
 
-        binding.btnExplain.setOnClickListener {
-        }
     }
 }
