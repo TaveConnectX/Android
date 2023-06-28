@@ -21,6 +21,7 @@ class GameActivity : AppCompatActivity() {
     // Fragment 매니저
     val manager = supportFragmentManager
     val soundPool = SoundPool.Builder().build()
+    val retrofitAPI = RetrofitClient.getInstance().create(RetroiftAPI::class.java)
 
     val col1 = IntArray(6) { 0 }
     val col2 = IntArray(6) { 0 }
@@ -734,6 +735,10 @@ class GameActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+
+
+
 
 
 
