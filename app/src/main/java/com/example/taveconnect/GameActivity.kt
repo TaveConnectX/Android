@@ -12,7 +12,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.collection.arraySetOf
 import com.example.taveconnect.databinding.ActivityGameBinding
+import com.example.taveconnect.game.GameData
+import com.example.taveconnect.retrofit.RetrofitWork
 import java.util.Random
 
 private var turn: Int = 0
@@ -36,6 +39,17 @@ class GameActivity : AppCompatActivity() {
         binding = ActivityGameBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+
+        val gameData = GameData(
+            1,
+            1,
+            2,
+            turn
+        )
+
+        val retrofitWork = RetrofitWork(gameData)
+        retrofitWork.work()
 
         // 효과음
         var soundId = soundPool.load(this, R.raw.hit, 1)
