@@ -1,6 +1,8 @@
-package com.example.taveconnect
+package com.example.taveconnect.retrofit
 
 import android.util.Log
+import com.example.taveconnect.game.GameData
+import com.example.taveconnect.game.GameResponse
 import retrofit2.Call
 import retrofit2.Response
 

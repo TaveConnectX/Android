@@ -1,11 +1,10 @@
-package com.example.taveconnect
+package com.example.taveconnect.retrofit
 
-import com.google.gson.GsonBuilder
+import com.example.taveconnect.game.GameService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 
 object RetrofitClient {
     private const val BASE_URL = "http://cconnect.backlogs.dev/"
