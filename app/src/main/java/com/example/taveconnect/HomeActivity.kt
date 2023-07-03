@@ -4,19 +4,24 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.taveconnect.databinding.ActivityHomeBinding
+import com.example.taveconnect.game.GameData
+import com.example.taveconnect.retrofit.RetrofitWork
 
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     val manager = supportFragmentManager
 
-    var goMainButtonClicked = false
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+
 
         showInit()
         initBottomNav()
@@ -46,8 +51,8 @@ class HomeActivity : AppCompatActivity() {
                 R.id.explanation -> {
                     ExplainFragment().changeFragment()
                 }
-                R.id.mypage -> {
-                    MyPageFragment().changeFragment()
+                R.id.option -> {
+                    SettingFragment().changeFragment()
                 }
                 R.id.rank -> {
                     RankingFragment().changeFragment()
