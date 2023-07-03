@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -21,7 +22,6 @@ class GameActivity : AppCompatActivity() {
     // Fragment 매니저
     val manager = supportFragmentManager
     val soundPool = SoundPool.Builder().build()
-    val retrofitAPI = RetrofitClient.getInstance().create(RetroiftAPI::class.java)
 
     val col1 = IntArray(6) { 0 }
     val col2 = IntArray(6) { 0 }

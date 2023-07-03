@@ -1,10 +1,38 @@
 package com.example.taveconnect
 
 import com.google.gson.GsonBuilder
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 
 object RetrofitClient {
+    private const val BASE_URL = "http://cconnect.backlogs.dev/"
+
+    private val okHttpClient: OkHttpClient by lazy {
+        OkHttpClient.Builder()
+            .addInterceptor(HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            })
+            .build()
+    }
+
+    private val retrofit: Retrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient)
+            .build()
+    }
+
+    val gameService: GameService by lazy {
+        retrofit.create(GameService::class.java)
+    }
+
+    /*
+
+
     private var instance: Retrofit? = null
     private var gson = GsonBuilder().setLenient().create()
 
@@ -16,5 +44,5 @@ object RetrofitClient {
                 .build()
         }
         return instance!!
-    }
+    } */
 }

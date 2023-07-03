@@ -1,16 +1,9 @@
 package com.example.taveconnect
 
-import android.content.ContentValues
-import android.content.ContentValues.TAG
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.AttributeSet
-import android.util.Log
-import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.taveconnect.databinding.ActivityHomeBinding
-import com.kakao.sdk.auth.model.OAuthToken
 
 
 class HomeActivity : AppCompatActivity() {
@@ -18,11 +11,23 @@ class HomeActivity : AppCompatActivity() {
     val manager = supportFragmentManager
 
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        val gameData = GameData(
+            1,
+            1,
+            2,
+            3
+        )
+
+        val retrofitWork = RetrofitWork(gameData)
+        retrofitWork.work()
 
         showInit()
         initBottomNav()
@@ -62,5 +67,6 @@ class HomeActivity : AppCompatActivity() {
             return@setOnItemSelectedListener true
         }
     }
+
 
 }
