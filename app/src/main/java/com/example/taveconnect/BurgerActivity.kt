@@ -46,9 +46,6 @@ class BurgerActivity: AppCompatActivity() {
             }
         }
 
-        val receiver = ButtonClickedReceiver()
-        val intentFilter = IntentFilter("ButtonClickedBroadcast")
-        registerReceiver(receiver, intentFilter)
 
         manager.beginTransaction().replace(R.id.fv_burger, this).commit()
     }

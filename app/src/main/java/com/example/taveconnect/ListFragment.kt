@@ -48,10 +48,12 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                 val intent = Intent(activity, LoadActivity::class.java)
                 Toast.makeText(context, "이전 게임을 불러옵니다.", Toast.LENGTH_SHORT).show()
                 startActivity(intent)
-            } else {
+            }
+            else {
                 Toast.makeText(context, "이어할 게임이 없습니다.", Toast.LENGTH_SHORT).show()
             }
         }
+
 
     }
 

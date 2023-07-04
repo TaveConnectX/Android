@@ -30,7 +30,8 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
 
         binding.btnGoMain.setOnClickListener {
             (activity as? HomeActivity)?.goMainButtonClicked = true
-            activity?.onBackPressed()
+            val intent = Intent(activity, HomeActivity::class.java)
+            startActivity(intent)
         }
 
         binding.btnNewStart.setOnClickListener {
