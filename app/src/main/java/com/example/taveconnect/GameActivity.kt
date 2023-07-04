@@ -614,6 +614,7 @@ class GameActivity : AppCompatActivity() {
                     val ivId = resources.getIdentifier(coord, "id", packageName)
                     val imageView = findViewById<ImageView>(ivId)
                     imageView.setImageResource(R.drawable.ic_white)
+
                     break
                 }
                 i++
