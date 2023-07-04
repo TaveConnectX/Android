@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.taveconnect.databinding.ActivityHomeBinding
+import com.example.taveconnect.game.GameData
+import com.example.taveconnect.retrofit.RetrofitWork
 
 
 class HomeActivity : AppCompatActivity() {
@@ -18,15 +20,7 @@ class HomeActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        val gameData = GameData(
-            1,
-            1,
-            2,
-            3
-        )
 
-        val retrofitWork = RetrofitWork(gameData)
-        retrofitWork.work()
 
         showInit()
         initBottomNav()
@@ -56,8 +50,8 @@ class HomeActivity : AppCompatActivity() {
                 R.id.explanation -> {
                     ExplainFragment().changeFragment()
                 }
-                R.id.option -> {
-                    SettingFragment().changeFragment()
+                R.id.mypage -> {
+                    MyPageFragment().changeFragment()
                 }
                 R.id.rank -> {
                     RankingFragment().changeFragment()

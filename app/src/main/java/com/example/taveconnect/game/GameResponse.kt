@@ -1,4 +1,4 @@
-package com.example.taveconnect
+package com.example.taveconnect.game
 
 import com.google.gson.annotations.SerializedName
 
