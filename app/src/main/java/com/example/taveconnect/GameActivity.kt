@@ -21,13 +21,13 @@ class GameActivity : AppCompatActivity() {
     val manager = supportFragmentManager
     val soundPool = SoundPool.Builder().build()
 
-    val col1 = IntArray(6) { 0 }
-    val col2 = IntArray(6) { 0 }
-    val col3 = IntArray(6) { 0 }
-    val col4 = IntArray(6) { 0 }
-    val col5 = IntArray(6) { 0 }
-    val col6 = IntArray(6) { 0 }
-    val col7 = IntArray(6) { 0 }
+    var col1 = IntArray(6) { 0 }
+    var col2 = IntArray(6) { 0 }
+    var col3 = IntArray(6) { 0 }
+    var col4 = IntArray(6) { 0 }
+    var col5 = IntArray(6) { 0 }
+    var col6 = IntArray(6) { 0 }
+    var col7 = IntArray(6) { 0 }
 
     val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
 
@@ -75,11 +75,6 @@ class GameActivity : AppCompatActivity() {
         }.start()
 
         showBurger()
-
-        binding.tvOut.setOnClickListener{
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
-        }
 
         // 1열
         fun onImageViewClick1(view: View) {
@@ -719,13 +714,80 @@ class GameActivity : AppCompatActivity() {
         {   tv_turn.text = "Your Turn"  }
         else if(t==2)
         {   tv_turn.text = "You Win!!"
-            binding.tvOut.visibility = View.VISIBLE }
+            val intent = Intent(this, EndActivity::class.java)
+            intent.putExtra("t", turn)
+            startActivity(intent)
+            reset()
+            turn = 0    }
         else if(t==3)
         {   tv_turn.text = "You Lost.."
-            binding.tvOut.visibility = View.VISIBLE }
+            val intent = Intent(this, EndActivity::class.java)
+            intent.putExtra("t", turn)
+            startActivity(intent)
+            reset()
+            turn = 0     }
     }
 
 
+    fun reset() {
+        print(arrays)
+        col1 = IntArray(6) { 0 }
+        col2 = IntArray(6) { 0 }
+        col3 = IntArray(6) { 0 }
+        col4 = IntArray(6) { 0 }
+        col5 = IntArray(6) { 0 }
+        col6 = IntArray(6) { 0 }
+        col7 = IntArray(6) { 0 }
+        binding.ivGm11.setImageResource(R.drawable.nothing)
+        binding.ivGm12.setImageResource(R.drawable.nothing)
+        binding.ivGm13.setImageResource(R.drawable.nothing)
+        binding.ivGm14.setImageResource(R.drawable.nothing)
+        binding.ivGm15.setImageResource(R.drawable.nothing)
+        binding.ivGm16.setImageResource(R.drawable.nothing)
+        binding.ivGm11.setImageResource(R.drawable.nothing)
+        binding.ivGm12.setImageResource(R.drawable.nothing)
+        binding.ivGm13.setImageResource(R.drawable.nothing)
+        binding.ivGm14.setImageResource(R.drawable.nothing)
+        binding.ivGm15.setImageResource(R.drawable.nothing)
+        binding.ivGm16.setImageResource(R.drawable.nothing)
+        binding.ivGm21.setImageResource(R.drawable.nothing)
+        binding.ivGm22.setImageResource(R.drawable.nothing)
+        binding.ivGm23.setImageResource(R.drawable.nothing)
+        binding.ivGm24.setImageResource(R.drawable.nothing)
+        binding.ivGm25.setImageResource(R.drawable.nothing)
+        binding.ivGm26.setImageResource(R.drawable.nothing)
+        binding.ivGm31.setImageResource(R.drawable.nothing)
+        binding.ivGm32.setImageResource(R.drawable.nothing)
+        binding.ivGm33.setImageResource(R.drawable.nothing)
+        binding.ivGm34.setImageResource(R.drawable.nothing)
+        binding.ivGm35.setImageResource(R.drawable.nothing)
+        binding.ivGm36.setImageResource(R.drawable.nothing)
+        binding.ivGm41.setImageResource(R.drawable.nothing)
+        binding.ivGm42.setImageResource(R.drawable.nothing)
+        binding.ivGm43.setImageResource(R.drawable.nothing)
+        binding.ivGm44.setImageResource(R.drawable.nothing)
+        binding.ivGm45.setImageResource(R.drawable.nothing)
+        binding.ivGm46.setImageResource(R.drawable.nothing)
+        binding.ivGm51.setImageResource(R.drawable.nothing)
+        binding.ivGm52.setImageResource(R.drawable.nothing)
+        binding.ivGm53.setImageResource(R.drawable.nothing)
+        binding.ivGm54.setImageResource(R.drawable.nothing)
+        binding.ivGm55.setImageResource(R.drawable.nothing)
+        binding.ivGm56.setImageResource(R.drawable.nothing)
+        binding.ivGm61.setImageResource(R.drawable.nothing)
+        binding.ivGm62.setImageResource(R.drawable.nothing)
+        binding.ivGm63.setImageResource(R.drawable.nothing)
+        binding.ivGm64.setImageResource(R.drawable.nothing)
+        binding.ivGm65.setImageResource(R.drawable.nothing)
+        binding.ivGm66.setImageResource(R.drawable.nothing)
+        binding.ivGm71.setImageResource(R.drawable.nothing)
+        binding.ivGm72.setImageResource(R.drawable.nothing)
+        binding.ivGm73.setImageResource(R.drawable.nothing)
+        binding.ivGm74.setImageResource(R.drawable.nothing)
+        binding.ivGm75.setImageResource(R.drawable.nothing)
+        binding.ivGm76.setImageResource(R.drawable.nothing)
+        print(arrays)
+    }
 
 
     // BurgerFragment 클릭 이벤트
@@ -737,7 +799,4 @@ class GameActivity : AppCompatActivity() {
         }
     }
 }
-
-// 이기거나 지면 화면 새로 띄울지 얘기해보기
-// 효과음이나 배경음악 쓸 건지
 

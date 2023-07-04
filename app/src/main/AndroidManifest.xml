@@ -101,6 +101,11 @@
             android:exported="true">
 
         </activity>
+        <activity
+            android:name=".EndActivity"
+            android:exported="true">
+
+        </activity>
     </application>
 
 </manifest>

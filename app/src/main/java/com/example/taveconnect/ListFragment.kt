@@ -1,10 +1,14 @@
 package com.example.taveconnect
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.taveconnect.databinding.FragmentListBinding
 
@@ -38,10 +42,19 @@ class ListFragment : Fragment(R.layout.fragment_list) {
             startActivity(intent)
         }
 
-        binding.btnGameIng.setOnClickListener{
-            val intent = Intent(activity, LoadActivity::class.java)
-            startActivity(intent)
+        class ifUnclickedReceiver : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+                binding.btnGameIng.setOnClickListener{
+                    val intent = Intent(activity, LoadActivity::class.java)
+                    Toast.makeText(context, "이전 게임을 불러옵니다.", Toast.LENGTH_SHORT).show()
+                    startActivity(intent)
+                }
+            }
         }
+
+        val receiver = ifUnclickedReceiver()
+        val intentFilter = IntentFilter("ifUnclickedBroadcast")
+        activity?.registerReceiver(receiver, intentFilter)
     }
 
     override fun onDestroyView() {

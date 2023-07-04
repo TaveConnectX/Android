@@ -35,6 +35,8 @@ class MenuFragment: Fragment(R.layout.fragment_menu) {
         binding.btnGoMain.setOnClickListener {
             val intent = Intent(activity, HomeActivity::class.java)
             val intent2 = Intent("ButtonClickedBroadcast")
+            val intent3 = Intent("ifUnclickedBroadcast")
+            activity?.sendBroadcast(intent3)
             activity?.sendBroadcast(intent2)
             activity?.startActivity(intent)
         }
