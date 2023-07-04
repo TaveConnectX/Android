@@ -51,8 +51,8 @@ class HomeActivity : AppCompatActivity() {
                 R.id.explanation -> {
                     ExplainFragment().changeFragment()
                 }
-                R.id.option -> {
-                    SettingFragment().changeFragment()
+                R.id.mypage -> {
+                    MyPageFragment().changeFragment()
                 }
                 R.id.rank -> {
                     RankingFragment().changeFragment()

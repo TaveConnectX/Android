@@ -17,9 +17,9 @@
         android:icon="@drawable/ic_rank"
         app:showAsAction="always" />
 
-    <item android:id="@+id/option"
-        android:title="설정"
-        android:icon="@drawable/ic_option"
+    <item android:id="@+id/mypage"
+        android:title="내 정보"
+        android:icon="@drawable/ic_mypage"
         app:showAsAction="always" />
 
 
