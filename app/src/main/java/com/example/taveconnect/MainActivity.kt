@@ -6,9 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.example.taveconnect.databinding.ActivityMainBinding
-import com.example.taveconnect.login.APIService
-import com.example.taveconnect.retrofit.RetrofitClient
-import com.example.taveconnect.retrofit.RetrofitConnection
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
@@ -33,7 +30,6 @@ class MainActivity : AppCompatActivity() {
 
         kakaoLogin()
 
-        val retrofitAPI = RetrofitConnection.getInstance().create(APIService::class.java)
     }
 
 
