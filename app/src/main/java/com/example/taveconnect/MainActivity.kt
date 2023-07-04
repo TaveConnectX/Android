@@ -6,9 +6,10 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.example.taveconnect.databinding.ActivityMainBinding
+import com.example.taveconnect.login.APIService
+import com.example.taveconnect.retrofit.RetrofitClient
+import com.example.taveconnect.retrofit.RetrofitConnection
 import com.kakao.sdk.auth.model.OAuthToken
-import com.kakao.sdk.common.model.ClientError
-import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import com.kakao.sdk.common.model.AuthErrorCause.*
@@ -31,7 +32,12 @@ class MainActivity : AppCompatActivity() {
         Log.d("KeyHash", keyHash)
 
         kakaoLogin()
+
+        val retrofitAPI = RetrofitConnection.getInstance().create(APIService::class.java)
     }
+
+
+
 
     private fun kakaoLogin() {
 
@@ -113,6 +119,8 @@ class MainActivity : AppCompatActivity() {
                     )
                 }
             }
+
+
 
         }
     }
