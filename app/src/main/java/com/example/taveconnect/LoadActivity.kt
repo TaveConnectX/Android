@@ -13,28 +13,190 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.taveconnect.databinding.ActivityLoadBinding
 import java.util.Random
 
-
 private var turn: Int = 0
 
 class LoadActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoadBinding
     // Fragment 매니저
     val manager = supportFragmentManager
-    val soundPool = SoundPool.Builder().build()
 
-    val col1 = intent.getSerializableExtra("col1") as IntArray
-    val col2 = intent.getSerializableExtra("col2") as IntArray
-    val col3 = intent.getSerializableExtra("col3") as IntArray
-    val col4 = intent.getSerializableExtra("col4") as IntArray
-    val col5 = intent.getSerializableExtra("col5") as IntArray
-    val col6 = intent.getSerializableExtra("col6") as IntArray
-    val col7 = intent.getSerializableExtra("col7") as IntArray
+    private val soundPool: SoundPool by lazy {
+        SoundPool.Builder().build()
+    }
+
+    private val col1: IntArray by lazy {
+        intent.getSerializableExtra("col1") as IntArray
+    }
+    private val col2: IntArray by lazy {
+        intent.getSerializableExtra("col2") as IntArray
+    }
+    private val col3: IntArray by lazy {
+        intent.getSerializableExtra("col3") as IntArray
+    }
+    private val col4: IntArray by lazy {
+        intent.getSerializableExtra("col4") as IntArray
+    }
+    private val col5: IntArray by lazy {
+        intent.getSerializableExtra("col5") as IntArray
+    }
+    private val col6: IntArray by lazy {
+        intent.getSerializableExtra("col6") as IntArray
+    }
+    private val col7: IntArray by lazy {
+        intent.getSerializableExtra("col7") as IntArray
+    }
+
+    fun load() {
+        turn = 0
+        setTurn(turn)
+        var i = 0
+        var coo = "iv_gm_1_"
+        while (i < col1.size) {
+            if (col1[i] == 1) {
+                i++
+                val coord = coo + i
+                val ivId = resources.getIdentifier(coord, "id", packageName)
+                val imageView = findViewById<ImageView>(ivId)
+                imageView.setImageResource(R.drawable.ic_black)
+            } else if (col1[i] == 2) {
+                i++
+                val coord = coo + i
+                val ivId = resources.getIdentifier(coord, "id", packageName)
+                val imageView = findViewById<ImageView>(ivId)
+                imageView.setImageResource(R.drawable.ic_white)
+            } else {
+                i++
+            }
+        }
+
+        i = 0
+        coo = "iv_gm_2_"
+        while (i < col2.size) {
+            if (col2[i] == 1) {
+                i++
+                val coord = coo + i
+                val ivId = resources.getIdentifier(coord, "id", packageName)
+                val imageView = findViewById<ImageView>(ivId)
+                imageView.setImageResource(R.drawable.ic_black)
+            } else if (col2[i] == 2) {
+                i++
+                val coord = coo + i
+                val ivId = resources.getIdentifier(coord, "id", packageName)
+                val imageView = findViewById<ImageView>(ivId)
+                imageView.setImageResource(R.drawable.ic_white)
+            } else {
+                i++
+            }
+        }
+
+        i = 0
+        coo = "iv_gm_3_"
+        while (i < col3.size) {
+            if (col3[i] == 1) {
+                i++
+                val coord = coo + i
+                val ivId = resources.getIdentifier(coord, "id", packageName)
+                val imageView = findViewById<ImageView>(ivId)
+                imageView.setImageResource(R.drawable.ic_black)
+            } else if (col3[i] == 2) {
+                i++
+                val coord = coo + i
+                val ivId = resources.getIdentifier(coord, "id", packageName)
+                val imageView = findViewById<ImageView>(ivId)
+                imageView.setImageResource(R.drawable.ic_white)
+            } else {
+                i++
+            }
+        }
+
+        i = 0
+        coo = "iv_gm_4_"
+        while (i < col4.size) {
+            if (col4[i] == 1) {
+                i++
+                val coord = coo + i
+                val ivId = resources.getIdentifier(coord, "id", packageName)
+                val imageView = findViewById<ImageView>(ivId)
+                imageView.setImageResource(R.drawable.ic_black)
+            } else if (col4[i] == 2) {
+                i++
+                val coord = coo + i
+                val ivId = resources.getIdentifier(coord, "id", packageName)
+                val imageView = findViewById<ImageView>(ivId)
+                imageView.setImageResource(R.drawable.ic_white)
+            } else {
+                i++
+            }
+        }
+
+        i = 0
+        coo = "iv_gm_5_"
+        while (i < col5.size) {
+            if (col5[i] == 1) {
+                i++
+                val coord = coo + i
+                val ivId = resources.getIdentifier(coord, "id", packageName)
+                val imageView = findViewById<ImageView>(ivId)
+                imageView.setImageResource(R.drawable.ic_black)
+            } else if (col5[i] == 2) {
+                i++
+                val coord = coo + i
+                val ivId = resources.getIdentifier(coord, "id", packageName)
+                val imageView = findViewById<ImageView>(ivId)
+                imageView.setImageResource(R.drawable.ic_white)
+            } else {
+                i++
+            }
+        }
+
+        i = 0
+        coo = "iv_gm_6_"
+        while (i < col6.size) {
+            if (col6[i] == 1) {
+                i++
+                val coord = coo + i
+                val ivId = resources.getIdentifier(coord, "id", packageName)
+                val imageView = findViewById<ImageView>(ivId)
+                imageView.setImageResource(R.drawable.ic_black)
+            } else if (col6[i] == 2) {
+                i++
+                val coord = coo + i
+                val ivId = resources.getIdentifier(coord, "id", packageName)
+                val imageView = findViewById<ImageView>(ivId)
+                imageView.setImageResource(R.drawable.ic_white)
+            } else {
+                i++
+            }
+        }
+
+        i = 0
+        coo = "iv_gm_7_"
+        while (i < col7.size) {
+            if (col7[i] == 1) {
+                i++
+                val coord = coo + i
+                val ivId = resources.getIdentifier(coord, "id", packageName)
+                val imageView = findViewById<ImageView>(ivId)
+                imageView.setImageResource(R.drawable.ic_black)
+            } else if (col7[i] == 2) {
+                i++
+                val coord = coo + i
+                val ivId = resources.getIdentifier(coord, "id", packageName)
+                val imageView = findViewById<ImageView>(ivId)
+                imageView.setImageResource(R.drawable.ic_white)
+            } else {
+                i++
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoadBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        load()
 
         val receivedArrays = intent.getSerializableExtra("arrays") as Array<IntArray>
 
@@ -738,15 +900,6 @@ class LoadActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
-
-
-
-
-
-
 }
 
-// 이기거나 지면 화면 새로 띄울지 얘기해보기
-// 효과음이나 배경음악 쓸 건지
 

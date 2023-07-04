@@ -42,19 +42,17 @@ class ListFragment : Fragment(R.layout.fragment_list) {
             startActivity(intent)
         }
 
-        class ifUnclickedReceiver : BroadcastReceiver() {
-            override fun onReceive(context: Context, intent: Intent) {
-                binding.btnGameIng.setOnClickListener{
-                    val intent = Intent(activity, LoadActivity::class.java)
-                    Toast.makeText(context, "이전 게임을 불러옵니다.", Toast.LENGTH_SHORT).show()
-                    startActivity(intent)
-                }
+        binding.btnGameIng.setOnClickListener {
+            val homeActivity = activity as? HomeActivity
+            if (homeActivity?.goMainButtonClicked == true) {
+                val intent = Intent(activity, LoadActivity::class.java)
+                Toast.makeText(context, "이전 게임을 불러옵니다.", Toast.LENGTH_SHORT).show()
+                startActivity(intent)
+            } else {
+                Toast.makeText(context, "이어할 게임이 없습니다.", Toast.LENGTH_SHORT).show()
             }
         }
 
-        val receiver = ifUnclickedReceiver()
-        val intentFilter = IntentFilter("ifUnclickedBroadcast")
-        activity?.registerReceiver(receiver, intentFilter)
     }
 
     override fun onDestroyView() {

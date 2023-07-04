@@ -1,22 +1,20 @@
-package com.example.taveconnect
-
-import android.content.BroadcastReceiver
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import com.example.taveconnect.DifficultyActivity
+import com.example.taveconnect.HomeActivity
+import com.example.taveconnect.R
 import com.example.taveconnect.databinding.FragmentMenuBinding
 
-class MenuFragment: Fragment(R.layout.fragment_menu) {
+class MenuFragment : Fragment(R.layout.fragment_menu) {
     private var _binding: FragmentMenuBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var callback : OnBackPressedCallback
+    private lateinit var callback: OnBackPressedCallback
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,21 +22,15 @@ class MenuFragment: Fragment(R.layout.fragment_menu) {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentMenuBinding.inflate(inflater, container, false)
-        val view = binding.root
-
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnGoMain.setOnClickListener {
-            val intent = Intent(activity, HomeActivity::class.java)
-            val intent2 = Intent("ButtonClickedBroadcast")
-            val intent3 = Intent("ifUnclickedBroadcast")
-            activity?.sendBroadcast(intent3)
-            activity?.sendBroadcast(intent2)
-            activity?.startActivity(intent)
+            (activity as? HomeActivity)?.goMainButtonClicked = true
+            activity?.onBackPressed()
         }
 
         binding.btnNewStart.setOnClickListener {
@@ -46,5 +38,9 @@ class MenuFragment: Fragment(R.layout.fragment_menu) {
             startActivity(intent)
         }
     }
-}
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}
