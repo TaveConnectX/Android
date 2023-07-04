@@ -8,7 +8,6 @@
     android:orientation="vertical"
     tools:context=".ListFragment">
 
-
     <Button
         android:id="@+id/btn_new_game"
         style="?android:attr/borderlessButtonStyle"
@@ -46,24 +45,10 @@
         android:text="직전게임"
         android:textColor="@color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_my_page"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_game_ing" />
-
-    <Button
-        android:id="@+id/btn_my_page"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="내 정보"
-        android:textColor="@color/black"
-        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_previous" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_game_ing" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,32 +10,36 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.taveconnect.databinding.ActivityGameBinding
+import com.example.taveconnect.databinding.ActivityLoadBinding
 import java.util.Random
+
 
 private var turn: Int = 0
 
-class GameActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityGameBinding
+class LoadActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityLoadBinding
     // Fragment 매니저
     val manager = supportFragmentManager
     val soundPool = SoundPool.Builder().build()
 
-    val col1 = IntArray(6) { 0 }
-    val col2 = IntArray(6) { 0 }
-    val col3 = IntArray(6) { 0 }
-    val col4 = IntArray(6) { 0 }
-    val col5 = IntArray(6) { 0 }
-    val col6 = IntArray(6) { 0 }
-    val col7 = IntArray(6) { 0 }
-
-    val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
+    val col1 = intent.getSerializableExtra("col1") as IntArray
+    val col2 = intent.getSerializableExtra("col2") as IntArray
+    val col3 = intent.getSerializableExtra("col3") as IntArray
+    val col4 = intent.getSerializableExtra("col4") as IntArray
+    val col5 = intent.getSerializableExtra("col5") as IntArray
+    val col6 = intent.getSerializableExtra("col6") as IntArray
+    val col7 = intent.getSerializableExtra("col7") as IntArray
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityGameBinding.inflate(layoutInflater)
+        binding = ActivityLoadBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        val receivedArrays = intent.getSerializableExtra("arrays") as Array<IntArray>
+
+        var sharedPreferences = getSharedPreferences("게임상태", MODE_PRIVATE)
+        var editor = sharedPreferences.edit()
 
         // 효과음
         var soundId = soundPool.load(this, R.raw.hit, 1)
@@ -524,6 +528,7 @@ class GameActivity : AppCompatActivity() {
             onImageViewClick7(it)
         }
 
+
     }
 
     // 4목 완성 확인
@@ -726,16 +731,20 @@ class GameActivity : AppCompatActivity() {
     }
 
 
-
-
     // BurgerFragment 클릭 이벤트
     fun showBurger() {
         binding.btnBurger.setOnClickListener {
             val intent = Intent(this, BurgerActivity::class.java)
-            intent.putExtra("arrays", arrays)
             startActivity(intent)
         }
     }
+
+
+
+
+
+
+
 }
 
 // 이기거나 지면 화면 새로 띄울지 얘기해보기

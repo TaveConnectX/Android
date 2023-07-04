@@ -37,6 +37,11 @@ class ListFragment : Fragment(R.layout.fragment_list) {
             val intent = Intent(activity, ReviewActivity::class.java)
             startActivity(intent)
         }
+
+        binding.btnGameIng.setOnClickListener{
+            val intent = Intent(activity, LoadActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onDestroyView() {
