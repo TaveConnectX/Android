@@ -799,4 +799,3 @@ class GameActivity : AppCompatActivity() {
         }
     }
 }
-
