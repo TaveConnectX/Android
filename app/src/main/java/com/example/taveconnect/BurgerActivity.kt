@@ -18,14 +18,28 @@ class BurgerActivity: AppCompatActivity() {
         binding = ActivityBurgerBinding.inflate(layoutInflater)
         val view = binding.root
 
+        val gamePaused = intent.getBooleanExtra("gamePaused", false)
+
+        val listFragment = ListFragment()
+
+        // ListFragment에 gamePaused 값을 전달
+        val bundle = Bundle()
+        bundle.putBoolean("gamePaused", gamePaused)
+        listFragment.arguments = bundle
+
         setContentView(view)
 
     }
 
+    override fun onBackPressed() {
+        val intent = Intent(this, GameActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP // 이전에 열려 있던 모든 Activity를 종료
+        startActivity(intent)
+        finish() // BurgerActivity를 종료
+    }
 
     private fun Fragment.changeFragment() {
-
-        class ButtonClickedReceiver : BroadcastReceiver() {
+        /*class ButtonClickedReceiver : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
                 val intent2 = Intent(activity, LoadActivity::class.java)
                 val gameActivity = activity as GameActivity
@@ -44,8 +58,7 @@ class BurgerActivity: AppCompatActivity() {
                 intent2.putExtra("col6", col6)
                 intent2.putExtra("col7", col7)
             }
-        }
-
+        }*/
 
         manager.beginTransaction().replace(R.id.fv_burger, this).commit()
     }
