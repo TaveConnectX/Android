@@ -4,8 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.taveconnect.databinding.ActivityHomeBinding
-import com.example.taveconnect.game.GameData
-import com.example.taveconnect.retrofit.RetrofitWork
 
 
 class HomeActivity : AppCompatActivity() {
