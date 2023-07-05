@@ -47,6 +47,15 @@ class GameActivity : AppCompatActivity() {
         if (gamePaused) {
             // 게임이 일시 중지된 상태에서 재개되는 경우에 수행할 동작
 
+            // 게임 상태 배열 복원
+            col1 = c_col1.clone()
+            col2 = c_col2.clone()
+            col3 = c_col3.clone()
+            col4 = c_col4.clone()
+            col5 = c_col5.clone()
+            col6 = c_col6.clone()
+            col7 = c_col7.clone()
+
             // 1열 이미지뷰 상태 복원
             for (i in 0 until col1.size) {
                 val coord = "iv_gm_1_" + (i + 1)
@@ -165,15 +174,6 @@ class GameActivity : AppCompatActivity() {
             // 게임을 다시 시작하기 위해 필요한 로직 실행
             // 예: 핸들러를 사용하여 흰색 돌 랜덤 위치 설정 등의 로직 실행
 
-            // 게임 상태 배열 복원
-            col1 = c_col1.clone()
-            col2 = c_col2.clone()
-            col3 = c_col3.clone()
-            col4 = c_col4.clone()
-            col5 = c_col5.clone()
-            col6 = c_col6.clone()
-            col7 = c_col7.clone()
-
             gamePaused = false // 게임이 재개되었으므로 gamePaused 변수를 false로 설정
         }
     }
@@ -254,7 +254,7 @@ class GameActivity : AppCompatActivity() {
             while (i < col1.size) {
                 if (col1[i] == 0 && turn == 0) {
                     col1[i] = 1
-                    c_col1[i] = index
+                    c_col1[i] = 1
                     i++
                     val coord = coo + i
                     val packageName = packageName
@@ -299,7 +299,7 @@ class GameActivity : AppCompatActivity() {
             while (i < col2.size) {
                 if (col2[i] == 0 && turn == 0) {
                     col2[i] = 1
-                    c_col2[i] = index
+                    c_col2[i] = 1
                     i++
                     val coord = coo + i
                     val packageName = packageName
@@ -344,7 +344,7 @@ class GameActivity : AppCompatActivity() {
             while (i < col3.size) {
                 if (col3[i] == 0 && turn == 0) {
                     col3[i] = 1
-                    c_col3[i] = index
+                    c_col3[i] = 1
                     i++
                     val coord = coo + i
                     val packageName = packageName
@@ -389,7 +389,7 @@ class GameActivity : AppCompatActivity() {
             while (i < col4.size) {
                 if (col4[i] == 0 && turn == 0) {
                     col4[i] = 1
-                    c_col4[i] = index
+                    c_col4[i] = 1
                     i++
                     val coord = coo + i
                     val packageName = packageName
@@ -434,7 +434,7 @@ class GameActivity : AppCompatActivity() {
             while (i < col5.size) {
                 if (col5[i] == 0 && turn == 0) {
                     col5[i] = 1
-                    c_col5[i] = index
+                    c_col5[i] = 1
                     i++
                     val coord = coo + i
                     val packageName = packageName
@@ -479,7 +479,7 @@ class GameActivity : AppCompatActivity() {
             while (i < col6.size) {
                 if (col6[i] == 0 && turn == 0) {
                     col6[i] = 1
-                    c_col6[i] = index
+                    c_col6[i] = 1
                     i++
                     val coord = coo + i
                     val packageName = packageName
@@ -524,7 +524,7 @@ class GameActivity : AppCompatActivity() {
             while (i < col7.size) {
                 if (col7[i] == 0 && turn == 0) {
                     col7[i] = 1
-                    c_col7[i] = index
+                    c_col7[i] = 1
                     i++
                     val coord = coo + i
                     val packageName = packageName
@@ -764,6 +764,7 @@ class GameActivity : AppCompatActivity() {
             while (i < col1.size) {
                 if (col1[i] == 0) {
                     col1[i] = 2
+                    c_col1[i] = 2
                     i++
                     val coord = coo + i
                     val packageName = packageName
@@ -782,6 +783,7 @@ class GameActivity : AppCompatActivity() {
             while (i < col2.size) {
                 if (col2[i] == 0) {
                     col2[i] = 2
+                    c_col2[i] = 2
                     i++
                     val coord = coo + i
                     val packageName = packageName
@@ -799,6 +801,7 @@ class GameActivity : AppCompatActivity() {
             while (i < col3.size) {
                 if (col3[i] == 0) {
                     col3[i] = 2
+                    c_col3[i] = 2
                     i++
                     val coord = coo + i
                     val packageName = packageName
@@ -816,6 +819,7 @@ class GameActivity : AppCompatActivity() {
             while (i < col4.size) {
                 if (col4[i] == 0) {
                     col4[i] = 2
+                    c_col4[i] = 2
                     i++
                     val coord = coo + i
                     val packageName = packageName
@@ -834,6 +838,7 @@ class GameActivity : AppCompatActivity() {
             while (i < col5.size) {
                 if (col5[i] == 0) {
                     col5[i] = 2
+                    c_col5[i] = 2
                     i++
                     val coord = coo + i
                     val packageName = packageName
@@ -851,6 +856,7 @@ class GameActivity : AppCompatActivity() {
             while (i < col6.size) {
                 if (col6[i] == 0) {
                     col6[i] = 2
+                    c_col6[i] = 2
                     i++
                     val coord = coo + i
                     val packageName = packageName
@@ -868,6 +874,7 @@ class GameActivity : AppCompatActivity() {
             while (i < col7.size) {
                 if (col7[i] == 0) {
                     col7[i] = 2
+                    c_col7[i] = 2
                     i++
                     val coord = coo + i
                     val packageName = packageName
