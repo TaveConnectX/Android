@@ -18,8 +18,6 @@ class HomeActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-
-
         showInit()
         initBottomNav()
 
