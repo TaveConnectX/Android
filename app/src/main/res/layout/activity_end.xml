@@ -2,20 +2,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".EndActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
         android:id="@+id/tv_game_end"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
         android:text="당신이 이겼습니다!"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="44sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tv_out"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,13 +22,13 @@
         android:id="@+id/tv_out"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="홈 화면으로 나가기"
-        android:textColor="@color/purple_200"
+        android:text="게임에서 나가기"
+        android:textColor="#000000"
         android:textSize="28sp"
+        app:layout_constraintVertical_bias="0.9"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.9" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
