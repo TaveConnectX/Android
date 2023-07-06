@@ -16,7 +16,7 @@ import java.util.Random
 private var turn: Int = 0
 
 class LoadActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityLoadBinding
+    /*private lateinit var binding: ActivityLoadBinding
     // Fragment 매니저
     val manager = supportFragmentManager
 
@@ -899,7 +899,7 @@ class LoadActivity : AppCompatActivity() {
             val intent = Intent(this, BurgerActivity::class.java)
             startActivity(intent)
         }
-    }
+    }*/
 }
 
 
