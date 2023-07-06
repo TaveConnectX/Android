@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -33,14 +32,8 @@ class GameActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        c_col1 = col1.clone()
-        c_col2 = col2.clone()
-        c_col3 = col3.clone()
-        c_col4 = col4.clone()
-        c_col5 = col5.clone()
-        c_col6 = col6.clone()
-        c_col7 = col7.clone()
-        Log.d("GameActivity", "onPause() called")
+        // 게임 액티비티가 일시 중지되는 경우에 수행할 동작을 여기에 작성
+        // 예: 게임 일시 정지, 타이머 중지 등
         gamePaused = true
     }
 
@@ -48,15 +41,11 @@ class GameActivity : AppCompatActivity() {
 
     public override fun onResume() {
         super.onResume()
-        Log.d("GameActivity", "onResume() called")
-        val resumeGame = intent.getBooleanExtra("resumeGame", false)
-        Log.d("GameActivity", resumeGame.toString())
-        Log.d("GameActivity", gamePaused.toString())
         // 게임 액티비티가 다시 재개되는 경우에 수행할 동작을 여기에 작성
         // 예: 게임 재개, 타이머 다시 시작 등
-        if (resumeGame || gamePaused) {
+        if (gamePaused) {
             // 게임이 일시 중지된 상태에서 재개되는 경우에 수행할 동작
-            Log.d("GameActivity", "이전 게임 called")
+
             // 게임 상태 배열 복원
             col1 = c_col1.clone()
             col2 = c_col2.clone()
@@ -189,8 +178,6 @@ class GameActivity : AppCompatActivity() {
 
         else {
             reset()
-            Log.d("GameActivity", "리셋 called")
-            gamePaused = true
         }
     }
 
@@ -210,14 +197,6 @@ class GameActivity : AppCompatActivity() {
         binding = ActivityGameBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-
-        c_col1 = col1.clone()
-        c_col2 = col2.clone()
-        c_col3 = col3.clone()
-        c_col4 = col4.clone()
-        c_col5 = col5.clone()
-        c_col6 = col6.clone()
-        c_col7 = col7.clone()
 
         val gameData = GameData(
             1,
@@ -959,7 +938,6 @@ class GameActivity : AppCompatActivity() {
 
     fun reset() {
         turn = 0
-        setTurn(turn)
         index = 0
         arrays = emptyArray()
         col1 = IntArray(6) { 0 }
