@@ -48,7 +48,7 @@
         android:id="@+id/tv_my_now"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="32dp"
         android:layout_weight="0"
         android:text="나의 지금 순위는.."
         android:textAlignment="center"
