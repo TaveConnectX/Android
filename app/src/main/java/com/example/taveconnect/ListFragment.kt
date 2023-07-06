@@ -49,6 +49,7 @@ ListFragment : Fragment(R.layout.fragment_list) {
 
         binding.btnGameIng.setOnClickListener {
             val intent = Intent(requireActivity(), GameActivity::class.java)
+            intent.putExtra("resumeGame", true) // 이어하기 정보 추가
             startActivity(intent)
         }
     }
