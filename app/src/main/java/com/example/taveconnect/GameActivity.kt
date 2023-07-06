@@ -37,6 +37,14 @@ class GameActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        c_col1 = col1.clone()
+        c_col2 = col2.clone()
+        c_col3 = col3.clone()
+        c_col4 = col4.clone()
+        c_col5 = col5.clone()
+        c_col6 = col6.clone()
+        c_col7 = col7.clone()
+
         // 효과음
         var soundId = soundPool.load(this, R.raw.hit, 1)
 
