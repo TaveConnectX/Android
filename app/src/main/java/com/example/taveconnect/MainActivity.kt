@@ -7,7 +7,6 @@ import android.util.Log
 import android.widget.Toast
 import com.example.taveconnect.databinding.ActivityMainBinding
 import com.example.taveconnect.login.ResponseLoginData
-import com.example.taveconnect.login.oAuthToken
 import com.example.taveconnect.retrofit.RetrofitClient
 import com.example.taveconnect.retrofit.RetroiftAPI
 import com.kakao.sdk.auth.model.OAuthToken
@@ -17,7 +16,6 @@ import com.kakao.sdk.common.model.AuthErrorCause.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.create
 
 
 class MainActivity : AppCompatActivity() {
@@ -93,17 +91,20 @@ class MainActivity : AppCompatActivity() {
                 Log.d("kakao_access_token", "$accessToken")
                 Log.d("kakao_refresh_token", "$refreshToken")
 
+                // api 통신
+
                 api.getLogin(accessToken = token.accessToken, refreshToken = token.refreshToken)
                     .enqueue(object: Callback<ResponseLoginData> {
                         override fun onResponse(call: Call<ResponseLoginData>, response: Response<ResponseLoginData>) {
-                            Log.d("LoginAPI", "성공")
+                            Log.d("LoginAPI", "로그인 통신 성공 \n이름 : ${response.body()?.name}" +
+                                    "\n프로필 사진 링크 : ${response.body()?.profile}" +
+                                    "\nJWT 토큰 : ${response?.raw()?.headers?.get("Authorization")}")
                         }
 
                         override fun onFailure(call: Call<ResponseLoginData>, t: Throwable) {
                             Log.d("LoginAPI", t.message.toString())
                         }
                     })
-
 
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
