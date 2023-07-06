@@ -36,36 +36,6 @@ object RetrofitClient {
     }
 
 
+    val loginService : RetroiftAPI = client.create(RetroiftAPI::class.java)
 
-
-
-    /*
-    private val retrofit: Retrofit by lazy {
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(okHttpClient)
-            .build()
-    }
-
-
-
-    val gameService: GameService by lazy {
-        retrofit.create(GameService::class.java)
-    }
-
-
-
-    private var instance: Retrofit? = null
-    private var gson = GsonBuilder().setLenient().create()
-
-    fun getInstance(): Retrofit {
-        if (instance == null) {
-            instance = Retrofit.Builder()
-                .baseUrl("http://cconnect.backlogs.dev/")
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build()
-        }
-        return instance!!
-    } */
 }

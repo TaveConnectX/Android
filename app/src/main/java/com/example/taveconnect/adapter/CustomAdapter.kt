@@ -3,12 +3,10 @@ package com.example.taveconnect.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.example.taveconnect.R
 import com.example.taveconnect.databinding.ItemRankListBinding
-import com.example.taveconnect.rank.RankProfile
+import com.example.taveconnect.rank.RankData
 
-class CustomAdapter(private val profileList: ArrayList<RankProfile>) :
+class CustomAdapter(private val profileList: ArrayList<RankData>) :
         RecyclerView.Adapter<CustomAdapter.Holder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): Holder {
