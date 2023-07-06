@@ -27,32 +27,35 @@ ListFragment : Fragment(R.layout.fragment_list) {
         return view
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val gamePaused = arguments?.getBoolean("gamePaused") ?: false
-
         // btnNewGame 버튼 클릭 이벤트 처리
         binding.btnNewGame.setOnClickListener {
-            val intent = Intent(requireActivity(), DifficultyActivity::class.java)
-            /*val gameActivity = activity as? GameActivity
-            gameActivity?.reset()
-            requireActivity().finish() // 현재 액티비티 종료*/
+            val intent = Intent(activity, DifficultyActivity::class.java)
             startActivity(intent)
         }
 
-
+        // btnPreviousGame 버튼 클릭 이벤트 처리
         binding.btnPrevious.setOnClickListener {
-            val intent = Intent(requireActivity(), ReviewActivity::class.java)
+            val intent = Intent(activity, ReviewActivity::class.java)
             startActivity(intent)
         }
 
         binding.btnGameIng.setOnClickListener {
-            val intent = Intent(requireActivity(), GameActivity::class.java)
-            intent.putExtra("gamePaused", true)
-            intent.putExtra("resumeGame", true) // 이어하기 정보 추가
-            startActivity(intent)
+            val homeActivity = activity as? HomeActivity
+            if (homeActivity?.goMainButtonClicked == true) {
+                val intent = Intent(activity, LoadActivity::class.java)
+                Toast.makeText(context, "이전 게임을 불러옵니다.", Toast.LENGTH_SHORT).show()
+                startActivity(intent)
+            }
+            else {
+                Toast.makeText(context, "이어할 게임이 없습니다.", Toast.LENGTH_SHORT).show()
+            }
         }
+
+
     }
 
     override fun onDestroyView() {
