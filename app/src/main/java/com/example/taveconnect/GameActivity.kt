@@ -219,16 +219,6 @@ class GameActivity : AppCompatActivity() {
         c_col6 = col6.clone()
         c_col7 = col7.clone()
 
-        val gameData = GameData(
-            1,
-            1,
-            2,
-            turn
-        )
-
-        val retrofitWork = RetrofitWork(gameData)
-        retrofitWork.work()
-
         // 효과음
         var soundId = soundPool.load(this, R.raw.hit, 1)
 
