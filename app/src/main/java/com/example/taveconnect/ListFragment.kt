@@ -51,6 +51,7 @@ ListFragment : Fragment(R.layout.fragment_list) {
             val intent = Intent(requireActivity(), GameActivity::class.java)
             intent.putExtra("gamePaused", true)
             intent.putExtra("resumeGame", true) // 이어하기 정보 추가
+
             startActivity(intent)
         }
     }
