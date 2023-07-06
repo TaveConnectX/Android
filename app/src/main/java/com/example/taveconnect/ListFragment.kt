@@ -35,9 +35,9 @@ ListFragment : Fragment(R.layout.fragment_list) {
         // btnNewGame 버튼 클릭 이벤트 처리
         binding.btnNewGame.setOnClickListener {
             val intent = Intent(requireActivity(), DifficultyActivity::class.java)
-            val gameActivity = activity as? GameActivity
+            /*val gameActivity = activity as? GameActivity
             gameActivity?.reset()
-            requireActivity().finish() // 현재 액티비티 종료
+            requireActivity().finish() // 현재 액티비티 종료*/
             startActivity(intent)
         }
 
@@ -49,6 +49,8 @@ ListFragment : Fragment(R.layout.fragment_list) {
 
         binding.btnGameIng.setOnClickListener {
             val intent = Intent(requireActivity(), GameActivity::class.java)
+            intent.putExtra("gamePaused", true)
+            intent.putExtra("resumeGame", true) // 이어하기 정보 추가
             startActivity(intent)
         }
     }
