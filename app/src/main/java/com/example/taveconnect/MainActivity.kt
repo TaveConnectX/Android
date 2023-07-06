@@ -93,35 +93,14 @@ class MainActivity : AppCompatActivity() {
                 Log.d("kakao_access_token", "$accessToken")
                 Log.d("kakao_refresh_token", "$refreshToken")
 
-                val loginRequestBody = oAuthToken(token.accessToken, token.refreshToken)
-
-                val call: Call<ResponseLoginData> = RetrofitClient.loginService.getLogin(accessToken = token.accessToken, refreshToken = token.refreshToken)
-
-                call.enqueue(object : Callback<ResponseLoginData> {
-                    override fun onResponse(
-                        call: Call<ResponseLoginData>,
-                        response: Response<ResponseLoginData>
-                    ) {
-                        if (response.isSuccessful) {
-                            Log.d("API", "로그인 ㅋㅋ ${response.body()}")
-                        } else {
-                            Log.d("API", "아놔 ㅠㅠ")
-                        }
-                    }
-
-                    override fun onFailure(call: Call<ResponseLoginData>, t: Throwable) {
-                        Log.d("API", "실패 ㅠㅠ ${t.message}")
-                    }
-                })
-
                 api.getLogin(accessToken = token.accessToken, refreshToken = token.refreshToken)
                     .enqueue(object: Callback<ResponseLoginData> {
                         override fun onResponse(call: Call<ResponseLoginData>, response: Response<ResponseLoginData>) {
-                            Log.d("API", "성공 ㅋㅋ ${response.raw()}")
+                            Log.d("LoginAPI", "성공")
                         }
 
                         override fun onFailure(call: Call<ResponseLoginData>, t: Throwable) {
-                            Log.d("API", "실패 ㅠㅠ ${call.request().body}")
+                            Log.d("LoginAPI", t.message.toString())
                         }
                     })
 

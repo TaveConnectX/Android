@@ -1,26 +1,15 @@
 package com.example.taveconnect
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
-import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.example.taveconnect.R
 import com.kakao.sdk.user.UserApiClient
 import com.example.taveconnect.databinding.ActivityLoginBinding
-import com.example.taveconnect.retrofit.ModelAPI
 import com.example.taveconnect.retrofit.RetrofitClient
 import com.example.taveconnect.retrofit.RetroiftAPI
-import com.kakao.sdk.auth.Constants
-import com.kakao.sdk.auth.model.AccessTokenResponse
-import com.kakao.sdk.auth.model.OAuthToken
-import okhttp3.internal.userAgent
 import retrofit2.*
-import retrofit2.converter.gson.GsonConverterFactory
 
 
 class LoginActivity : AppCompatActivity() {
@@ -37,13 +26,13 @@ class LoginActivity : AppCompatActivity() {
         val api = RetrofitClient.getInstance().create(RetroiftAPI::class.java)
 
         api.getAPI()
-            .enqueue(object: Callback<ModelAPI> {
-                override fun onResponse(call: Call<ModelAPI>, response: Response<ModelAPI>) {
-                    Log.d("API", "성공 ${response.body().toString()}")
+            .enqueue(object: Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    Log.d("API", "API 테스트 성공 ${response.headers()?.toString()}")
                 }
 
-                override fun onFailure(call: Call<ModelAPI>, t: Throwable) {
-                    Log.d("API", "API 테스트 ${t.message}")
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    Log.d("API", "API 테스트 실패")
                 }
             })
 

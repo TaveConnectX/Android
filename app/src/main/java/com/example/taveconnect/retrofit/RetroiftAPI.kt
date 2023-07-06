@@ -49,5 +49,5 @@ interface RetroiftAPI {
     ): Call<ResponseLoginData>
 
     @GET("/api")
-    fun getAPI(): Call<ModelAPI>
+    fun getAPI(): Call<Void>
 }
