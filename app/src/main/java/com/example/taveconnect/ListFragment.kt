@@ -27,29 +27,32 @@ ListFragment : Fragment(R.layout.fragment_list) {
         return view
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val gamePaused = arguments?.getBoolean("gamePaused") ?: false
 
         // btnNewGame 버튼 클릭 이벤트 처리
         binding.btnNewGame.setOnClickListener {
             val intent = Intent(requireActivity(), DifficultyActivity::class.java)
+            /*val gameActivity = activity as? GameActivity
+            gameActivity?.reset()
+            requireActivity().finish() // 현재 액티비티 종료*/
             startActivity(intent)
         }
 
-        // btnPreviousGame 버튼 클릭 이벤트 처리
+
         binding.btnPrevious.setOnClickListener {
-            val intent = Intent(activity, ReviewActivity::class.java)
+            val intent = Intent(requireActivity(), ReviewActivity::class.java)
             startActivity(intent)
         }
 
         binding.btnGameIng.setOnClickListener {
             val intent = Intent(requireActivity(), GameActivity::class.java)
+            intent.putExtra("gamePaused", true)
             intent.putExtra("resumeGame", true) // 이어하기 정보 추가
             startActivity(intent)
         }
-
-
     }
 
     override fun onDestroyView() {

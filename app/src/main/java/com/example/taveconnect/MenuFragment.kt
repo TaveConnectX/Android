@@ -1,3 +1,5 @@
+package com.example.taveconnect;
+
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -5,9 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import com.example.taveconnect.DifficultyActivity
-import com.example.taveconnect.HomeActivity
-import com.example.taveconnect.R
 import com.example.taveconnect.databinding.FragmentMenuBinding
 
 class MenuFragment : Fragment(R.layout.fragment_menu) {
@@ -22,7 +21,8 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentMenuBinding.inflate(inflater, container, false)
-        return binding.root
+        val view = binding.root
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,7 +36,13 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
 
         binding.btnNewStart.setOnClickListener {
             val intent = Intent(activity, DifficultyActivity::class.java)
+            val gameActivity = activity as? GameActivity
+            gameActivity?.reset()
             startActivity(intent)
+        }
+
+        binding.btnBack.setOnClickListener {
+            activity?.finish()
         }
     }
 

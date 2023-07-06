@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.collection.arraySetOf
 import com.example.taveconnect.databinding.ActivityGameBinding
 import java.util.Random
 
@@ -216,7 +217,7 @@ class GameActivity : AppCompatActivity() {
         c_col5 = col5.clone()
         c_col6 = col6.clone()
         c_col7 = col7.clone()
-
+        
         // 효과음
         var soundId = soundPool.load(this, R.raw.hit, 1)
 
@@ -783,6 +784,7 @@ class GameActivity : AppCompatActivity() {
                     val ivId = resources.getIdentifier(coord, "id", packageName)
                     val imageView = findViewById<ImageView>(ivId)
                     imageView.setImageResource(R.drawable.ic_white)
+
                     break
                 }
                 i++
@@ -947,7 +949,7 @@ class GameActivity : AppCompatActivity() {
 
     fun reset() {
         turn = 0
-        setTurn(0)
+        setTurn(turn)
         index = 0
         arrays = emptyArray()
         col1 = IntArray(6) { 0 }
