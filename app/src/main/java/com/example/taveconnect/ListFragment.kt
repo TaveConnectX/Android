@@ -37,8 +37,10 @@ ListFragment : Fragment(R.layout.fragment_list) {
             val intent = Intent(requireActivity(), DifficultyActivity::class.java)
             val gameActivity = activity as? GameActivity
             gameActivity?.reset()
+            requireActivity().finish() // 현재 액티비티 종료
             startActivity(intent)
         }
+
 
         binding.btnPrevious.setOnClickListener {
             val intent = Intent(requireActivity(), ReviewActivity::class.java)
