@@ -3,6 +3,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="kakao_redirection_scheme">kakao7d6af00ceade6023ddf611602f60df60</string>
+    <string name="REDIRECT_URL">https://cconnect.backlogs.dev</string>
+    <string name="REST_API_KEY">6babc74e8c9be385f9ee66c299e6b37f</string>
     <string name="kakao_native_app_key">7d6af00ceade6023ddf611602f60df60</string>
     <!--<string name="kakao_native_app_key">a1b7fed0130bcae85ec5e5822f097ad0</string>-->
 
