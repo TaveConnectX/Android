@@ -40,6 +40,8 @@ class GameActivity : AppCompatActivity() {
         gamePaused = true
     }
 
+
+
     public override fun onResume() {
         super.onResume()
         // 게임 액티비티가 다시 재개되는 경우에 수행할 동작을 여기에 작성
@@ -176,6 +178,10 @@ class GameActivity : AppCompatActivity() {
 
             gamePaused = false // 게임이 재개되었으므로 gamePaused 변수를 false로 설정
         }
+
+        else {
+            reset()
+        }
     }
 
     var index: Int = 0
@@ -187,7 +193,7 @@ class GameActivity : AppCompatActivity() {
     var c_col6 = IntArray(6) { 0 }
     var c_col7 = IntArray(6) { 0 }
 
-    val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
+    var arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -937,6 +943,7 @@ class GameActivity : AppCompatActivity() {
     fun reset() {
         turn = 0
         index = 0
+        arrays = emptyArray()
         col1 = IntArray(6) { 0 }
         col2 = IntArray(6) { 0 }
         col3 = IntArray(6) { 0 }
