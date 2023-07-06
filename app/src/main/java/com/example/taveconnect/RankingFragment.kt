@@ -9,6 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.taveconnect.adapter.CustomAdapter
 import com.example.taveconnect.databinding.FragmentRankingBinding
+import com.example.taveconnect.rank.RankData
+import com.example.taveconnect.retrofit.RetrofitClient
+import com.example.taveconnect.retrofit.RetroiftAPI
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class RankingFragment : Fragment(R.layout.fragment_ranking) {
     private var _binding: FragmentRankingBinding? = null
@@ -26,19 +32,36 @@ class RankingFragment : Fragment(R.layout.fragment_ranking) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val profileList = ArrayList<RankProfile>()
-        profileList.add(RankProfile(1, "김아린"))
-        profileList.add(RankProfile(2, "박상연"))
-        profileList.add(RankProfile(3, "이동준"))
-        profileList.add(RankProfile(4, "이은미"))
-        profileList.add(RankProfile(5, "정서린"))
-        profileList.add(RankProfile(6, "조용준"))
-        profileList.add(RankProfile(7, "김아린"))
-        profileList.add(RankProfile(8, "박상연"))
-        profileList.add(RankProfile(9, "이동준"))
-        profileList.add(RankProfile(10, "이은미"))
-        profileList.add(RankProfile(11, "정서린"))
-        profileList.add(RankProfile(12, "조용준"))
+
+        val profileList = ArrayList<RankData>()
+
+        val api = RetrofitClient.getInstance().create(RetroiftAPI::class.java)
+        api.getRanking()
+            .enqueue(object: Callback<RankData> {
+                override fun onResponse(call: Call<RankData>, response: Response<RankData>) {
+                    profileList.add(RankData(response.code(), response.body().toString()))
+                    Log.d("Rank", "성공 ${api.getRanking().request()?.headers}")
+                }
+
+                override fun onFailure(call: Call<RankData>, t: Throwable) {
+                    Log.d("Rank", "실패 ${t.message}")
+                }
+            })
+
+
+
+        profileList.add(RankData(1, "김아린"))
+        profileList.add(RankData(2, "박상연"))
+        profileList.add(RankData(3, "이동준"))
+        profileList.add(RankData(4, "이은미"))
+        profileList.add(RankData(5, "정서린"))
+        profileList.add(RankData(6, "조용준"))
+        profileList.add(RankData(7, "김아린"))
+        profileList.add(RankData(8, "박상연"))
+        profileList.add(RankData(9, "이동준"))
+        profileList.add(RankData(10, "이은미"))
+        profileList.add(RankData(11, "정서린"))
+        profileList.add(RankData(12, "조용준"))
 
 
         Log.d("Data", profileList.toString())

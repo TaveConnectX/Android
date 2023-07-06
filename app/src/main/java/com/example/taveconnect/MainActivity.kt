@@ -6,13 +6,18 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.example.taveconnect.databinding.ActivityMainBinding
-import com.kakao.sdk.auth.Constants
+import com.example.taveconnect.login.ResponseLoginData
+import com.example.taveconnect.login.oAuthToken
+import com.example.taveconnect.retrofit.RetrofitClient
+import com.example.taveconnect.retrofit.RetroiftAPI
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import com.kakao.sdk.common.model.AuthErrorCause.*
-
-
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.create
 
 
 class MainActivity : AppCompatActivity() {
@@ -37,6 +42,8 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun kakaoLogin() {
+        val api = RetrofitClient.getInstance().create(RetroiftAPI::class.java)
+
 
         // 카카오계정으로 로그인 공통 callback 구성
         // 카카오톡 로그인 불가 -> 카카오 계정으로 로그인 할 경우
@@ -75,7 +82,7 @@ class MainActivity : AppCompatActivity() {
                 Log.i("LOGIN", "카카오계정으로 로그인 성공 ${token.accessToken}")
 
                 val tokenKakao =
-                    getSharedPreferences("kakaoToken", AppCompatActivity.MODE_PRIVATE)
+                    getSharedPreferences("kakaoToken", MODE_PRIVATE)
 
                 tokenKakao.edit().putString("access", token.accessToken).apply()
                 val accessToken = tokenKakao.getString("access", "")
@@ -85,6 +92,38 @@ class MainActivity : AppCompatActivity() {
 
                 Log.d("kakao_access_token", "$accessToken")
                 Log.d("kakao_refresh_token", "$refreshToken")
+
+                val loginRequestBody = oAuthToken(token.accessToken, token.refreshToken)
+
+                val call: Call<ResponseLoginData> = RetrofitClient.loginService.getLogin(accessToken = token.accessToken, refreshToken = token.refreshToken)
+
+                call.enqueue(object : Callback<ResponseLoginData> {
+                    override fun onResponse(
+                        call: Call<ResponseLoginData>,
+                        response: Response<ResponseLoginData>
+                    ) {
+                        if (response.isSuccessful) {
+                            Log.d("API", "로그인 ㅋㅋ ${response.body()}")
+                        } else {
+                            Log.d("API", "아놔 ㅠㅠ")
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ResponseLoginData>, t: Throwable) {
+                        Log.d("API", "실패 ㅠㅠ ${t.message}")
+                    }
+                })
+
+                api.getLogin(accessToken = token.accessToken, refreshToken = token.refreshToken)
+                    .enqueue(object: Callback<ResponseLoginData> {
+                        override fun onResponse(call: Call<ResponseLoginData>, response: Response<ResponseLoginData>) {
+                            Log.d("API", "성공 ㅋㅋ ${response.raw()}")
+                        }
+
+                        override fun onFailure(call: Call<ResponseLoginData>, t: Throwable) {
+                            Log.d("API", "실패 ㅠㅠ ${call.request().body}")
+                        }
+                    })
 
 
                 val intent = Intent(this, LoginActivity::class.java)

@@ -16,6 +16,8 @@ import com.example.taveconnect.retrofit.ModelAPI
 import com.example.taveconnect.retrofit.RetrofitClient
 import com.example.taveconnect.retrofit.RetroiftAPI
 import com.kakao.sdk.auth.Constants
+import com.kakao.sdk.auth.model.AccessTokenResponse
+import com.kakao.sdk.auth.model.OAuthToken
 import okhttp3.internal.userAgent
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
@@ -34,8 +36,6 @@ class LoginActivity : AppCompatActivity() {
 
         val api = RetrofitClient.getInstance().create(RetroiftAPI::class.java)
 
-        Log.d("API_TEST", "${api.getAPI().request()?.body?.toString()}")
-
         api.getAPI()
             .enqueue(object: Callback<ModelAPI> {
                 override fun onResponse(call: Call<ModelAPI>, response: Response<ModelAPI>) {
@@ -43,7 +43,7 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<ModelAPI>, t: Throwable) {
-                    Log.d("API", "실패 ${t.message}")
+                    Log.d("API", "API 테스트 ${t.message}")
                 }
             })
 
