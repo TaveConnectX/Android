@@ -147,9 +147,6 @@
         app:layout_constraintStart_toEndOf="@+id/tv_win"
         app:layout_constraintTop_toBottomOf="@+id/tv_win" />
 
-
-
-
     <TextView
         android:id="@+id/tv_normal"
         android:layout_width="wrap_content"
@@ -177,7 +174,6 @@
         android:textSize="28dp"
         app:layout_constraintStart_toEndOf="@+id/tv_lose"
         app:layout_constraintTop_toBottomOf="@+id/tv_lose" />
-
 
     <Button
         android:id="@+id/btn_logout"

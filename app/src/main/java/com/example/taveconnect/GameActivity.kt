@@ -45,8 +45,6 @@ class GameActivity : AppCompatActivity() {
         gamePaused = true
     }
 
-
-
     public override fun onResume() {
         super.onResume()
         Log.d("GameActivity", "onResume() called")
@@ -219,8 +217,7 @@ class GameActivity : AppCompatActivity() {
         c_col5 = col5.clone()
         c_col6 = col6.clone()
         c_col7 = col7.clone()
-
-
+        
         // 효과음
         var soundId = soundPool.load(this, R.raw.hit, 1)
 
@@ -997,4 +994,3 @@ class GameActivity : AppCompatActivity() {
         }
     }
 }
-
