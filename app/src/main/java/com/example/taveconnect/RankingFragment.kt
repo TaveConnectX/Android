@@ -9,6 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.taveconnect.adapter.CustomAdapter
 import com.example.taveconnect.databinding.FragmentRankingBinding
+import com.example.taveconnect.rank.RankProfile
+import com.example.taveconnect.retrofit.ModelAPI
+import com.example.taveconnect.retrofit.RetrofitClient
+import com.example.taveconnect.retrofit.RetroiftAPI
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.create
 
 class RankingFragment : Fragment(R.layout.fragment_ranking) {
     private var _binding: FragmentRankingBinding? = null
@@ -26,7 +34,24 @@ class RankingFragment : Fragment(R.layout.fragment_ranking) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         val profileList = ArrayList<RankProfile>()
+
+        val api = RetrofitClient.getInstance().create(RetroiftAPI::class.java)
+        api.getRanking()
+            .enqueue(object: Callback<RankProfile> {
+                override fun onResponse(call: Call<RankProfile>, response: Response<RankProfile>) {
+                    profileList.add(RankProfile(response.code(), response.message()))
+                    Log.d("Rank", "성공 ${response.body().toString()}")
+                }
+
+                override fun onFailure(call: Call<RankProfile>, t: Throwable) {
+                    Log.d("Rank", "실패 ${t.message}")
+                }
+            })
+
+
+
         profileList.add(RankProfile(1, "김아린"))
         profileList.add(RankProfile(2, "박상연"))
         profileList.add(RankProfile(3, "이동준"))
