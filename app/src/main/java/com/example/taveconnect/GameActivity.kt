@@ -211,6 +211,16 @@ class GameActivity : AppCompatActivity() {
     var c_col6 = IntArray(6) { 0 }
     var c_col7 = IntArray(6) { 0 }
 
+    var r_col1 = IntArray(6) { 0 }
+    var r_col2 = IntArray(6) { 0 }
+    var r_col3 = IntArray(6) { 0 }
+    var r_col4 = IntArray(6) { 0 }
+    var r_col5 = IntArray(6) { 0 }
+    var r_col6 = IntArray(6) { 0 }
+    var r_col7 = IntArray(6) { 0 }
+
+    var reIndex = 0
+
     var arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -218,6 +228,10 @@ class GameActivity : AppCompatActivity() {
         binding = ActivityGameBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        val intent = Intent(this, ReviewActivity::class.java)
+
+        intent.putExtra("gameIndex", reIndex)
 
         c_col1 = col1.clone()
         c_col2 = col2.clone()
@@ -229,7 +243,6 @@ class GameActivity : AppCompatActivity() {
 
         // gameStartAPI()
         gameTurnAPI()
-
 
         // 효과음
         var soundId = soundPool.load(this, R.raw.hit, 1)
@@ -281,6 +294,9 @@ class GameActivity : AppCompatActivity() {
                 if (col1[i] == 0 && turn == 0) {
                     col1[i] = 1
                     c_col1[i] = 1
+                    reIndex ++
+                    r_col1[i] = reIndex
+                    Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
                     i++
                     val coord = coo + i
                     val packageName = packageName
@@ -326,6 +342,9 @@ class GameActivity : AppCompatActivity() {
                 if (col2[i] == 0 && turn == 0) {
                     col2[i] = 1
                     c_col2[i] = 1
+                    reIndex ++
+                    r_col2[i] = reIndex
+                    Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
                     i++
                     val coord = coo + i
                     val packageName = packageName
@@ -371,6 +390,9 @@ class GameActivity : AppCompatActivity() {
                 if (col3[i] == 0 && turn == 0) {
                     col3[i] = 1
                     c_col3[i] = 1
+                    reIndex ++
+                    r_col3[i] = reIndex
+                    Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
                     i++
                     val coord = coo + i
                     val packageName = packageName
@@ -416,6 +438,9 @@ class GameActivity : AppCompatActivity() {
                 if (col4[i] == 0 && turn == 0) {
                     col4[i] = 1
                     c_col4[i] = 1
+                    reIndex ++
+                    r_col4[i] = reIndex
+                    Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
                     i++
                     val coord = coo + i
                     val packageName = packageName
@@ -461,6 +486,9 @@ class GameActivity : AppCompatActivity() {
                 if (col5[i] == 0 && turn == 0) {
                     col5[i] = 1
                     c_col5[i] = 1
+                    reIndex ++
+                    r_col5[i] = reIndex
+                    Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
                     i++
                     val coord = coo + i
                     val packageName = packageName
@@ -506,6 +534,9 @@ class GameActivity : AppCompatActivity() {
                 if (col6[i] == 0 && turn == 0) {
                     col6[i] = 1
                     c_col6[i] = 1
+                    reIndex ++
+                    r_col6[i] = reIndex
+                    Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
                     i++
                     val coord = coo + i
                     val packageName = packageName
@@ -551,6 +582,9 @@ class GameActivity : AppCompatActivity() {
                 if (col7[i] == 0 && turn == 0) {
                     col7[i] = 1
                     c_col7[i] = 1
+                    reIndex ++
+                    r_col7[i] = reIndex
+                    Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
                     i++
                     val coord = coo + i
                     val packageName = packageName
@@ -791,6 +825,9 @@ class GameActivity : AppCompatActivity() {
                 if (col1[i] == 0) {
                     col1[i] = 2
                     c_col1[i] = 2
+                    reIndex ++
+                    r_col1[i] = reIndex
+                    Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
                     i++
                     val coord = coo + i
                     val packageName = packageName
@@ -810,6 +847,9 @@ class GameActivity : AppCompatActivity() {
                 if (col2[i] == 0) {
                     col2[i] = 2
                     c_col2[i] = 2
+                    reIndex ++
+                    r_col2[i] = reIndex
+                    Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
                     i++
                     val coord = coo + i
                     val packageName = packageName
@@ -828,6 +868,9 @@ class GameActivity : AppCompatActivity() {
                 if (col3[i] == 0) {
                     col3[i] = 2
                     c_col3[i] = 2
+                    reIndex ++
+                    r_col3[i] = reIndex
+                    Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
                     i++
                     val coord = coo + i
                     val packageName = packageName
@@ -846,6 +889,9 @@ class GameActivity : AppCompatActivity() {
                 if (col4[i] == 0) {
                     col4[i] = 2
                     c_col4[i] = 2
+                    reIndex ++
+                    r_col4[i] = reIndex
+                    Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
                     i++
                     val coord = coo + i
                     val packageName = packageName
@@ -865,6 +911,9 @@ class GameActivity : AppCompatActivity() {
                 if (col5[i] == 0) {
                     col5[i] = 2
                     c_col5[i] = 2
+                    reIndex ++
+                    r_col5[i] = reIndex
+                    Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
                     i++
                     val coord = coo + i
                     val packageName = packageName
@@ -883,6 +932,9 @@ class GameActivity : AppCompatActivity() {
                 if (col6[i] == 0) {
                     col6[i] = 2
                     c_col6[i] = 2
+                    reIndex ++
+                    r_col6[i] = reIndex
+                    Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
                     i++
                     val coord = coo + i
                     val packageName = packageName
@@ -901,6 +953,9 @@ class GameActivity : AppCompatActivity() {
                 if (col7[i] == 0) {
                     col7[i] = 2
                     c_col7[i] = 2
+                    reIndex ++
+                    r_col7[i] = reIndex
+                    Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
                     i++
                     val coord = coo + i
                     val packageName = packageName
@@ -927,35 +982,47 @@ class GameActivity : AppCompatActivity() {
             tv_turn.text = "You Win!!"
             val intent = Intent(this, EndActivity::class.java)
             val intent2 = Intent(this, ReviewActivity::class.java)
+            Log.d("GameActivity", "reIndex 값 : " + reIndex)
             intent.putExtra("t", turn)
-            intent2.putExtra("t", turn)
-            intent2.putExtra("end", index)
-            intent2.putExtra("col1", c_col1)
-            intent2.putExtra("col2", c_col2)
-            intent2.putExtra("col3", c_col3)
-            intent2.putExtra("col4", c_col4)
-            intent2.putExtra("col5", c_col5)
-            intent2.putExtra("col6", c_col6)
-            intent2.putExtra("col7", c_col7)
-            reset()
-            turn = 0
+            intent.putExtra("reIndex", reIndex)
+            intent.putExtra("r_col1", r_col1)
+            intent.putExtra("r_col2", r_col2)
+            intent.putExtra("r_col3", r_col3)
+            intent.putExtra("r_col4", r_col4)
+            intent.putExtra("r_col5", r_col5)
+            intent.putExtra("r_col6", r_col6)
+            intent.putExtra("r_col7", r_col7)
+            /*intent2.putExtra("reIndex", reIndex)
+            intent2.putExtra("r_col1", r_col1)
+            intent2.putExtra("r_col2", r_col2)
+            intent2.putExtra("r_col3", r_col3)
+            intent2.putExtra("r_col4", r_col4)
+            intent2.putExtra("r_col5", r_col5)
+            intent2.putExtra("r_col6", r_col6)
+            intent2.putExtra("r_col7", r_col7)*/
             startActivity(intent)
         } else if (t == 3) {
             tv_turn.text = "You Lost.."
             val intent = Intent(this, EndActivity::class.java)
             val intent2 = Intent(this, ReviewActivity::class.java)
+            Log.d("GameActivity", "reIndex 값 : " + reIndex)
             intent.putExtra("t", turn)
-            intent2.putExtra("t", turn)
-            intent2.putExtra("end", index)
-            intent2.putExtra("col1", c_col1)
-            intent2.putExtra("col2", c_col2)
-            intent2.putExtra("col3", c_col3)
-            intent2.putExtra("col4", c_col4)
-            intent2.putExtra("col5", c_col5)
-            intent2.putExtra("col6", c_col6)
-            intent2.putExtra("col7", c_col7)
-            reset()
-            turn = 0
+            intent.putExtra("reIndex", reIndex)
+            intent.putExtra("r_col1", r_col1)
+            intent.putExtra("r_col2", r_col2)
+            intent.putExtra("r_col3", r_col3)
+            intent.putExtra("r_col4", r_col4)
+            intent.putExtra("r_col5", r_col5)
+            intent.putExtra("r_col6", r_col6)
+            intent.putExtra("r_col7", r_col7)
+            /*intent2.putExtra("reIndex", reIndex)
+            intent2.putExtra("r_col1", r_col1)
+            intent2.putExtra("r_col2", r_col2)
+            intent2.putExtra("r_col3", r_col3)
+            intent2.putExtra("r_col4", r_col4)
+            intent2.putExtra("r_col5", r_col5)
+            intent2.putExtra("r_col6", r_col6)
+            intent2.putExtra("r_col7", r_col7)*/
             startActivity(intent)
         }
     }

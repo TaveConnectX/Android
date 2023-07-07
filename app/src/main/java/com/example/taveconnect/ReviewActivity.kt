@@ -2,6 +2,7 @@ package com.example.taveconnect
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -11,112 +12,314 @@ class ReviewActivity : AppCompatActivity() {
     private lateinit var binding: ActivityReviewBinding
     private lateinit var imageViews: List<ImageView> // 이미지뷰들을 저장할 리스트 변수
 
-    var index = 0
-
-    val extras: Bundle? = intent.extras
-
-    val d_index = extras?.getInt("index", 0)
-    val col1 = extras?.getIntArray("col1")
-    val col2 = extras?.getIntArray("col2")
-    val col3 = extras?.getIntArray("col3")
-    val col4 = extras?.getIntArray("col4")
-    val col5 = extras?.getIntArray("col5")
-    val col6 = extras?.getIntArray("col6")
-    val col7 = extras?.getIntArray("col7")
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityReviewBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
-        // 이미지뷰들을 초기화하고 리스트에 추가
-        imageViews = listOf(
-            binding.ivGm11,
-            binding.ivGm12,
-            binding.ivGm13,
-            binding.ivGm14,
-            binding.ivGm15,
-            binding.ivGm16,
-            binding.ivGm21,
-            binding.ivGm22,
-            binding.ivGm23,
-            binding.ivGm24,
-            binding.ivGm25,
-            binding.ivGm26,
-            binding.ivGm31,
-            binding.ivGm32,
-            binding.ivGm33,
-            binding.ivGm34,
-            binding.ivGm35,
-            binding.ivGm36,
-            binding.ivGm41,
-            binding.ivGm42,
-            binding.ivGm43,
-            binding.ivGm44,
-            binding.ivGm45,
-            binding.ivGm46,
-            binding.ivGm51,
-            binding.ivGm52,
-            binding.ivGm53,
-            binding.ivGm54,
-            binding.ivGm55,
-            binding.ivGm56,
-            binding.ivGm61,
-            binding.ivGm62,
-            binding.ivGm63,
-            binding.ivGm64,
-            binding.ivGm65,
-            binding.ivGm66,
-            binding.ivGm71,
-            binding.ivGm72,
-            binding.ivGm73,
-            binding.ivGm74,
-            binding.ivGm75,
-            binding.ivGm76,
-        )
-
         showBurger()
 
-        // 이전 복기
-        binding.btnBefore.setOnClickListener {
-            if (index == 0) {
-                Toast.makeText(this, "되돌아갈 수가 없습니다.", Toast.LENGTH_SHORT).show()
-            } else {
-                index--
-                updateImageView(index) // 이전 인덱스의 이미지뷰를 업데이트
-            }
-        }
+        val gameIndex = intent.getIntExtra("reIndex", 0)
+        val col1 = intent.getIntArrayExtra("r_col1") ?: IntArray(6)
+        val col2 = intent.getIntArrayExtra("r_col2") ?: IntArray(6)
+        val col3 = intent.getIntArrayExtra("r_col3") ?: IntArray(6)
+        val col4 = intent.getIntArrayExtra("r_col4") ?: IntArray(6)
+        val col5 = intent.getIntArrayExtra("r_col5") ?: IntArray(6)
+        val col6 = intent.getIntArrayExtra("r_col6") ?: IntArray(6)
+        val col7 = intent.getIntArrayExtra("r_col7") ?: IntArray(6)
 
-        // 다음 복기
-        binding.btnNext.setOnClickListener {
-            if (index >= d_index!!) {
-                Toast.makeText(this, "더 이상 수가 없습니다.", Toast.LENGTH_SHORT).show()
-            } else {
-                index++
-                updateImageView(index) // 다음 인덱스의 이미지뷰를 업데이트
-            }
-        }
-    }
+        var nowIndex = gameIndex
 
-    // 이미지뷰 업데이트 함수
-    private fun updateImageView(index: Int) {
-        val arrays = listOf(col1, col2, col3, col4, col5, col6, col7)
-        val imageIndex = index - 1 // 인덱스는 0부터 시작하므로 1을 빼줌
+        // Use the received data as needed
+        Log.d("Review_GameActivity", "Index = $gameIndex")
+        Log.d("GameActivity", "현재 3열: ${col3[1]}")
 
-        for ((i, array) in arrays.withIndex()) {
-            if (array != null && i < imageViews.size) {
-                val imageView = imageViews[i]
-                if (imageIndex >= 0 && imageIndex < array.size) {
-                    // 이미지뷰의 이미지 변경
-                    val image = array[imageIndex]
-                    imageView.setImageResource(image)
-                } else {
-                    // 이미지뷰의 이미지를 기본 이미지로 변경
-                    imageView.setImageResource(R.drawable.nothing)
+        // 1열 이미지뷰 상태 복원
+        if (col1 != null) {
+            for (i in 0 until col1.size) {
+                val coord = "iv_gm_1_" + (i + 1)
+                val packageName = packageName
+                val ivId = resources.getIdentifier(coord, "id", packageName)
+                val imageView = findViewById<ImageView>(ivId)
+                if (col1[i] % 2 == 0 && col1[i] != 0) {
+                    imageView.setImageResource(R.drawable.ic_white)
+                } else if (col1[i] % 2 == 1) {
+                    imageView.setImageResource(R.drawable.ic_black)
                 }
             }
         }
+
+        if (col2 != null) {
+            for (i in 0 until col2.size) {
+                val coord = "iv_gm_2_" + (i + 1)
+                val packageName = packageName
+                val ivId = resources.getIdentifier(coord, "id", packageName)
+                val imageView = findViewById<ImageView>(ivId)
+                if (col2[i] % 2 == 0 && col2[i] != 0) {
+                    imageView.setImageResource(R.drawable.ic_white)
+                } else if (col2[i] % 2 == 1) {
+                    imageView.setImageResource(R.drawable.ic_black)
+                }
+            }
+        }
+
+        if (col3 != null) {
+            for (i in 0 until col3.size) {
+                val coord = "iv_gm_3_" + (i + 1)
+                val packageName = packageName
+                val ivId = resources.getIdentifier(coord, "id", packageName)
+                val imageView = findViewById<ImageView>(ivId)
+                if (col3[i] % 2 == 0 && col3[i] != 0) {
+                    imageView.setImageResource(R.drawable.ic_white)
+                } else if (col3[i] % 2 == 1) {
+                    imageView.setImageResource(R.drawable.ic_black)
+                }
+            }
+        }
+
+        if (col4 != null) {
+            for (i in 0 until col4.size) {
+                val coord = "iv_gm_4_" + (i + 1)
+                val packageName = packageName
+                val ivId = resources.getIdentifier(coord, "id", packageName)
+                val imageView = findViewById<ImageView>(ivId)
+                if (col4[i] % 2 == 0 && col4[i] != 0) {
+                    imageView.setImageResource(R.drawable.ic_white)
+                } else if (col4[i] % 2 == 1) {
+                    imageView.setImageResource(R.drawable.ic_black)
+                }
+            }
+        }
+
+        if (col5 != null) {
+            for (i in 0 until col5.size) {
+                val coord = "iv_gm_5_" + (i + 1)
+                val packageName = packageName
+                val ivId = resources.getIdentifier(coord, "id", packageName)
+                val imageView = findViewById<ImageView>(ivId)
+                if (col5[i] % 2 == 0 && col5[i] != 0) {
+                    imageView.setImageResource(R.drawable.ic_white)
+                } else if (col5[i] % 2 == 1) {
+                    imageView.setImageResource(R.drawable.ic_black)
+                }
+            }
+        }
+
+        if (col6 != null) {
+            for (i in 0 until col6.size) {
+                val coord = "iv_gm_6_" + (i + 1)
+                val packageName = packageName
+                val ivId = resources.getIdentifier(coord, "id", packageName)
+                val imageView = findViewById<ImageView>(ivId)
+                if (col6[i] % 2 == 0 && col6[i] != 0) {
+                    imageView.setImageResource(R.drawable.ic_white)
+                } else if (col6[i] % 2 == 1) {
+                    imageView.setImageResource(R.drawable.ic_black)
+                }
+            }
+        }
+
+        if (col7 != null) {
+            for (i in 0 until col7.size) {
+                val coord = "iv_gm_7_" + (i + 1)
+                val packageName = packageName
+                val ivId = resources.getIdentifier(coord, "id", packageName)
+                val imageView = findViewById<ImageView>(ivId)
+                if (col7[i] % 2 == 0 && col7[i] != 0) {
+                    imageView.setImageResource(R.drawable.ic_white)
+                } else if (col7[i] % 2 == 1) {
+                    imageView.setImageResource(R.drawable.ic_black)
+                }
+            }
+        }
+
+        binding.btnNext.setOnClickListener {
+            if (nowIndex < gameIndex) {
+                nowIndex++
+                for (i in 0 until col1.size) {
+                    val coord = "iv_gm_1_" + (i + 1)
+                    val packageName = packageName
+                    val ivId = resources.getIdentifier(coord, "id", packageName)
+                    val imageView = findViewById<ImageView>(ivId)
+                    if (col1[i] == nowIndex) {
+                        if (nowIndex % 2 == 0) {
+                            imageView.setImageResource(R.drawable.ic_white)
+                        } else {
+                            imageView.setImageResource(R.drawable.ic_black)
+                        }
+                        break
+                    }
+                }
+                for (i in 0 until col2.size) {
+                    val coord = "iv_gm_2_" + (i + 1)
+                    val packageName = packageName
+                    val ivId = resources.getIdentifier(coord, "id", packageName)
+                    val imageView = findViewById<ImageView>(ivId)
+                    if (col2[i] == nowIndex) {
+                        if (nowIndex % 2 == 0) {
+                            imageView.setImageResource(R.drawable.ic_white)
+                        } else {
+                            imageView.setImageResource(R.drawable.ic_black)
+                        }
+                        break
+                    }
+                }
+                for (i in 0 until col3.size) {
+                    val coord = "iv_gm_3_" + (i + 1)
+                    val packageName = packageName
+                    val ivId = resources.getIdentifier(coord, "id", packageName)
+                    val imageView = findViewById<ImageView>(ivId)
+                    if (col3[i] == nowIndex) {
+                        if (nowIndex % 2 == 0) {
+                            imageView.setImageResource(R.drawable.ic_white)
+                        } else {
+                            imageView.setImageResource(R.drawable.ic_black)
+                        }
+                        break
+                    }
+                }
+                for (i in 0 until col4.size) {
+                    val coord = "iv_gm_4_" + (i + 1)
+                    val packageName = packageName
+                    val ivId = resources.getIdentifier(coord, "id", packageName)
+                    val imageView = findViewById<ImageView>(ivId)
+                    if (col4[i] == nowIndex) {
+                        if (nowIndex % 2 == 0) {
+                            imageView.setImageResource(R.drawable.ic_white)
+                        } else {
+                            imageView.setImageResource(R.drawable.ic_black)
+                        }
+                        break
+                    }
+                }
+                for (i in 0 until col5.size) {
+                    val coord = "iv_gm_5_" + (i + 1)
+                    val packageName = packageName
+                    val ivId = resources.getIdentifier(coord, "id", packageName)
+                    val imageView = findViewById<ImageView>(ivId)
+                    if (col5[i] == nowIndex) {
+                        if (nowIndex % 2 == 0) {
+                            imageView.setImageResource(R.drawable.ic_white)
+                        } else {
+                            imageView.setImageResource(R.drawable.ic_black)
+                        }
+                        break
+                    }
+                }
+                for (i in 0 until col6.size) {
+                    val coord = "iv_gm_6_" + (i + 1)
+                    val packageName = packageName
+                    val ivId = resources.getIdentifier(coord, "id", packageName)
+                    val imageView = findViewById<ImageView>(ivId)
+                    if (col6[i] == nowIndex) {
+                        if (nowIndex % 2 == 0) {
+                            imageView.setImageResource(R.drawable.ic_white)
+                        } else {
+                            imageView.setImageResource(R.drawable.ic_black)
+                        }
+                        break
+                    }
+                }
+                for (i in 0 until col7.size) {
+                    val coord = "iv_gm_7_" + (i + 1)
+                    val packageName = packageName
+                    val ivId = resources.getIdentifier(coord, "id", packageName)
+                    val imageView = findViewById<ImageView>(ivId)
+                    if (col7[i] == nowIndex) {
+                        if (nowIndex % 2 == 0) {
+                            imageView.setImageResource(R.drawable.ic_white)
+                        } else {
+                            imageView.setImageResource(R.drawable.ic_black)
+                        }
+                        break
+                    }
+                }
+
+            } else {
+                Toast.makeText(this@ReviewActivity, "더 볼 수가 없습니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.btnBefore.setOnClickListener {
+            if (nowIndex > 1) {
+                for (i in 0 until col1.size) {
+                    val coord = "iv_gm_1_" + (i + 1)
+                    val packageName = packageName
+                    val ivId = resources.getIdentifier(coord, "id", packageName)
+                    val imageView = findViewById<ImageView>(ivId)
+                    if (col1[i] == nowIndex) {
+                        imageView.setImageResource(R.drawable.nothing)
+                        break
+                    }
+                }
+                for (i in 0 until col2.size) {
+                    val coord = "iv_gm_2_" + (i + 1)
+                    val packageName = packageName
+                    val ivId = resources.getIdentifier(coord, "id", packageName)
+                    val imageView = findViewById<ImageView>(ivId)
+                    if (col2[i] == nowIndex) {
+                        imageView.setImageResource(R.drawable.nothing)
+                        break
+                    }
+                }
+                for (i in 0 until col3.size) {
+                    val coord = "iv_gm_3_" + (i + 1)
+                    val packageName = packageName
+                    val ivId = resources.getIdentifier(coord, "id", packageName)
+                    val imageView = findViewById<ImageView>(ivId)
+                    if (col3[i] == nowIndex) {
+                        imageView.setImageResource(R.drawable.nothing)
+                        break
+                    }
+                }
+                for (i in 0 until col4.size) {
+                    val coord = "iv_gm_4_" + (i + 1)
+                    val packageName = packageName
+                    val ivId = resources.getIdentifier(coord, "id", packageName)
+                    val imageView = findViewById<ImageView>(ivId)
+                    if (col4[i] == nowIndex) {
+                        imageView.setImageResource(R.drawable.nothing)
+                        break
+                    }
+                }
+                for (i in 0 until col5.size) {
+                    val coord = "iv_gm_5_" + (i + 1)
+                    val packageName = packageName
+                    val ivId = resources.getIdentifier(coord, "id", packageName)
+                    val imageView = findViewById<ImageView>(ivId)
+                    if (col5[i] == nowIndex) {
+                        imageView.setImageResource(R.drawable.nothing)
+                        break
+                    }
+                }
+                for (i in 0 until col6.size) {
+                    val coord = "iv_gm_6_" + (i + 1)
+                    val packageName = packageName
+                    val ivId = resources.getIdentifier(coord, "id", packageName)
+                    val imageView = findViewById<ImageView>(ivId)
+                    if (col6[i] == nowIndex) {
+                        imageView.setImageResource(R.drawable.nothing)
+                        break
+                    }
+                }
+                for (i in 0 until col7.size) {
+                    val coord = "iv_gm_7_" + (i + 1)
+                    val packageName = packageName
+                    val ivId = resources.getIdentifier(coord, "id", packageName)
+                    val imageView = findViewById<ImageView>(ivId)
+                    if (col7[i] == nowIndex) {
+                        imageView.setImageResource(R.drawable.nothing)
+                        break
+                    }
+                }
+                nowIndex--
+            } else if (nowIndex == 1) {
+                nowIndex--
+                Toast.makeText(this@ReviewActivity, "돌아갈 수가 없습니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
+
     }
 
     // BurgerFragment 클릭 이벤트
