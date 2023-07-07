@@ -980,6 +980,14 @@ class GameActivity : AppCompatActivity() {
             intent.putExtra("r_col5", r_col5)
             intent.putExtra("r_col6", r_col6)
             intent.putExtra("r_col7", r_col7)
+            /*intent2.putExtra("reIndex", reIndex)
+            intent2.putExtra("r_col1", r_col1)
+            intent2.putExtra("r_col2", r_col2)
+            intent2.putExtra("r_col3", r_col3)
+            intent2.putExtra("r_col4", r_col4)
+            intent2.putExtra("r_col5", r_col5)
+            intent2.putExtra("r_col6", r_col6)
+            intent2.putExtra("r_col7", r_col7)*/
             startActivity(intent)
         } else if (t == 3) {
             tv_turn.text = "You Lost.."
@@ -995,6 +1003,14 @@ class GameActivity : AppCompatActivity() {
             intent.putExtra("r_col5", r_col5)
             intent.putExtra("r_col6", r_col6)
             intent.putExtra("r_col7", r_col7)
+            /*intent2.putExtra("reIndex", reIndex)
+            intent2.putExtra("r_col1", r_col1)
+            intent2.putExtra("r_col2", r_col2)
+            intent2.putExtra("r_col3", r_col3)
+            intent2.putExtra("r_col4", r_col4)
+            intent2.putExtra("r_col5", r_col5)
+            intent2.putExtra("r_col6", r_col6)
+            intent2.putExtra("r_col7", r_col7)*/
             startActivity(intent)
         }
     }
