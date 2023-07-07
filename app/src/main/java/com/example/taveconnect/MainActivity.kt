@@ -6,13 +6,16 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.example.taveconnect.databinding.ActivityMainBinding
-import com.kakao.sdk.auth.Constants
+import com.example.taveconnect.login.ResponseLoginData
+import com.example.taveconnect.retrofit.RetrofitClient
+import com.example.taveconnect.retrofit.RetroiftAPI
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import com.kakao.sdk.common.model.AuthErrorCause.*
-
-
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class MainActivity : AppCompatActivity() {
@@ -37,6 +40,8 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun kakaoLogin() {
+        val api = RetrofitClient.getInstance().create(RetroiftAPI::class.java)
+
 
         // 카카오계정으로 로그인 공통 callback 구성
         // 카카오톡 로그인 불가 -> 카카오 계정으로 로그인 할 경우
@@ -75,7 +80,7 @@ class MainActivity : AppCompatActivity() {
                 Log.i("LOGIN", "카카오계정으로 로그인 성공 ${token.accessToken}")
 
                 val tokenKakao =
-                    getSharedPreferences("kakaoToken", AppCompatActivity.MODE_PRIVATE)
+                    getSharedPreferences("kakaoToken", MODE_PRIVATE)
 
                 tokenKakao.edit().putString("access", token.accessToken).apply()
                 val accessToken = tokenKakao.getString("access", "")
@@ -86,6 +91,20 @@ class MainActivity : AppCompatActivity() {
                 Log.d("kakao_access_token", "$accessToken")
                 Log.d("kakao_refresh_token", "$refreshToken")
 
+                // api 통신
+
+                api.getLogin(accessToken = token.accessToken, refreshToken = token.refreshToken)
+                    .enqueue(object: Callback<ResponseLoginData> {
+                        override fun onResponse(call: Call<ResponseLoginData>, response: Response<ResponseLoginData>) {
+                            Log.d("LoginAPI", "로그인 통신 성공 \n이름 : ${response.body()?.name}" +
+                                    "\n프로필 사진 링크 : ${response.body()?.profile}" +
+                                    "\nJWT 토큰 : ${response?.raw()?.headers?.get("Authorization")}")
+                        }
+
+                        override fun onFailure(call: Call<ResponseLoginData>, t: Throwable) {
+                            Log.d("LoginAPI", t.message.toString())
+                        }
+                    })
 
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))

@@ -11,9 +11,17 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.collection.arraySetOf
 import com.example.taveconnect.databinding.ActivityGameBinding
+import com.example.taveconnect.game.GameStartData
+import com.example.taveconnect.game.GameTurnData
+import com.example.taveconnect.retrofit.RetrofitClient
+import com.example.taveconnect.retrofit.RetroiftAPI
+import com.kakao.sdk.auth.model.OAuthToken
+import retrofit2.Call
+import retrofit2.Response
 import java.util.Random
+import javax.security.auth.callback.Callback
+
 
 private var turn: Int = 0
 
@@ -26,11 +34,12 @@ private var col6 = IntArray(6) { 0 }
 private var col7 = IntArray(6) { 0 }
 
 class GameActivity : AppCompatActivity() {
+
     var gamePaused = false
     private lateinit var binding: ActivityGameBinding
-    // Fragment 매니저
-    val manager = supportFragmentManager
     val soundPool = SoundPool.Builder().build()
+
+
 
     override fun onPause() {
         super.onPause()
@@ -232,12 +241,15 @@ class GameActivity : AppCompatActivity() {
         c_col6 = col6.clone()
         c_col7 = col7.clone()
 
+        // gameStartAPI()
+        gameTurnAPI()
+
         // 효과음
         var soundId = soundPool.load(this, R.raw.hit, 1)
 
         // 타이머 구현
         val tv_sec = findViewById<TextView>(R.id.tv_second)
-        val difficulty = intent.getStringExtra("difficulty")
+        var difficulty = intent.getStringExtra("difficulty")
         val sec = when (difficulty) {
             "easy" -> 60000 // 쉬운 난이도의 타이머 시간 (예: 60초)
             "normal" -> 30000 // 보통 난이도의 타이머 시간 (예: 30초)
@@ -1060,5 +1072,49 @@ class GameActivity : AppCompatActivity() {
             //intent.putExtra("gamePaused", gamePaused) // gamePaused 변수를 Intent에 담아서 전달
             startActivity(intent)
         }
+    }
+
+
+    fun gameStartAPI() {
+        // API
+        val gameAPI = RetrofitClient.getInstance().create(RetroiftAPI::class.java)
+        var difficulty = intent.getStringExtra("difficulty")
+
+/*
+        gameAPI.getGameStart(GlobalApplication.token_prefs.accessToken.toString(), "easy")
+            .enqueue(object: retrofit2.Callback<GameStartData> {
+                override fun onResponse(
+                    call: Call<GameStartData>,
+                    response: Response<GameStartData>
+                ) {
+                    Log.d("GameStart", "성공 ${response.body().toString()}")
+                }
+
+                override fun onFailure(call: Call<GameStartData>, t: Throwable) {
+                    Log.d("GameStart", "실패")
+                }
+            })*/
+
+    }
+
+    fun gameTurnAPI() {
+        // API
+        val gameAPI = RetrofitClient.getInstance().create(RetroiftAPI::class.java)
+
+        /*
+        gameAPI.getGameTurn(GlobalApplication.token_prefs.accessToken.toString())
+            .enqueue(object: retrofit2.Callback<GameTurnData> {
+                override fun onResponse(
+                    call: Call<GameTurnData>,
+                    response: Response<GameTurnData>
+                ) {
+                    Log.d("GameAPI", "성공 ${response.body().toString()}")
+                }
+
+                override fun onFailure(call: Call<GameTurnData>, t: Throwable) {
+                    Log.d("GameAPI", "실패")
+                }
+            })
+*/
     }
 }
