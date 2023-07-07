@@ -20,56 +20,9 @@ class ReviewActivity : AppCompatActivity() {
 
         showBurger()
 
-        // 이미지뷰들을 초기화하고 리스트에 추가
-        /*imageViews = listOf(
-            binding.ivGm11,
-            binding.ivGm12,
-            binding.ivGm13,
-            binding.ivGm14,
-            binding.ivGm15,
-            binding.ivGm16,
-            binding.ivGm21,
-            binding.ivGm22,
-            binding.ivGm23,
-            binding.ivGm24,
-            binding.ivGm25,
-            binding.ivGm26,
-            binding.ivGm31,
-            binding.ivGm32,
-            binding.ivGm33,
-            binding.ivGm34,
-            binding.ivGm35,
-            binding.ivGm36,
-            binding.ivGm41,
-            binding.ivGm42,
-            binding.ivGm43,
-            binding.ivGm44,
-            binding.ivGm45,
-            binding.ivGm46,
-            binding.ivGm51,
-            binding.ivGm52,
-            binding.ivGm53,
-            binding.ivGm54,
-            binding.ivGm55,
-            binding.ivGm56,
-            binding.ivGm61,
-            binding.ivGm62,
-            binding.ivGm63,
-            binding.ivGm64,
-            binding.ivGm65,
-            binding.ivGm66,
-            binding.ivGm71,
-            binding.ivGm72,
-            binding.ivGm73,
-            binding.ivGm74,
-            binding.ivGm75,
-            binding.ivGm76,
-        )*/
-
         var nowIndex = 0
 
         val gameIndex = intent.getIntExtra("reIndex", 0)
-        val goMain = intent.getBooleanExtra("goMain", true)
         val col1 = intent.getIntArrayExtra("r_col1") ?: IntArray(6)
         val col2 = intent.getIntArrayExtra("r_col2") ?: IntArray(6)
         val col3 = intent.getIntArrayExtra("r_col3") ?: IntArray(6)
@@ -78,8 +31,8 @@ class ReviewActivity : AppCompatActivity() {
         val col6 = intent.getIntArrayExtra("r_col6") ?: IntArray(6)
         val col7 = intent.getIntArrayExtra("r_col7") ?: IntArray(6)
 
-        Log.d("GameActivity", "test = $goMain")
-        Log.d("GameActivity", "Index = $gameIndex")
+        // Use the received data as needed
+        Log.d("Review_GameActivity", "Index = $gameIndex")
         Log.d("GameActivity", "현재 3열: ${col3[1]}")
 
         // 1열 이미지뷰 상태 복원
