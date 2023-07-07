@@ -17,13 +17,13 @@ import java.util.Random
 
 private var turn: Int = 0
 
-var col1 = IntArray(6) { 0 }
-var col2 = IntArray(6) { 0 }
-var col3 = IntArray(6) { 0 }
-var col4 = IntArray(6) { 0 }
-var col5 = IntArray(6) { 0 }
-var col6 = IntArray(6) { 0 }
-var col7 = IntArray(6) { 0 }
+private var col1 = IntArray(6) { 0 }
+private var col2 = IntArray(6) { 0 }
+private var col3 = IntArray(6) { 0 }
+private var col4 = IntArray(6) { 0 }
+private var col5 = IntArray(6) { 0 }
+private var col6 = IntArray(6) { 0 }
+private var col7 = IntArray(6) { 0 }
 
 class GameActivity : AppCompatActivity() {
     var gamePaused = false
@@ -210,7 +210,7 @@ class GameActivity : AppCompatActivity() {
     var r_col6 = IntArray(6) { 0 }
     var r_col7 = IntArray(6) { 0 }
 
-    var reIndex = -1
+    var reIndex = 0
 
     var arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
 

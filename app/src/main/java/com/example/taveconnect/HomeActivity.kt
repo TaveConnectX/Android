@@ -25,13 +25,13 @@ class HomeActivity : AppCompatActivity() {
 
         val gameIndex = intent.getIntExtra("reIndex", 0)
         Log.d("GameActivity", "Index = "+gameIndex)
-        col1 = intent.getIntArrayExtra("r_col1") ?: IntArray(6)
-        col2 = intent.getIntArrayExtra("r_col2") ?: IntArray(6)
-        col3 = intent.getIntArrayExtra("r_col3") ?: IntArray(6)
-        col4 = intent.getIntArrayExtra("r_col4") ?: IntArray(6)
-        col5 = intent.getIntArrayExtra("r_col5") ?: IntArray(6)
-        col6 = intent.getIntArrayExtra("r_col6") ?: IntArray(6)
-        col7 = intent.getIntArrayExtra("r_col7") ?: IntArray(6)
+        var col1 = intent.getIntArrayExtra("r_col1") ?: IntArray(6)
+        var col2 = intent.getIntArrayExtra("r_col2") ?: IntArray(6)
+        var col3 = intent.getIntArrayExtra("r_col3") ?: IntArray(6)
+        var col4 = intent.getIntArrayExtra("r_col4") ?: IntArray(6)
+        var col5 = intent.getIntArrayExtra("r_col5") ?: IntArray(6)
+        var col6 = intent.getIntArrayExtra("r_col6") ?: IntArray(6)
+        var col7 = intent.getIntArrayExtra("r_col7") ?: IntArray(6)
 
         val intent2 = Intent(this, ReviewActivity::class.java)
         intent2.putExtra("reIndex", gameIndex)
@@ -54,6 +54,28 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun Fragment.changeFragment() {
+        val gameIndex = intent.getIntExtra("reIndex", 0)
+        Log.d("GameActivity", "Index = $gameIndex")
+        val col1 = intent.getIntArrayExtra("r_col1") ?: IntArray(6)
+        val col2 = intent.getIntArrayExtra("r_col2") ?: IntArray(6)
+        val col3 = intent.getIntArrayExtra("r_col3") ?: IntArray(6)
+        val col4 = intent.getIntArrayExtra("r_col4") ?: IntArray(6)
+        val col5 = intent.getIntArrayExtra("r_col5") ?: IntArray(6)
+        val col6 = intent.getIntArrayExtra("r_col6") ?: IntArray(6)
+        val col7 = intent.getIntArrayExtra("r_col7") ?: IntArray(6)
+
+        val bundle = Bundle()
+        bundle.putInt("reIndex", gameIndex)
+        bundle.putIntArray("r_col1", col1)
+        bundle.putIntArray("r_col2", col2)
+        bundle.putIntArray("r_col3", col3)
+        bundle.putIntArray("r_col4", col4)
+        bundle.putIntArray("r_col5", col5)
+        bundle.putIntArray("r_col6", col6)
+        bundle.putIntArray("r_col7", col7)
+
+        val listFragment = ListFragment()
+        listFragment.arguments = bundle
         manager.beginTransaction().replace(R.id.fv_main, this).commit()
     }
 

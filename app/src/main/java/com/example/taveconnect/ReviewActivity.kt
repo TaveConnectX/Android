@@ -21,7 +21,7 @@ class ReviewActivity : AppCompatActivity() {
         showBurger()
 
         // 이미지뷰들을 초기화하고 리스트에 추가
-        imageViews = listOf(
+        /*imageViews = listOf(
             binding.ivGm11,
             binding.ivGm12,
             binding.ivGm13,
@@ -64,23 +64,23 @@ class ReviewActivity : AppCompatActivity() {
             binding.ivGm74,
             binding.ivGm75,
             binding.ivGm76,
-        )
+        )*/
 
-        var gameIndex = 0
         var nowIndex = 0
 
-        val intent = getIntent()
-        gameIndex = intent.getIntExtra("reIndex", 0)
-        Log.d("GameActivity", "Index = "+gameIndex)
-        col1 = intent.getIntArrayExtra("r_col1") ?: IntArray(6)
-        col2 = intent.getIntArrayExtra("r_col2") ?: IntArray(6)
-        col3 = intent.getIntArrayExtra("r_col3") ?: IntArray(6)
-        col4 = intent.getIntArrayExtra("r_col4") ?: IntArray(6)
-        col5 = intent.getIntArrayExtra("r_col5") ?: IntArray(6)
-        col6 = intent.getIntArrayExtra("r_col6") ?: IntArray(6)
-        col7 = intent.getIntArrayExtra("r_col7") ?: IntArray(6)
+        val gameIndex = intent.getIntExtra("reIndex", 0)
+        val goMain = intent.getBooleanExtra("goMain", true)
+        val col1 = intent.getIntArrayExtra("r_col1") ?: IntArray(6)
+        val col2 = intent.getIntArrayExtra("r_col2") ?: IntArray(6)
+        val col3 = intent.getIntArrayExtra("r_col3") ?: IntArray(6)
+        val col4 = intent.getIntArrayExtra("r_col4") ?: IntArray(6)
+        val col5 = intent.getIntArrayExtra("r_col5") ?: IntArray(6)
+        val col6 = intent.getIntArrayExtra("r_col6") ?: IntArray(6)
+        val col7 = intent.getIntArrayExtra("r_col7") ?: IntArray(6)
 
-        Log.d("GameActivity", "현재 3열"+ col3[1])
+        Log.d("GameActivity", "test = $goMain")
+        Log.d("GameActivity", "Index = $gameIndex")
+        Log.d("GameActivity", "현재 3열: ${col3[1]}")
 
         // 1열 이미지뷰 상태 복원
         if (col1 != null) {

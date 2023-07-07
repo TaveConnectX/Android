@@ -52,6 +52,25 @@ ListFragment : Fragment(R.layout.fragment_list) {
             intent.putExtra("gamePaused", true)
             intent.putExtra("resumeGame", true) // 이어하기 정보 추가
 
+            val gameIndex = arguments?.getInt("reIndex", 0)
+            val col1 = arguments?.getIntArray("r_col1") ?: IntArray(6)
+            val col2 = arguments?.getIntArray("r_col2") ?: IntArray(6)
+            val col3 = arguments?.getIntArray("r_col3") ?: IntArray(6)
+            val col4 = arguments?.getIntArray("r_col4") ?: IntArray(6)
+            val col5 = arguments?.getIntArray("r_col5") ?: IntArray(6)
+            val col6 = arguments?.getIntArray("r_col6") ?: IntArray(6)
+            val col7 = arguments?.getIntArray("r_col7") ?: IntArray(6)
+
+            val intent2 = Intent(activity, ReviewActivity::class.java)
+            intent2.putExtra("reIndex", gameIndex)
+            intent2.putExtra("r_col1", col1)
+            intent2.putExtra("r_col2", col2)
+            intent2.putExtra("r_col3", col3)
+            intent2.putExtra("r_col4", col4)
+            intent2.putExtra("r_col5", col5)
+            intent2.putExtra("r_col6", col6)
+            intent2.putExtra("r_col7", col7)
+
             startActivity(intent)
         }
     }
