@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.taveconnect.databinding.ActivityGameBinding
 import com.example.taveconnect.game.GameStartData
@@ -38,11 +39,11 @@ class GameActivity : AppCompatActivity() {
     var gamePaused = false
     private lateinit var binding: ActivityGameBinding
     val soundPool = SoundPool.Builder().build()
-
-
+    private var countDownTimer: CountDownTimer? = null
 
     override fun onPause() {
         super.onPause()
+        countDownTimer?.cancel()
         c_col1 = col1.clone()
         c_col2 = col2.clone()
         c_col3 = col3.clone()
@@ -202,6 +203,11 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        countDownTimer?.cancel()
+    }
+
     var index: Int = 0
     var c_col1 = IntArray(6) { 0 }
     var c_col2 = IntArray(6) { 0 }
@@ -229,9 +235,10 @@ class GameActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        val intent = Intent(this, ReviewActivity::class.java)
+        val intent2 = Intent(this, ReviewActivity::class.java)
+        //val intent = Intent(this, DifficultyActivity::class.java)
 
-        intent.putExtra("gameIndex", reIndex)
+        intent2.putExtra("gameIndex", reIndex)
 
         c_col1 = col1.clone()
         c_col2 = col2.clone()
@@ -249,14 +256,18 @@ class GameActivity : AppCompatActivity() {
 
         // 타이머 구현
         val tv_sec = findViewById<TextView>(R.id.tv_second)
-        var difficulty = intent.getStringExtra("difficulty")
+        val difficulty = intent.getStringExtra("difficulty")
+
         val sec = when (difficulty) {
             "easy" -> 60000 // 쉬운 난이도의 타이머 시간 (예: 60초)
             "normal" -> 30000 // 보통 난이도의 타이머 시간 (예: 30초)
             "hard" -> 15000 // 어려운 난이도의 타이머 시간 (예: 15초)
             else -> 30000 // 기본값으로 설정할 타이머 시간 (예: 30초)
         }
-        val countDownTimer = object : CountDownTimer(sec.toLong(), 1000) {
+
+        Log.d("GameActivity", "difficulty 값은 " + difficulty)
+
+        countDownTimer = object : CountDownTimer(sec.toLong(), 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 val num = (millisUntilFinished / 1000).toInt()
                 tv_sec!!.text = Integer.toString(num + 1)
@@ -279,344 +290,353 @@ class GameActivity : AppCompatActivity() {
             override fun onFinish() {
 
             }
+
         }.start()
 
         showBurger()
 
         // 1열
         fun onImageViewClick1(view: View) {
-
-            countDownTimer.onFinish()
-            countDownTimer.start()
-            var i = 0
-            val coo = "iv_gm_1_"
-            while (i < col1.size) {
-                if (col1[i] == 0 && turn == 0) {
-                    col1[i] = 1
-                    c_col1[i] = 1
-                    reIndex ++
-                    r_col1[i] = reIndex
-                    Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
-                    i++
-                    val coord = coo + i
-                    val packageName = packageName
-                    val ivId = resources.getIdentifier(coord, "id", packageName)
-                    val imageView = findViewById<ImageView>(ivId)
-                    imageView.setImageResource(R.drawable.ic_black)
-                    soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
-                    val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
-                    if(checkFourConnectedB(arrays) == true) {
-                        countDownTimer.cancel()
-                        turn = 2
+            if (countDownTimer != null) {
+                countDownTimer!!.onFinish()
+                countDownTimer!!.start()
+                var i = 0
+                val coo = "iv_gm_1_"
+                while (i < col1.size) {
+                    if (col1[i] == 0 && turn == 0) {
+                        col1[i] = 1
+                        c_col1[i] = 1
+                        reIndex ++
+                        r_col1[i] = reIndex
+                        Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
+                        i++
+                        val coord = coo + i
+                        val packageName = packageName
+                        val ivId = resources.getIdentifier(coord, "id", packageName)
+                        val imageView = findViewById<ImageView>(ivId)
+                        imageView.setImageResource(R.drawable.ic_black)
+                        soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
+                        val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
+                        if(checkFourConnectedB(arrays) == true) {
+                            countDownTimer!!.cancel()
+                            turn = 2
+                            setTurn(turn)
+                            break
+                        }
+                        turn = 1
                         setTurn(turn)
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            whiteRandom()
+                            soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
+                            turn = 0
+                            setTurn(turn)
+                            countDownTimer!!.onFinish()
+                            countDownTimer!!.start()
+                            if(checkFourConnectedB(arrays) == true) {
+                                countDownTimer!!.cancel()
+                                turn = 3
+                                setTurn(turn)
+                            }
+                        }, 3000)
                         break
                     }
-                    turn = 1
-                    setTurn(turn)
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        whiteRandom()
-                        soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
-                        turn = 0
-                        setTurn(turn)
-                        countDownTimer.onFinish()
-                        countDownTimer.start()
-                        if(checkFourConnectedB(arrays) == true) {
-                            countDownTimer.cancel()
-                            turn = 3
-                            setTurn(turn)
-                        }
-                    }, 3000)
-                    break
+                    i++
                 }
-                i++
             }
         }
 
         fun onImageViewClick2(view: View) {
 
-            countDownTimer.onFinish()
-            countDownTimer.start()
-            var i = 0
-            val coo = "iv_gm_2_"
-            while (i < col2.size) {
-                if (col2[i] == 0 && turn == 0) {
-                    col2[i] = 1
-                    c_col2[i] = 1
-                    reIndex ++
-                    r_col2[i] = reIndex
-                    Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
-                    i++
-                    val coord = coo + i
-                    val packageName = packageName
-                    val ivId = resources.getIdentifier(coord, "id", packageName)
-                    val imageView = findViewById<ImageView>(ivId)
-                    imageView.setImageResource(R.drawable.ic_black)
-                    soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
-                    val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
-                    if(checkFourConnectedB(arrays) == true) {
-                        countDownTimer.cancel()
-                        turn = 2
+            if (countDownTimer != null) {
+                countDownTimer!!.onFinish()
+                countDownTimer!!.start()
+                var i = 0
+                val coo = "iv_gm_2_"
+                while (i < col2.size) {
+                    if (col2[i] == 0 && turn == 0) {
+                        col2[i] = 1
+                        c_col2[i] = 1
+                        reIndex ++
+                        r_col2[i] = reIndex
+                        Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
+                        i++
+                        val coord = coo + i
+                        val packageName = packageName
+                        val ivId = resources.getIdentifier(coord, "id", packageName)
+                        val imageView = findViewById<ImageView>(ivId)
+                        imageView.setImageResource(R.drawable.ic_black)
+                        soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
+                        val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
+                        if(checkFourConnectedB(arrays) == true) {
+                            countDownTimer!!.cancel()
+                            turn = 2
+                            setTurn(turn)
+                            break
+                        }
+                        turn = 1
                         setTurn(turn)
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            whiteRandom()
+                            soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
+                            turn = 0
+                            setTurn(turn)
+                            countDownTimer!!.onFinish()
+                            countDownTimer!!.start()
+                            if(checkFourConnectedB(arrays) == true) {
+                                countDownTimer!!.cancel()
+                                turn = 3
+                                setTurn(turn)
+                            }
+                        }, 3000)
                         break
                     }
-                    turn = 1
-                    setTurn(turn)
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        whiteRandom()
-                        soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
-                        turn = 0
-                        setTurn(turn)
-                        countDownTimer.onFinish()
-                        countDownTimer.start()
-                        if(checkFourConnectedB(arrays) == true) {
-                            countDownTimer.cancel()
-                            turn = 3
-                            setTurn(turn)
-                        }
-                    }, 3000)
-                    break
+                    i++
                 }
-                i++
             }
         }
 
         fun onImageViewClick3(view: View) {
-
-            countDownTimer.onFinish()
-            countDownTimer.start()
-            var i = 0
-            val coo = "iv_gm_3_"
-            while (i < col3.size) {
-                if (col3[i] == 0 && turn == 0) {
-                    col3[i] = 1
-                    c_col3[i] = 1
-                    reIndex ++
-                    r_col3[i] = reIndex
-                    Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
-                    i++
-                    val coord = coo + i
-                    val packageName = packageName
-                    val ivId = resources.getIdentifier(coord, "id", packageName)
-                    val imageView = findViewById<ImageView>(ivId)
-                    imageView.setImageResource(R.drawable.ic_black)
-                    soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
-                    val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
-                    if(checkFourConnectedB(arrays) == true) {
-                        countDownTimer.cancel()
-                        turn = 2
+            if (countDownTimer != null) {
+                countDownTimer!!.onFinish()
+                countDownTimer!!.start()
+                var i = 0
+                val coo = "iv_gm_3_"
+                while (i < col3.size) {
+                    if (col3[i] == 0 && turn == 0) {
+                        col3[i] = 1
+                        c_col3[i] = 1
+                        reIndex ++
+                        r_col3[i] = reIndex
+                        Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
+                        i++
+                        val coord = coo + i
+                        val packageName = packageName
+                        val ivId = resources.getIdentifier(coord, "id", packageName)
+                        val imageView = findViewById<ImageView>(ivId)
+                        imageView.setImageResource(R.drawable.ic_black)
+                        soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
+                        val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
+                        if(checkFourConnectedB(arrays) == true) {
+                            countDownTimer!!.cancel()
+                            turn = 2
+                            setTurn(turn)
+                            break
+                        }
+                        turn = 1
                         setTurn(turn)
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            whiteRandom()
+                            soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
+                            turn = 0
+                            setTurn(turn)
+                            countDownTimer!!.onFinish()
+                            countDownTimer!!.start()
+                            if(checkFourConnectedB(arrays) == true) {
+                                countDownTimer!!.cancel()
+                                turn = 3
+                                setTurn(turn)
+                            }
+                        }, 3000)
                         break
                     }
-                    turn = 1
-                    setTurn(turn)
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        whiteRandom()
-                        soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
-                        turn = 0
-                        setTurn(turn)
-                        countDownTimer.onFinish()
-                        countDownTimer.start()
-                        if(checkFourConnectedB(arrays) == true) {
-                            countDownTimer.cancel()
-                            turn = 3
-                            setTurn(turn)
-                        }
-                    }, 3000)
-                    break
+                    i++
                 }
-                i++
             }
         }
 
         fun onImageViewClick4(view: View) {
-
-            countDownTimer.onFinish()
-            countDownTimer.start()
-            var i = 0
-            val coo = "iv_gm_4_"
-            while (i < col4.size) {
-                if (col4[i] == 0 && turn == 0) {
-                    col4[i] = 1
-                    c_col4[i] = 1
-                    reIndex ++
-                    r_col4[i] = reIndex
-                    Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
-                    i++
-                    val coord = coo + i
-                    val packageName = packageName
-                    val ivId = resources.getIdentifier(coord, "id", packageName)
-                    val imageView = findViewById<ImageView>(ivId)
-                    imageView.setImageResource(R.drawable.ic_black)
-                    soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
-                    val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
-                    if(checkFourConnectedB(arrays) == true) {
-                        countDownTimer.cancel()
-                        turn = 2
+            if (countDownTimer != null) {
+                countDownTimer!!.onFinish()
+                countDownTimer!!.start()
+                var i = 0
+                val coo = "iv_gm_4_"
+                while (i < col4.size) {
+                    if (col4[i] == 0 && turn == 0) {
+                        col4[i] = 1
+                        c_col4[i] = 1
+                        reIndex ++
+                        r_col4[i] = reIndex
+                        Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
+                        i++
+                        val coord = coo + i
+                        val packageName = packageName
+                        val ivId = resources.getIdentifier(coord, "id", packageName)
+                        val imageView = findViewById<ImageView>(ivId)
+                        imageView.setImageResource(R.drawable.ic_black)
+                        soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
+                        val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
+                        if(checkFourConnectedB(arrays) == true) {
+                            countDownTimer!!.cancel()
+                            turn = 2
+                            setTurn(turn)
+                            break
+                        }
+                        turn = 1
                         setTurn(turn)
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            whiteRandom()
+                            soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
+                            turn = 0
+                            setTurn(turn)
+                            countDownTimer!!.onFinish()
+                            countDownTimer!!.start()
+                            if(checkFourConnectedB(arrays) == true) {
+                                countDownTimer!!.cancel()
+                                turn = 3
+                                setTurn(turn)
+                            }
+                        }, 3000)
                         break
                     }
-                    turn = 1
-                    setTurn(turn)
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        whiteRandom()
-                        soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
-                        turn = 0
-                        setTurn(turn)
-                        countDownTimer.onFinish()
-                        countDownTimer.start()
-                        if(checkFourConnectedB(arrays) == true) {
-                            countDownTimer.cancel()
-                            turn = 3
-                            setTurn(turn)
-                        }
-                    }, 3000)
-                    break
+                    i++
                 }
-                i++
             }
         }
 
         fun onImageViewClick5(view: View) {
-
-            countDownTimer.onFinish()
-            countDownTimer.start()
-            var i = 0
-            val coo = "iv_gm_5_"
-            while (i < col5.size) {
-                if (col5[i] == 0 && turn == 0) {
-                    col5[i] = 1
-                    c_col5[i] = 1
-                    reIndex ++
-                    r_col5[i] = reIndex
-                    Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
-                    i++
-                    val coord = coo + i
-                    val packageName = packageName
-                    val ivId = resources.getIdentifier(coord, "id", packageName)
-                    val imageView = findViewById<ImageView>(ivId)
-                    imageView.setImageResource(R.drawable.ic_black)
-                    soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
-                    val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
-                    if(checkFourConnectedB(arrays) == true) {
-                        countDownTimer.cancel()
-                        turn = 2
+            if (countDownTimer != null) {
+                countDownTimer!!.onFinish()
+                countDownTimer!!.start()
+                var i = 0
+                val coo = "iv_gm_5_"
+                while (i < col5.size) {
+                    if (col5[i] == 0 && turn == 0) {
+                        col5[i] = 1
+                        c_col5[i] = 1
+                        reIndex ++
+                        r_col5[i] = reIndex
+                        Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
+                        i++
+                        val coord = coo + i
+                        val packageName = packageName
+                        val ivId = resources.getIdentifier(coord, "id", packageName)
+                        val imageView = findViewById<ImageView>(ivId)
+                        imageView.setImageResource(R.drawable.ic_black)
+                        soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
+                        val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
+                        if(checkFourConnectedB(arrays) == true) {
+                            countDownTimer!!.cancel()
+                            turn = 2
+                            setTurn(turn)
+                            break
+                        }
+                        turn = 1
                         setTurn(turn)
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            whiteRandom()
+                            soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
+                            turn = 0
+                            setTurn(turn)
+                            countDownTimer!!.onFinish()
+                            countDownTimer!!.start()
+                            if(checkFourConnectedB(arrays) == true) {
+                                countDownTimer!!.cancel()
+                                turn = 3
+                                setTurn(turn)
+                            }
+                        }, 3000)
                         break
                     }
-                    turn = 1
-                    setTurn(turn)
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        whiteRandom()
-                        soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
-                        turn = 0
-                        setTurn(turn)
-                        countDownTimer.onFinish()
-                        countDownTimer.start()
-                        if(checkFourConnectedB(arrays) == true) {
-                            countDownTimer.cancel()
-                            turn = 3
-                            setTurn(turn)
-                        }
-                    }, 3000)
-                    break
+                    i++
                 }
-                i++
             }
         }
 
         fun onImageViewClick6(view: View) {
-
-            countDownTimer.onFinish()
-            countDownTimer.start()
-            var i = 0
-            val coo = "iv_gm_6_"
-            while (i < col6.size) {
-                if (col6[i] == 0 && turn == 0) {
-                    col6[i] = 1
-                    c_col6[i] = 1
-                    reIndex ++
-                    r_col6[i] = reIndex
-                    Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
-                    i++
-                    val coord = coo + i
-                    val packageName = packageName
-                    val ivId = resources.getIdentifier(coord, "id", packageName)
-                    val imageView = findViewById<ImageView>(ivId)
-                    imageView.setImageResource(R.drawable.ic_black)
-                    soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
-                    val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
-                    if(checkFourConnectedB(arrays) == true) {
-                        countDownTimer.cancel()
-                        turn = 2
+            if (countDownTimer != null) {
+                countDownTimer!!.onFinish()
+                countDownTimer!!.start()
+                var i = 0
+                val coo = "iv_gm_6_"
+                while (i < col6.size) {
+                    if (col6[i] == 0 && turn == 0) {
+                        col6[i] = 1
+                        c_col6[i] = 1
+                        reIndex ++
+                        r_col6[i] = reIndex
+                        Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
+                        i++
+                        val coord = coo + i
+                        val packageName = packageName
+                        val ivId = resources.getIdentifier(coord, "id", packageName)
+                        val imageView = findViewById<ImageView>(ivId)
+                        imageView.setImageResource(R.drawable.ic_black)
+                        soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
+                        val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
+                        if(checkFourConnectedB(arrays) == true) {
+                            countDownTimer!!.cancel()
+                            turn = 2
+                            setTurn(turn)
+                            break
+                        }
+                        turn = 1
                         setTurn(turn)
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            whiteRandom()
+                            soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
+                            turn = 0
+                            setTurn(turn)
+                            countDownTimer!!.onFinish()
+                            countDownTimer!!.start()
+                            if(checkFourConnectedB(arrays) == true) {
+                                countDownTimer!!.cancel()
+                                turn = 3
+                                setTurn(turn)
+                            }
+                        }, 3000)
                         break
                     }
-                    turn = 1
-                    setTurn(turn)
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        whiteRandom()
-                        soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
-                        turn = 0
-                        setTurn(turn)
-                        countDownTimer.onFinish()
-                        countDownTimer.start()
-                        if(checkFourConnectedB(arrays) == true) {
-                            countDownTimer.cancel()
-                            turn = 3
-                            setTurn(turn)
-                        }
-                    }, 3000)
-                    break
+                    i++
                 }
-                i++
             }
         }
 
         fun onImageViewClick7(view: View) {
-
-            countDownTimer.onFinish()
-            countDownTimer.start()
-            var i = 0
-            val coo = "iv_gm_7_"
-            while (i < col7.size) {
-                if (col7[i] == 0 && turn == 0) {
-                    col7[i] = 1
-                    c_col7[i] = 1
-                    reIndex ++
-                    r_col7[i] = reIndex
-                    Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
-                    i++
-                    val coord = coo + i
-                    val packageName = packageName
-                    val ivId = resources.getIdentifier(coord, "id", packageName)
-                    val imageView = findViewById<ImageView>(ivId)
-                    imageView.setImageResource(R.drawable.ic_black)
-                    soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
-                    val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
-                    if(checkFourConnectedB(arrays) == true) {
-                        countDownTimer.cancel()
-                        turn = 2
+            if (countDownTimer != null) {
+                countDownTimer!!.onFinish()
+                countDownTimer!!.start()
+                var i = 0
+                val coo = "iv_gm_7_"
+                while (i < col7.size) {
+                    if (col7[i] == 0 && turn == 0) {
+                        col7[i] = 1
+                        c_col7[i] = 1
+                        reIndex ++
+                        r_col7[i] = reIndex
+                        Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
+                        i++
+                        val coord = coo + i
+                        val packageName = packageName
+                        val ivId = resources.getIdentifier(coord, "id", packageName)
+                        val imageView = findViewById<ImageView>(ivId)
+                        imageView.setImageResource(R.drawable.ic_black)
+                        soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
+                        val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
+                        if(checkFourConnectedB(arrays) == true) {
+                            countDownTimer!!.cancel()
+                            turn = 2
+                            setTurn(turn)
+                            break
+                        }
+                        turn = 1
                         setTurn(turn)
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            whiteRandom()
+                            soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
+                            turn = 0
+                            setTurn(turn)
+                            countDownTimer!!.onFinish()
+                            countDownTimer!!.start()
+                            if(checkFourConnectedB(arrays) == true) {
+                                countDownTimer!!.cancel()
+                                turn = 3
+                                setTurn(turn)
+                            }
+                        }, 3000)
                         break
                     }
-                    turn = 1
-                    setTurn(turn)
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        whiteRandom()
-                        soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
-                        turn = 0
-                        setTurn(turn)
-                        countDownTimer.onFinish()
-                        countDownTimer.start()
-                        if(checkFourConnectedB(arrays) == true) {
-                            countDownTimer.cancel()
-                            turn = 3
-                            setTurn(turn)
-                        }
-                    }, 3000)
-                    break
+                    i++
                 }
-                i++
             }
         }
 
