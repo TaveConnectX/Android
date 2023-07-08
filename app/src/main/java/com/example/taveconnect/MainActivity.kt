@@ -108,7 +108,7 @@ class MainActivity : AppCompatActivity() {
                                 "${ response?.body()?.profile }")
 
 
-                            GlobalApplication.prefs.setString("accessToken",
+                            GlobalApplication.prefs.setString("Authorization",
                                 "${ response?.raw()?.headers?.get("Authorization") }")
                         }
 
