@@ -13,12 +13,14 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.taveconnect.databinding.ActivityGameBinding
 import com.example.taveconnect.game.GameStartData
+import com.example.taveconnect.game.GameTurnData
 import com.example.taveconnect.retrofit.RetrofitClient
 import com.example.taveconnect.retrofit.RetroiftAPI
+import com.kakao.sdk.auth.model.OAuthToken
 import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.Response
 import java.util.Random
+import javax.security.auth.callback.Callback
 
 
 private var turn: Int = 0
@@ -231,7 +233,6 @@ class GameActivity : AppCompatActivity() {
 
         intent.putExtra("gameIndex", reIndex)
 
-
         c_col1 = col1.clone()
         c_col2 = col2.clone()
         c_col3 = col3.clone()
@@ -240,7 +241,8 @@ class GameActivity : AppCompatActivity() {
         c_col6 = col6.clone()
         c_col7 = col7.clone()
 
-        gameStartAPI()
+        // gameStartAPI()
+        gameTurnAPI()
 
         // 효과음
         var soundId = soundPool.load(this, R.raw.hit, 1)
@@ -248,8 +250,6 @@ class GameActivity : AppCompatActivity() {
         // 타이머 구현
         val tv_sec = findViewById<TextView>(R.id.tv_second)
         var difficulty = intent.getStringExtra("difficulty")
-        Log.d("GameAPI", difficulty.toString())
-
         val sec = when (difficulty) {
             "easy" -> 60000 // 쉬운 난이도의 타이머 시간 (예: 60초)
             "normal" -> 30000 // 보통 난이도의 타이머 시간 (예: 30초)
@@ -1080,19 +1080,20 @@ class GameActivity : AppCompatActivity() {
         val gameAPI = RetrofitClient.getInstance().create(RetroiftAPI::class.java)
         var difficulty = intent.getStringExtra("difficulty")
 
-        gameAPI.getGameStart(GlobalApplication.prefs?.getString("Authorization", "").toString(),"easy")
-            .enqueue(object: Callback<GameStartData> {
+/*
+        gameAPI.getGameStart(GlobalApplication.token_prefs.accessToken.toString(), "easy")
+            .enqueue(object: retrofit2.Callback<GameStartData> {
                 override fun onResponse(
                     call: Call<GameStartData>,
                     response: Response<GameStartData>
                 ) {
-                    Log.d("GameStart", "성공 !!!!!ㅋㅋ ${GlobalApplication.prefs?.getString("Authorization", "").toString()}")
+                    Log.d("GameStart", "성공 ${response.body().toString()}")
                 }
 
                 override fun onFailure(call: Call<GameStartData>, t: Throwable) {
                     Log.d("GameStart", "실패")
                 }
-            })
+            })*/
 
     }
 
