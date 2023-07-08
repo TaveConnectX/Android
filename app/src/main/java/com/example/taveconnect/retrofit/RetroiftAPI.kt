@@ -18,7 +18,6 @@ interface RetroiftAPI {
     // 게임 시작 API
     @GET("/games")
     fun getGameStart(
-        @Header("Authorization") Authorization: String,
         @Query("difficulty") difficulty: String
     ): Call<GameStartData>
 

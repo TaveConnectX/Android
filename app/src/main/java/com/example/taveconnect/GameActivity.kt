@@ -241,8 +241,7 @@ class GameActivity : AppCompatActivity() {
         c_col6 = col6.clone()
         c_col7 = col7.clone()
 
-        // gameStartAPI()
-        gameTurnAPI()
+        gameStartAPI()
 
         // 효과음
         var soundId = soundPool.load(this, R.raw.hit, 1)
@@ -1080,8 +1079,8 @@ class GameActivity : AppCompatActivity() {
         val gameAPI = RetrofitClient.getInstance().create(RetroiftAPI::class.java)
         var difficulty = intent.getStringExtra("difficulty")
 
-/*
-        gameAPI.getGameStart(GlobalApplication.token_prefs.accessToken.toString(), "easy")
+
+        gameAPI.getGameStart(difficulty.toString())
             .enqueue(object: retrofit2.Callback<GameStartData> {
                 override fun onResponse(
                     call: Call<GameStartData>,
@@ -1093,7 +1092,7 @@ class GameActivity : AppCompatActivity() {
                 override fun onFailure(call: Call<GameStartData>, t: Throwable) {
                     Log.d("GameStart", "실패")
                 }
-            })*/
+            })
 
     }
 
