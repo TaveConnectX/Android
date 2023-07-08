@@ -10,16 +10,14 @@ import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Header
-import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface RetroiftAPI {
 
     // 게임 시작 API
-    @GET
+    @GET("/games")
     fun getGameStart(
-        @Header("Authorization") authorization: String,
         @Query("difficulty") difficulty: String
     ): Call<GameStartData>
 
