@@ -29,6 +29,11 @@ class ReviewActivity : AppCompatActivity() {
         val col6 = intent.getIntArrayExtra("r_col6") ?: IntArray(6)
         val col7 = intent.getIntArrayExtra("r_col7") ?: IntArray(6)
 
+        var arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
+
+        if(arrays == {0}) {
+            Toast.makeText(this, "직전 게임이 없습니다.", Toast.LENGTH_SHORT).show()
+        }
         var nowIndex = gameIndex
 
         // Use the received data as needed

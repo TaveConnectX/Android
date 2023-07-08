@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.taveconnect.databinding.FragmentListBinding
 
@@ -67,7 +68,6 @@ ListFragment : Fragment(R.layout.fragment_list) {
             val intent = Intent(requireActivity(), GameActivity::class.java)
             intent.putExtra("gamePaused", true)
             intent.putExtra("resumeGame", true) // 이어하기 정보 추가
-
             startActivity(intent)
         }
     }
