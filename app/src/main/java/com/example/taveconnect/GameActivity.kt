@@ -41,13 +41,15 @@ class GameActivity : AppCompatActivity() {
     private lateinit var binding: ActivityGameBinding
     val soundPool = SoundPool.Builder().build()
     private var countDownTimer: CountDownTimer? = null
-    var canOrCannot = 2
 
+    var canOrCannot = 2
     var choice_c = "normal"
 
     override fun onPause() {
         super.onPause()
         val resumeGame = intent.getBooleanExtra("resumeGame", false)
+        countDownTimer?.cancel()
+        Log.d("GameActivity", "countDownTimer cancel() called")
         if(resumeGame) {
             countDownTimer?.cancel()
             Log.d("GameActivity", "countDownTimer cancel() called")
@@ -75,6 +77,7 @@ class GameActivity : AppCompatActivity() {
         if (resumeGame || gamePaused) {
             // 게임이 일시 중지된 상태에서 재개되는 경우에 수행할 동작
             Log.d("GameActivity", "이전 게임 called")
+            countDownTimer?.start()
             // 게임 상태 배열 복원
             col1 = c_col1.clone()
             col2 = c_col2.clone()
@@ -334,7 +337,7 @@ class GameActivity : AppCompatActivity() {
         // 1열
         fun onImageViewClick1(view: View) {
             if (countDownTimer != null) {
-                countDownTimer!!.cancel()
+                countDownTimer!!.onFinish()
                 countDownTimer!!.start()
                 var i = 0
                 val coo = "iv_gm_1_"
@@ -354,7 +357,7 @@ class GameActivity : AppCompatActivity() {
                         soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                         val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
                         if(checkFourConnectedB(arrays) == true) {
-                            countDownTimer!!.cancel()
+                            countDownTimer!!.onFinish()
                             turn = 2
                             setTurn(turn)
                             break
@@ -366,10 +369,10 @@ class GameActivity : AppCompatActivity() {
                             soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                             turn = 0
                             setTurn(turn)
-                            countDownTimer!!.cancel()
+                            countDownTimer!!.onFinish()
                             countDownTimer!!.start()
                             if(checkFourConnectedB(arrays) == true) {
-                                countDownTimer!!.cancel()
+                                countDownTimer!!.onFinish()
                                 turn = 3
                                 setTurn(turn)
                             }
@@ -384,7 +387,7 @@ class GameActivity : AppCompatActivity() {
         fun onImageViewClick2(view: View) {
 
             if (countDownTimer != null) {
-                countDownTimer!!.cancel()
+                countDownTimer!!.onFinish()
                 countDownTimer!!.start()
                 var i = 0
                 val coo = "iv_gm_2_"
@@ -404,7 +407,7 @@ class GameActivity : AppCompatActivity() {
                         soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                         val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
                         if(checkFourConnectedB(arrays) == true) {
-                            countDownTimer!!.cancel()
+                            countDownTimer!!.onFinish()
                             turn = 2
                             setTurn(turn)
                             break
@@ -416,10 +419,10 @@ class GameActivity : AppCompatActivity() {
                             soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                             turn = 0
                             setTurn(turn)
-                            countDownTimer!!.cancel()
+                            countDownTimer!!.onFinish()
                             countDownTimer!!.start()
                             if(checkFourConnectedB(arrays) == true) {
-                                countDownTimer!!.cancel()
+                                countDownTimer!!.onFinish()
                                 turn = 3
                                 setTurn(turn)
                             }
@@ -433,7 +436,7 @@ class GameActivity : AppCompatActivity() {
 
         fun onImageViewClick3(view: View) {
             if (countDownTimer != null) {
-                countDownTimer!!.cancel()
+                countDownTimer!!.onFinish()
                 countDownTimer!!.start()
                 var i = 0
                 val coo = "iv_gm_3_"
@@ -453,7 +456,7 @@ class GameActivity : AppCompatActivity() {
                         soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                         val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
                         if(checkFourConnectedB(arrays) == true) {
-                            countDownTimer!!.cancel()
+                            countDownTimer!!.onFinish()
                             turn = 2
                             setTurn(turn)
                             break
@@ -465,10 +468,10 @@ class GameActivity : AppCompatActivity() {
                             soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                             turn = 0
                             setTurn(turn)
-                            countDownTimer!!.cancel()
+                            countDownTimer!!.onFinish()
                             countDownTimer!!.start()
                             if(checkFourConnectedB(arrays) == true) {
-                                countDownTimer!!.cancel()
+                                countDownTimer!!.onFinish()
                                 turn = 3
                                 setTurn(turn)
                             }
@@ -482,7 +485,7 @@ class GameActivity : AppCompatActivity() {
 
         fun onImageViewClick4(view: View) {
             if (countDownTimer != null) {
-                countDownTimer!!.cancel()
+                countDownTimer!!.onFinish()
                 countDownTimer!!.start()
                 var i = 0
                 val coo = "iv_gm_4_"
@@ -502,7 +505,7 @@ class GameActivity : AppCompatActivity() {
                         soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                         val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
                         if(checkFourConnectedB(arrays) == true) {
-                            countDownTimer!!.cancel()
+                            countDownTimer!!.onFinish()
                             turn = 2
                             setTurn(turn)
                             break
@@ -514,10 +517,10 @@ class GameActivity : AppCompatActivity() {
                             soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                             turn = 0
                             setTurn(turn)
-                            countDownTimer!!.cancel()
+                            countDownTimer!!.onFinish()
                             countDownTimer!!.start()
                             if(checkFourConnectedB(arrays) == true) {
-                                countDownTimer!!.cancel()
+                                countDownTimer!!.onFinish()
                                 turn = 3
                                 setTurn(turn)
                             }
@@ -531,7 +534,7 @@ class GameActivity : AppCompatActivity() {
 
         fun onImageViewClick5(view: View) {
             if (countDownTimer != null) {
-                countDownTimer!!.cancel()
+                countDownTimer!!.onFinish()
                 countDownTimer!!.start()
                 var i = 0
                 val coo = "iv_gm_5_"
@@ -551,7 +554,7 @@ class GameActivity : AppCompatActivity() {
                         soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                         val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
                         if(checkFourConnectedB(arrays) == true) {
-                            countDownTimer!!.cancel()
+                            countDownTimer!!.onFinish()
                             turn = 2
                             setTurn(turn)
                             break
@@ -563,10 +566,10 @@ class GameActivity : AppCompatActivity() {
                             soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                             turn = 0
                             setTurn(turn)
-                            countDownTimer!!.cancel()
+                            countDownTimer!!.onFinish()
                             countDownTimer!!.start()
                             if(checkFourConnectedB(arrays) == true) {
-                                countDownTimer!!.cancel()
+                                countDownTimer!!.onFinish()
                                 turn = 3
                                 setTurn(turn)
                             }
@@ -580,7 +583,7 @@ class GameActivity : AppCompatActivity() {
 
         fun onImageViewClick6(view: View) {
             if (countDownTimer != null) {
-                countDownTimer!!.cancel()
+                countDownTimer!!.onFinish()
                 countDownTimer!!.start()
                 var i = 0
                 val coo = "iv_gm_6_"
@@ -600,7 +603,7 @@ class GameActivity : AppCompatActivity() {
                         soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                         val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
                         if(checkFourConnectedB(arrays) == true) {
-                            countDownTimer!!.cancel()
+                            countDownTimer!!.onFinish()
                             turn = 2
                             setTurn(turn)
                             break
@@ -612,10 +615,10 @@ class GameActivity : AppCompatActivity() {
                             soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                             turn = 0
                             setTurn(turn)
-                            countDownTimer!!.cancel()
+                            countDownTimer!!.onFinish()
                             countDownTimer!!.start()
                             if(checkFourConnectedB(arrays) == true) {
-                                countDownTimer!!.cancel()
+                                countDownTimer!!.onFinish()
                                 turn = 3
                                 setTurn(turn)
                             }
@@ -629,7 +632,7 @@ class GameActivity : AppCompatActivity() {
 
         fun onImageViewClick7(view: View) {
             if (countDownTimer != null) {
-                countDownTimer!!.cancel()
+                countDownTimer!!.onFinish()
                 countDownTimer!!.start()
                 var i = 0
                 val coo = "iv_gm_7_"
@@ -649,7 +652,7 @@ class GameActivity : AppCompatActivity() {
                         soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                         val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
                         if(checkFourConnectedB(arrays) == true) {
-                            countDownTimer!!.cancel()
+                            countDownTimer!!.onFinish()
                             turn = 2
                             setTurn(turn)
                             break
@@ -661,10 +664,10 @@ class GameActivity : AppCompatActivity() {
                             soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                             turn = 0
                             setTurn(turn)
-                            countDownTimer!!.cancel()
+                            countDownTimer!!.onFinish()
                             countDownTimer!!.start()
                             if(checkFourConnectedB(arrays) == true) {
-                                countDownTimer!!.cancel()
+                                countDownTimer!!.onFinish()
                                 turn = 3
                                 setTurn(turn)
                             }
