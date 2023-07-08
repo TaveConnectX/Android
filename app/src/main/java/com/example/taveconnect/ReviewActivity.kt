@@ -31,6 +31,9 @@ class ReviewActivity : AppCompatActivity() {
 
         var nowIndex = gameIndex
 
+        if(nowIndex == gameIndex && nowIndex == 0)
+            Toast.makeText(this, "이전 게임이 없습니다.", Toast.LENGTH_SHORT).show()
+
         // Use the received data as needed
         Log.d("Review_GameActivity", "Index = $gameIndex")
         Log.d("GameActivity", "현재 3열: ${col3[1]}")
