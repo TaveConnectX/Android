@@ -57,6 +57,7 @@ class GameActivity : AppCompatActivity() {
 
     public override fun onResume() {
         super.onResume()
+        countDownTimer?.start()
         Log.d("GameActivity", "onResume() called")
         val resumeGame = intent.getBooleanExtra("resumeGame", false)
         Log.d("GameActivity", resumeGame.toString())
@@ -205,6 +206,7 @@ class GameActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        Log.d("GameActivity", "onDestroy()")
         countDownTimer?.cancel()
     }
 
