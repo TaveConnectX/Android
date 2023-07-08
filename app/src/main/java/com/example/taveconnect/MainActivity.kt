@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.core.view.DragAndDropPermissionsCompat.request
 import com.example.taveconnect.databinding.ActivityMainBinding
 import com.example.taveconnect.login.ResponseLoginData
 import com.example.taveconnect.retrofit.RetrofitClient
@@ -99,6 +100,16 @@ class MainActivity : AppCompatActivity() {
                             Log.d("LoginAPI", "로그인 통신 성공 \n이름 : ${response.body()?.name}" +
                                     "\n프로필 사진 링크 : ${response.body()?.profile}" +
                                     "\nJWT 토큰 : ${response?.raw()?.headers?.get("Authorization")}")
+
+                            GlobalApplication.prefs.setString("nickname",
+                                "${ response?.body()?.name }")
+
+                            GlobalApplication.prefs.setString("profile",
+                                "${ response?.body()?.profile }")
+
+
+                            GlobalApplication.prefs.setString("accessToken",
+                                "${ response?.raw()?.headers?.get("Authorization") }")
                         }
 
                         override fun onFailure(call: Call<ResponseLoginData>, t: Throwable) {

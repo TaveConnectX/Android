@@ -46,8 +46,8 @@ class MyPageFragment : Fragment(R.layout.fragment_mypage) {
 
             else if (user != null) {
                 Log.i("PROFILE", "마이페이지 연결 성공")
-                binding.tvName.text = user.kakaoAccount?.profile?.nickname
-                val profile = user.kakaoAccount?.profile?.profileImageUrl
+                binding.tvName.text = GlobalApplication.prefs.getString("nickname", "")
+                val profile = GlobalApplication.prefs.getString("profile", "")
 
                 Glide.with(this)
                     .load(profile)

@@ -28,7 +28,7 @@ class LoginActivity : AppCompatActivity() {
         api.getAPI()
             .enqueue(object: Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                    Log.d("API", "API 테스트 성공 ${response.headers()?.toString()}")
+                    Log.d("API", "API 테스트 성공 ${GlobalApplication.prefs?.getString("accessToken", "")}")
                 }
 
                 override fun onFailure(call: Call<Void>, t: Throwable) {
@@ -59,9 +59,8 @@ class LoginActivity : AppCompatActivity() {
             }
 
             else if (user != null) {
-                Log.i("LOGIN", "사용자 정보 요청 성공")
-                binding.tvName.text = user.kakaoAccount?.profile?.nickname
-                val profile = user.kakaoAccount?.profile?.profileImageUrl
+                binding.tvName.text = GlobalApplication.prefs.getString("nickname", "")
+                val profile = GlobalApplication.prefs.getString("profile", "")
 
                 Glide.with(this)
                     .load(profile)
