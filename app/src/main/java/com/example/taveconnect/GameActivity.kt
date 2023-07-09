@@ -13,15 +13,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.taveconnect.databinding.ActivityGameBinding
-import com.example.taveconnect.game.GameStartData
-import com.example.taveconnect.game.GameTurnData
+import com.example.taveconnect.game.*
 import com.example.taveconnect.retrofit.RetrofitClient
 import com.example.taveconnect.retrofit.RetroiftAPI
-import com.kakao.sdk.auth.model.OAuthToken
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 import java.util.Random
-import javax.security.auth.callback.Callback
 
 
 private var turn: Int = 0
@@ -276,6 +274,8 @@ class GameActivity : AppCompatActivity() {
 
         gameStartAPI()
 
+
+
         // 효과음
         var soundId = soundPool.load(this, R.raw.hit, 1)
 
@@ -283,6 +283,9 @@ class GameActivity : AppCompatActivity() {
         val tv_sec = findViewById<TextView>(R.id.tv_second)
         var sec = 30000
         val difficulty = intent.getStringExtra("difficulty")
+        GlobalApplication.prefs.setString("difficulty", difficulty.toString())
+
+
         if (difficulty != null) {
             choice = difficulty
             sec = when (difficulty) {
@@ -302,6 +305,7 @@ class GameActivity : AppCompatActivity() {
 
 
         Log.d("GameActivity", "difficulty 값은 " + difficulty)
+
 
         countDownTimer = object : CountDownTimer(sec.toLong(), 1000) {
             override fun onTick(millisUntilFinished: Long) {
@@ -681,135 +685,176 @@ class GameActivity : AppCompatActivity() {
         }
 
         binding.ivGm11.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 1)), index + 1))
             onImageViewClick1(it)
         }
         binding.ivGm12.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 1)), index + 1))
             onImageViewClick1(it)
         }
         binding.ivGm13.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 1)), index + 1))
             onImageViewClick1(it)
         }
         binding.ivGm14.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 1)), index + 1))
             onImageViewClick1(it)
         }
         binding.ivGm15.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 1)), index + 1))
             onImageViewClick1(it)
         }
         binding.ivGm16.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 1)), index + 1))
             onImageViewClick1(it)
         }
 
         binding.ivGm21.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 2)), index + 1))
             onImageViewClick2(it)
         }
         binding.ivGm22.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 2)), index + 1))
             onImageViewClick2(it)
         }
         binding.ivGm23.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 2)), index + 1))
             onImageViewClick2(it)
         }
         binding.ivGm24.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 2)), index + 1))
             onImageViewClick2(it)
         }
         binding.ivGm25.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 2)), index + 1))
             onImageViewClick2(it)
         }
         binding.ivGm26.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 2)), index + 1))
             onImageViewClick2(it)
         }
 
         binding.ivGm31.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 3)), index + 1))
             onImageViewClick3(it)
         }
         binding.ivGm32.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 3)), index + 1))
             onImageViewClick3(it)
         }
         binding.ivGm33.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 3)), index + 1))
             onImageViewClick3(it)
         }
         binding.ivGm34.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 3)), index + 1))
             onImageViewClick3(it)
         }
         binding.ivGm35.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 3)), index + 1))
             onImageViewClick3(it)
         }
         binding.ivGm36.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 3)), index + 1))
             onImageViewClick3(it)
         }
-
         binding.ivGm41.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 4)), index + 1))
             onImageViewClick4(it)
         }
         binding.ivGm42.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 4)), index + 1))
             onImageViewClick4(it)
         }
         binding.ivGm43.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 4)), index + 1))
             onImageViewClick4(it)
         }
         binding.ivGm44.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 4)), index + 1))
             onImageViewClick4(it)
         }
         binding.ivGm45.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 4)), index + 1))
             onImageViewClick4(it)
         }
         binding.ivGm46.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 4)), index + 1))
             onImageViewClick4(it)
         }
 
         binding.ivGm51.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 5)), index + 1))
             onImageViewClick5(it)
         }
         binding.ivGm52.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 5)), index + 1))
             onImageViewClick5(it)
         }
         binding.ivGm53.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 5)), index + 1))
             onImageViewClick5(it)
         }
         binding.ivGm54.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 5)), index + 1))
             onImageViewClick5(it)
         }
         binding.ivGm55.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 5)), index + 1))
             onImageViewClick5(it)
         }
         binding.ivGm56.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 5)), index + 1))
             onImageViewClick5(it)
         }
 
         binding.ivGm61.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 6)), index + 1))
             onImageViewClick6(it)
         }
         binding.ivGm62.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 6)), index + 1))
             onImageViewClick6(it)
         }
         binding.ivGm63.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 6)), index + 1))
             onImageViewClick6(it)
         }
         binding.ivGm64.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 6)), index + 1))
             onImageViewClick6(it)
         }
         binding.ivGm65.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 6)), index + 1))
             onImageViewClick6(it)
         }
         binding.ivGm66.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 6)), index + 1))
             onImageViewClick6(it)
         }
 
         binding.ivGm71.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 6)), index + 1))
             onImageViewClick7(it)
         }
         binding.ivGm72.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 7)), index + 1))
             onImageViewClick7(it)
         }
         binding.ivGm73.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 7)), index + 1))
             onImageViewClick7(it)
         }
         binding.ivGm74.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 7)), index + 1))
             onImageViewClick7(it)
         }
         binding.ivGm75.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 7)), index + 1))
             onImageViewClick7(it)
         }
         binding.ivGm76.setOnClickListener {
+            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 7)), index + 1))
             onImageViewClick7(it)
         }
 
@@ -1029,7 +1074,10 @@ class GameActivity : AppCompatActivity() {
     }
 
     fun setTurn(t: Int) {
+
         val tv_turn = findViewById<TextView>(R.id.tv_yourturn)
+
+
         if (t == 1) {
             tv_turn.text = "Opponent Turn"
             index++
@@ -1037,6 +1085,15 @@ class GameActivity : AppCompatActivity() {
             tv_turn.text = "Your Turn"
             index++
         } else if (t == 2) {
+            gameEndAPI(GameEndDTO(
+                difficulty = GlobalApplication.prefs.getString("difficulty", ""),
+                gameIdx = GlobalApplication.prefs.getInt("gameIdx", 0),
+                list = arrayOf(arrayOf(6, 1)),
+                turn = index,
+                winner = 1
+            ))
+
+
             tv_turn.text = "You Win!!"
             val intent = Intent(this, EndActivity::class.java)
             Log.d("GameActivity", "reIndex 값 : " + reIndex)
@@ -1051,6 +1108,14 @@ class GameActivity : AppCompatActivity() {
             intent.putExtra("r_col7", r_col7)
             startActivity(intent)
         } else if (t == 3) {
+            gameEndAPI(GameEndDTO(
+                GlobalApplication.prefs.getString("difficulty", ""),
+                GlobalApplication.prefs.getInt("gameIdx", 0),
+                arrayOf(arrayOf(6, 1)),
+                t,
+                2
+            ))
+
             tv_turn.text = "You Lost.."
             val intent = Intent(this, EndActivity::class.java)
             Log.d("GameActivity", "reIndex 값 : " + reIndex)
@@ -1126,7 +1191,18 @@ class GameActivity : AppCompatActivity() {
                     call: Call<GameStartData>,
                     response: Response<GameStartData>
                 ) {
-                    Log.d("GameStart", "성공 ${response.body().toString()}")
+                    if (response.isSuccessful) {
+                        response?.body()?.gameIdx?.let {
+                            GlobalApplication.prefs.setInt("gameIdx",
+                                it)
+                        }
+
+
+
+                        GlobalApplication.prefs.setString("gameList", "${java.util.Arrays.deepToString(response.body()?.list)}")
+                        Log.d("GameStart", "성공 ${response.body().toString()}")
+
+                    }
                 }
 
                 override fun onFailure(call: Call<GameStartData>, t: Throwable) {
@@ -1136,24 +1212,44 @@ class GameActivity : AppCompatActivity() {
 
     }
 
-    fun gameTurnAPI() {
+    fun gameTurnAPI(gameTurnDTO: GameTurnDTO) {
         // API
         val gameAPI = RetrofitClient.getInstance().create(RetroiftAPI::class.java)
 
-        /*
-        gameAPI.getGameTurn(GlobalApplication.token_prefs.accessToken.toString())
-            .enqueue(object: retrofit2.Callback<GameTurnData> {
+        gameAPI.getGameTurn(gameTurnDTO)
+            .enqueue(object: Callback<GameTurnData> {
                 override fun onResponse(
                     call: Call<GameTurnData>,
                     response: Response<GameTurnData>
                 ) {
-                    Log.d("GameAPI", "성공 ${response.body().toString()}")
+                    if (response.isSuccessful) {
+                        Log.d("GameTurnAPI", "성공 ${response.body().toString()}")
+                        Log.d("GameList", "${GlobalApplication.prefs.getString("gameList", "")}")
+                    }
                 }
 
                 override fun onFailure(call: Call<GameTurnData>, t: Throwable) {
-                    Log.d("GameAPI", "실패")
+                    Log.d("GameTurnAPI", "실패")
                 }
             })
-*/
+    }
+
+
+    fun gameEndAPI(gameEndDTO: GameEndDTO) {
+        val gameAPI = RetrofitClient.getInstance().create(RetroiftAPI::class.java)
+
+        gameAPI.getGameEnd(gameEndDTO)
+            .enqueue(object: Callback<GameEndData> {
+                override fun onResponse(call: Call<GameEndData>, response: Response<GameEndData>) {
+                    if (response.isSuccessful) {
+                        Log.d("GameEndAPI", "성공 ${response.body().toString()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<GameEndData>, t: Throwable) {
+                    Log.d("GameEndAPI", "실패")
+                }
+            })
+
     }
 }

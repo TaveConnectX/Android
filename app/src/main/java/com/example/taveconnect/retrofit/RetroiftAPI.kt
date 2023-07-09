@@ -1,17 +1,10 @@
 package com.example.taveconnect.retrofit
 
-import com.example.taveconnect.game.GameEndData
-import com.example.taveconnect.game.GameStartData
-import com.example.taveconnect.game.GameTurnData
+import com.example.taveconnect.game.*
 import com.example.taveconnect.login.ResponseLoginData
 import com.example.taveconnect.rank.RankData
 import retrofit2.Call
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface RetroiftAPI {
 
@@ -24,13 +17,17 @@ interface RetroiftAPI {
 
 
     // 게임 turn API
+    @Headers("Content-Type: application/json;charset=UTF-8")
     @POST("/games")
     fun getGameTurn(
-        @Header("Authorization") authorization: String
+        @Body gameTurnDTO: GameTurnDTO
     ): Call<GameTurnData>
 
+
+    @Headers("Content-Type: application/json;charset=UTF-8")
     @POST("/games/results")
     fun getGameEnd(
+        @Body gameEndDTO: GameEndDTO
     ): Call<GameEndData>
 
     @GET("/ranking")
