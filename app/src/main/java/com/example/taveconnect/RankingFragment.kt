@@ -9,7 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.taveconnect.adapter.CustomAdapter
 import com.example.taveconnect.databinding.FragmentRankingBinding
+import com.example.taveconnect.game.GameReviewData
+import com.example.taveconnect.rank.MyRankData
 import com.example.taveconnect.rank.RankData
+import com.example.taveconnect.rank.UsersRankData
 import com.example.taveconnect.retrofit.RetrofitClient
 import com.example.taveconnect.retrofit.RetroiftAPI
 import retrofit2.Call
@@ -35,19 +38,8 @@ class RankingFragment : Fragment(R.layout.fragment_ranking) {
 
         val profileList = ArrayList<RankData>()
 
-        val api = RetrofitClient.getInstance().create(RetroiftAPI::class.java)
-        api.getMyRanking()
-            .enqueue(object: Callback<RankData> {
-                override fun onResponse(call: Call<RankData>, response: Response<RankData>) {
-                    profileList.add(RankData(response.code(), response.body().toString()))
-                    Log.d("Rank", "성공 ${api.getMyRanking().request()?.headers}")
-                }
-
-                override fun onFailure(call: Call<RankData>, t: Throwable) {
-                    Log.d("Rank", "실패 ${t.message}")
-                }
-            })
-
+        myRankingAPI()
+        usersRankingAPI()
 
 
         profileList.add(RankData(1, "김아린"))
@@ -75,4 +67,44 @@ class RankingFragment : Fragment(R.layout.fragment_ranking) {
         // 어댑터에 데이터 변경을 알리기 위해 notifyDataSetChanged() 호출
         rankRecyclerAdapter.notifyDataSetChanged()
     }
+
+
+
+    fun myRankingAPI() {
+        val rankAPI = RetrofitClient.getInstance().create(RetroiftAPI::class.java)
+
+        rankAPI.getMyRanking()
+            .enqueue(object: Callback<MyRankData> {
+                override fun onResponse(call: Call<MyRankData>, response: Response<MyRankData>) {
+                    if (response.isSuccessful) {
+                        Log.d("MyRankAPI", "성공 ${response.body().toString()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<MyRankData>, t: Throwable) {
+                    Log.d("MyRankAPI", "실패")
+                }
+            })
+
+    }
+
+
+    fun usersRankingAPI() {
+        val rankAPI = RetrofitClient.getInstance().create(RetroiftAPI::class.java)
+
+        rankAPI.getUsersRanking()
+            .enqueue(object: Callback<UsersRankData> {
+                override fun onResponse(call: Call<UsersRankData>, response: Response<UsersRankData>) {
+                    if (response.isSuccessful) {
+                        Log.d("UsersRankAPI", "성공 ${response.body().toString()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<UsersRankData>, t: Throwable) {
+                    Log.d("UsersRankAPI", "실패")
+                }
+            })
+
+    }
+
 }

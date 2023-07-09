@@ -2,7 +2,9 @@ package com.example.taveconnect.retrofit
 
 import com.example.taveconnect.game.*
 import com.example.taveconnect.login.ResponseLoginData
+import com.example.taveconnect.rank.MyRankData
 import com.example.taveconnect.rank.RankData
+import com.example.taveconnect.rank.UsersRankData
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -38,7 +40,11 @@ interface RetroiftAPI {
 
     @GET("/ranking")
     fun getMyRanking(
-    ): Call<RankData>
+    ): Call<MyRankData>
+
+    @GET("/ranking/users")
+    fun getUsersRanking(
+    ): Call<UsersRankData>
 
 
     @FormUrlEncoded
