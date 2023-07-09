@@ -62,6 +62,9 @@ class GameActivity : AppCompatActivity() {
         c_col7 = col7.clone()
         choice_c = choice
         Log.d("GameActivity", "onPause() called")
+
+
+
         gamePaused = true
     }
 
@@ -272,6 +275,8 @@ class GameActivity : AppCompatActivity() {
         c_col6 = col6.clone()
         c_col7 = col7.clone()
 
+
+
         gameStartAPI()
 
 
@@ -284,6 +289,7 @@ class GameActivity : AppCompatActivity() {
         var sec = 30000
         val difficulty = intent.getStringExtra("difficulty")
         GlobalApplication.prefs.setString("difficulty", difficulty.toString())
+        Log.d("난이도", "${GlobalApplication.prefs.getString(" difficulty ", "")}")
 
 
         if (difficulty != null) {
@@ -1108,13 +1114,10 @@ class GameActivity : AppCompatActivity() {
             intent.putExtra("r_col7", r_col7)
             startActivity(intent)
         } else if (t == 3) {
-            gameEndAPI(GameEndDTO(
-                GlobalApplication.prefs.getString("difficulty", ""),
-                GlobalApplication.prefs.getInt("gameIdx", 0),
-                arrayOf(arrayOf(6, 1)),
-                t,
-                2
-            ))
+            gameEndAPI(GameEndDTO(GlobalApplication.prefs.getString("difficulty", ""), GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 6)), index, 2))
+
+
+
 
             tv_turn.text = "You Lost.."
             val intent = Intent(this, EndActivity::class.java)

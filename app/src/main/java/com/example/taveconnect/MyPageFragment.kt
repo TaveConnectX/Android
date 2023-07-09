@@ -10,7 +10,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.taveconnect.databinding.FragmentMypageBinding
+import com.example.taveconnect.rank.MyRankData
+import com.example.taveconnect.retrofit.RetrofitClient
+import com.example.taveconnect.retrofit.RetroiftAPI
 import com.kakao.sdk.user.UserApiClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MyPageFragment : Fragment(R.layout.fragment_mypage) {
     private var _binding: FragmentMypageBinding? = null
@@ -32,7 +38,13 @@ class MyPageFragment : Fragment(R.layout.fragment_mypage) {
         super.onViewCreated(view, savedInstanceState)
 
         showInit()
+        myRankingAPI()
         kakaoLogout()
+
+
+
+
+
     }
 
 
@@ -79,5 +91,36 @@ class MyPageFragment : Fragment(R.layout.fragment_mypage) {
                 startActivity(intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP))
             }
         }
+    }
+
+
+
+
+
+    fun myRankingAPI() {
+        val rankAPI = RetrofitClient.getInstance().create(RetroiftAPI::class.java)
+
+        rankAPI.getMyRanking()
+            .enqueue(object: Callback<MyRankData> {
+                override fun onResponse(call: Call<MyRankData>, response: Response<MyRankData>) {
+                    if (response.isSuccessful) {
+                        Log.d("MyRankAPI", "성공 ${response.body().toString()}")
+                        GlobalApplication.prefs.setString("ranking", "${response?.body()?.ranking}")
+                        GlobalApplication.prefs.setString("draw", "${response?.body()?.draw}")
+                        GlobalApplication.prefs.setString("defeat", "${response?.body()?.defeat}")
+                        GlobalApplication.prefs.setString("victory", "${response?.body()?.victory}")
+
+                        binding.tvLoseCount.text = GlobalApplication.prefs.getString("defeat", "")
+                        binding.tvMyRank.text = GlobalApplication.prefs.getString("ranking", "")
+                        binding.tvNormalCount.text = GlobalApplication.prefs.getString("draw", "")
+                        binding.tvWinCount.text = GlobalApplication.prefs.getString("victory", "")
+                    }
+                }
+
+                override fun onFailure(call: Call<MyRankData>, t: Throwable) {
+                    Log.d("MyRankAPI", "실패")
+                }
+            })
+
     }
 }

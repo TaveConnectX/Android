@@ -1,7 +1,7 @@
 package com.example.taveconnect.rank
 
-class AllRankData : ArrayList<AllRankData.AllRankDataItem>(){
-    data class AllRankDataItem(
+class UsersRankData : ArrayList<UsersRankData.UsersRankDataItem>(){
+    data class UsersRankDataItem(
         val defeat: Int,
         val draw: Int,
         val name: String,
