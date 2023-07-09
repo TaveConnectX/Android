@@ -13,12 +13,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.taveconnect.databinding.ActivityGameBinding
-import com.example.taveconnect.game.GameStartData
-import com.example.taveconnect.game.GameTurnDTO
-import com.example.taveconnect.game.GameTurnData
+import com.example.taveconnect.game.*
 import com.example.taveconnect.retrofit.RetrofitClient
 import com.example.taveconnect.retrofit.RetroiftAPI
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 import java.util.Random
 
@@ -284,6 +283,9 @@ class GameActivity : AppCompatActivity() {
         val tv_sec = findViewById<TextView>(R.id.tv_second)
         var sec = 30000
         val difficulty = intent.getStringExtra("difficulty")
+        GlobalApplication.prefs.setString("difficulty", difficulty.toString())
+
+
         if (difficulty != null) {
             choice = difficulty
             sec = when (difficulty) {
@@ -1072,7 +1074,10 @@ class GameActivity : AppCompatActivity() {
     }
 
     fun setTurn(t: Int) {
+
         val tv_turn = findViewById<TextView>(R.id.tv_yourturn)
+
+
         if (t == 1) {
             tv_turn.text = "Opponent Turn"
             index++
@@ -1080,6 +1085,15 @@ class GameActivity : AppCompatActivity() {
             tv_turn.text = "Your Turn"
             index++
         } else if (t == 2) {
+            gameEndAPI(GameEndDTO(
+                difficulty = GlobalApplication.prefs.getString("difficulty", ""),
+                gameIdx = GlobalApplication.prefs.getInt("gameIdx", 0),
+                list = arrayOf(arrayOf(6, 1)),
+                turn = index,
+                winner = 1
+            ))
+
+
             tv_turn.text = "You Win!!"
             val intent = Intent(this, EndActivity::class.java)
             Log.d("GameActivity", "reIndex 값 : " + reIndex)
@@ -1094,6 +1108,14 @@ class GameActivity : AppCompatActivity() {
             intent.putExtra("r_col7", r_col7)
             startActivity(intent)
         } else if (t == 3) {
+            gameEndAPI(GameEndDTO(
+                GlobalApplication.prefs.getString("difficulty", ""),
+                GlobalApplication.prefs.getInt("gameIdx", 0),
+                arrayOf(arrayOf(6, 1)),
+                t,
+                2
+            ))
+
             tv_turn.text = "You Lost.."
             val intent = Intent(this, EndActivity::class.java)
             Log.d("GameActivity", "reIndex 값 : " + reIndex)
@@ -1174,7 +1196,11 @@ class GameActivity : AppCompatActivity() {
                             GlobalApplication.prefs.setInt("gameIdx",
                                 it)
                         }
-                        Log.d("GameStart", "성공 ${GlobalApplication.prefs?.getInt("gameIdx", 0)}")
+
+
+
+                        GlobalApplication.prefs.setString("gameList", "${java.util.Arrays.deepToString(response.body()?.list)}")
+                        Log.d("GameStart", "성공 ${response.body().toString()}")
 
                     }
                 }
@@ -1191,13 +1217,14 @@ class GameActivity : AppCompatActivity() {
         val gameAPI = RetrofitClient.getInstance().create(RetroiftAPI::class.java)
 
         gameAPI.getGameTurn(gameTurnDTO)
-            .enqueue(object: retrofit2.Callback<GameTurnData> {
+            .enqueue(object: Callback<GameTurnData> {
                 override fun onResponse(
                     call: Call<GameTurnData>,
                     response: Response<GameTurnData>
                 ) {
                     if (response.isSuccessful) {
                         Log.d("GameTurnAPI", "성공 ${response.body().toString()}")
+                        Log.d("GameList", "${GlobalApplication.prefs.getString("gameList", "")}")
                     }
                 }
 
@@ -1205,5 +1232,24 @@ class GameActivity : AppCompatActivity() {
                     Log.d("GameTurnAPI", "실패")
                 }
             })
+    }
+
+
+    fun gameEndAPI(gameEndDTO: GameEndDTO) {
+        val gameAPI = RetrofitClient.getInstance().create(RetroiftAPI::class.java)
+
+        gameAPI.getGameEnd(gameEndDTO)
+            .enqueue(object: Callback<GameEndData> {
+                override fun onResponse(call: Call<GameEndData>, response: Response<GameEndData>) {
+                    if (response.isSuccessful) {
+                        Log.d("GameEndAPI", "성공 ${response.body().toString()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<GameEndData>, t: Throwable) {
+                    Log.d("GameEndAPI", "실패")
+                }
+            })
+
     }
 }
