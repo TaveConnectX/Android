@@ -7,6 +7,14 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.taveconnect.databinding.ActivityReviewBinding
+import com.example.taveconnect.game.GameEndDTO
+import com.example.taveconnect.game.GameEndData
+import com.example.taveconnect.game.GameReviewData
+import com.example.taveconnect.retrofit.RetrofitClient
+import com.example.taveconnect.retrofit.RetroiftAPI
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ReviewActivity : AppCompatActivity() {
     private lateinit var binding: ActivityReviewBinding
@@ -18,6 +26,7 @@ class ReviewActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        gameReviewAPI()
         showBurger()
 
         val gameIndex = intent.getIntExtra("reIndex", 0)
@@ -332,5 +341,25 @@ class ReviewActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+    fun gameReviewAPI() {
+        val gameAPI = RetrofitClient.getInstance().create(RetroiftAPI::class.java)
+
+        gameAPI.getGameReview()
+            .enqueue(object: Callback<GameReviewData> {
+                override fun onResponse(call: Call<GameReviewData>, response: Response<GameReviewData>) {
+                    if (response.isSuccessful) {
+                        Log.d("GameReviewAPI", "성공 ${response.body().toString()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<GameReviewData>, t: Throwable) {
+                    Log.d("GameReviewAPI", "실패")
+                }
+            })
+
+    }
+
+
 }
 

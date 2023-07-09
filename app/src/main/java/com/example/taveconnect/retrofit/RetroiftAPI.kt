@@ -27,11 +27,17 @@ interface RetroiftAPI {
     @Headers("Content-Type: application/json;charset=UTF-8")
     @POST("/games/results")
     fun getGameEnd(
-        @Body gameEndDTO: GameEndDTO
+        @Body gameEndDTO: GameEndDTO,
     ): Call<GameEndData>
 
+    @GET("/games/review")
+    fun getGameReview(
+    ): Call<GameReviewData>
+
+
+
     @GET("/ranking")
-    fun getRanking(
+    fun getMyRanking(
     ): Call<RankData>
 
 

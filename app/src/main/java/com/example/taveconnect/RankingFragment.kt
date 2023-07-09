@@ -36,11 +36,11 @@ class RankingFragment : Fragment(R.layout.fragment_ranking) {
         val profileList = ArrayList<RankData>()
 
         val api = RetrofitClient.getInstance().create(RetroiftAPI::class.java)
-        api.getRanking()
+        api.getMyRanking()
             .enqueue(object: Callback<RankData> {
                 override fun onResponse(call: Call<RankData>, response: Response<RankData>) {
                     profileList.add(RankData(response.code(), response.body().toString()))
-                    Log.d("Rank", "성공 ${api.getRanking().request()?.headers}")
+                    Log.d("Rank", "성공 ${api.getMyRanking().request()?.headers}")
                 }
 
                 override fun onFailure(call: Call<RankData>, t: Throwable) {
