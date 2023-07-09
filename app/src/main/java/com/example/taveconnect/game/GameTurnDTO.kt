@@ -1,6 +1,6 @@
 package com.example.taveconnect.game
 
-data class GameStartData(
+data class GameTurnDTO(
     val difficulty: String,
     val gameIdx: Int,
     val list: List<List<Int>>,

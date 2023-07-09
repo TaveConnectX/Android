@@ -16,11 +16,9 @@ import com.example.taveconnect.game.GameStartData
 import com.example.taveconnect.game.GameTurnData
 import com.example.taveconnect.retrofit.RetrofitClient
 import com.example.taveconnect.retrofit.RetroiftAPI
-import com.kakao.sdk.auth.model.OAuthToken
 import retrofit2.Call
 import retrofit2.Response
 import java.util.Random
-import javax.security.auth.callback.Callback
 
 
 private var turn: Int = 0
@@ -242,6 +240,7 @@ class GameActivity : AppCompatActivity() {
         c_col7 = col7.clone()
 
         gameStartAPI()
+
 
         // 효과음
         var soundId = soundPool.load(this, R.raw.hit, 1)
@@ -621,21 +620,27 @@ class GameActivity : AppCompatActivity() {
 
 
         binding.ivGm11.setOnClickListener {
+            gameTurnAPI()
             onImageViewClick1(it)
         }
         binding.ivGm12.setOnClickListener {
+            gameTurnAPI()
             onImageViewClick1(it)
         }
         binding.ivGm13.setOnClickListener {
+            gameTurnAPI()
             onImageViewClick1(it)
         }
         binding.ivGm14.setOnClickListener {
+            gameTurnAPI()
             onImageViewClick1(it)
         }
         binding.ivGm15.setOnClickListener {
+            gameTurnAPI()
             onImageViewClick1(it)
         }
         binding.ivGm16.setOnClickListener {
+            gameTurnAPI()
             onImageViewClick1(it)
         }
 
@@ -1087,6 +1092,8 @@ class GameActivity : AppCompatActivity() {
                     response: Response<GameStartData>
                 ) {
                     Log.d("GameStart", "성공 ${response.body().toString()}")
+                    GlobalApplication.prefs.setString("gameList",
+                        "${ response?.body() }")
                 }
 
                 override fun onFailure(call: Call<GameStartData>, t: Throwable) {
@@ -1100,8 +1107,7 @@ class GameActivity : AppCompatActivity() {
         // API
         val gameAPI = RetrofitClient.getInstance().create(RetroiftAPI::class.java)
 
-        /*
-        gameAPI.getGameTurn(GlobalApplication.token_prefs.accessToken.toString())
+        gameAPI.getGameTurn("${GlobalApplication.prefs.getString(" gameList ", "")}")
             .enqueue(object: retrofit2.Callback<GameTurnData> {
                 override fun onResponse(
                     call: Call<GameTurnData>,
@@ -1114,6 +1120,5 @@ class GameActivity : AppCompatActivity() {
                     Log.d("GameAPI", "실패")
                 }
             })
-*/
     }
 }
