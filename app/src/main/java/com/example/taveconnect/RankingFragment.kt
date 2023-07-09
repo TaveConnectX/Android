@@ -38,7 +38,6 @@ class RankingFragment : Fragment(R.layout.fragment_ranking) {
 
         val profileList = ArrayList<RankData>()
 
-        myRankingAPI()
         usersRankingAPI()
 
 
@@ -70,23 +69,6 @@ class RankingFragment : Fragment(R.layout.fragment_ranking) {
 
 
 
-    fun myRankingAPI() {
-        val rankAPI = RetrofitClient.getInstance().create(RetroiftAPI::class.java)
-
-        rankAPI.getMyRanking()
-            .enqueue(object: Callback<MyRankData> {
-                override fun onResponse(call: Call<MyRankData>, response: Response<MyRankData>) {
-                    if (response.isSuccessful) {
-                        Log.d("MyRankAPI", "성공 ${response.body().toString()}")
-                    }
-                }
-
-                override fun onFailure(call: Call<MyRankData>, t: Throwable) {
-                    Log.d("MyRankAPI", "실패")
-                }
-            })
-
-    }
 
 
     fun usersRankingAPI() {

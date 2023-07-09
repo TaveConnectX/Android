@@ -62,6 +62,9 @@ class GameActivity : AppCompatActivity() {
         c_col7 = col7.clone()
         choice_c = choice
         Log.d("GameActivity", "onPause() called")
+
+
+
         gamePaused = true
     }
 
@@ -271,6 +274,8 @@ class GameActivity : AppCompatActivity() {
         c_col5 = col5.clone()
         c_col6 = col6.clone()
         c_col7 = col7.clone()
+
+
 
         gameStartAPI()
 

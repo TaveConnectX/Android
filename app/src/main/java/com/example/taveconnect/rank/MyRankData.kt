@@ -1,12 +1,33 @@
 package com.example.taveconnect.rank
 
-class MyRankData : ArrayList<MyRankData.MyRankDataItem>(){
-    data class MyRankDataItem(
-        val defeat: Int,
-        val draw: Int,
-        val name: String,
-        val picture: String,
-        val ranking: Int,
-        val victory: Int
-    )
-}
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
+
+class MyRankData (
+
+    @SerializedName("defeat")
+    @Expose
+    val defeat: Int,
+
+    @SerializedName("draw")
+    @Expose
+    val draw: Int,
+
+    @SerializedName("name")
+    @Expose
+    val name: String,
+
+    @SerializedName("picture")
+    @Expose
+    val picture: String,
+
+    @SerializedName("ranking")
+    @Expose
+    val ranking: Int,
+
+    @SerializedName("victory")
+    @Expose
+    val victory: Int
+
+
+)
