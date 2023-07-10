@@ -19,16 +19,6 @@ class ReviewActivity : AppCompatActivity() {
     private lateinit var imageViews: List<ImageView> // 이미지뷰들을 저장할 리스트 변수
     private var arr = Array(7) { Array(6) { 0 } }
 
-    val col1 = intent.getIntArrayExtra("r_col1") ?: IntArray(6)
-    val col2 = intent.getIntArrayExtra("r_col2") ?: IntArray(6)
-    val col3 = intent.getIntArrayExtra("r_col3") ?: IntArray(6)
-    val col4 = intent.getIntArrayExtra("r_col4") ?: IntArray(6)
-    val col5 = intent.getIntArrayExtra("r_col5") ?: IntArray(6)
-    val col6 = intent.getIntArrayExtra("r_col6") ?: IntArray(6)
-    val col7 = intent.getIntArrayExtra("r_col7") ?: IntArray(6)
-
-    var arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityReviewBinding.inflate(layoutInflater)
@@ -37,6 +27,17 @@ class ReviewActivity : AppCompatActivity() {
 
         gameReviewAPI()
         showBurger()
+
+
+        val col1 = intent.getIntArrayExtra("r_col1") ?: IntArray(6)
+        val col2 = intent.getIntArrayExtra("r_col2") ?: IntArray(6)
+        val col3 = intent.getIntArrayExtra("r_col3") ?: IntArray(6)
+        val col4 = intent.getIntArrayExtra("r_col4") ?: IntArray(6)
+        val col5 = intent.getIntArrayExtra("r_col5") ?: IntArray(6)
+        val col6 = intent.getIntArrayExtra("r_col6") ?: IntArray(6)
+        val col7 = intent.getIntArrayExtra("r_col7") ?: IntArray(6)
+
+        var arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
 
         val gameIndex = intent.getIntExtra("reIndex", 0)
 

@@ -27,6 +27,8 @@ import java.util.Random
 private var turn: Int = 0
 private lateinit var view: View
 
+private var gameGOGO: Int = 1
+
 
 private var arr = Array(7) { Array(6) { 0 } }
 
@@ -94,6 +96,7 @@ class GameActivity : AppCompatActivity() {
         // 게임 액티비티가 다시 재개되는 경우에 수행할 동작을 여기에 작성
         // 예: 게임 재개, 타이머 다시 시작 등
         if (resumeGame || gamePaused) {
+            gameGOGO = 2
             // 게임이 일시 중지된 상태에서 재개되는 경우에 수행할 동작
             Log.d("GameActivity", "이전 게임 called")
             if(gamePaused)
@@ -297,9 +300,17 @@ class GameActivity : AppCompatActivity() {
         c_col6 = col6.clone()
         c_col7 = col7.clone()
 
+        val difficulty = intent.getStringExtra("difficulty")
 
+        if (gameGOGO == 1) {
+            gameStartAPI()
+        } else {
+            if (GlobalApplication.prefs.getInt("turnGOGO", 0) % 2 == 0) {
+             //   gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index + 1, 0))
+            } else {
 
-        gameStartAPI()
+            }
+        }
 
 
 
@@ -307,7 +318,6 @@ class GameActivity : AppCompatActivity() {
         // 타이머 구현
         val tv_sec = findViewById<TextView>(R.id.tv_second)
         var sec = 30000
-        val difficulty = intent.getStringExtra("difficulty")
         GlobalApplication.prefs.setString("difficulty", difficulty.toString())
         Log.d("난이도", "${GlobalApplication.prefs.getString(" difficulty ", "")}")
 
@@ -1236,7 +1246,6 @@ class GameActivity : AppCompatActivity() {
         c_col5 = IntArray(6) { 0 }
         c_col6 = IntArray(6) { 0 }
         c_col7 = IntArray(6) { 0 }
-        arr = Array(7) { Array(6) { 0 } }
 
         val imageViews = arrayOf(
             arrayOf(binding.ivGm11, binding.ivGm12, binding.ivGm13, binding.ivGm14, binding.ivGm15, binding.ivGm16),
@@ -1253,6 +1262,7 @@ class GameActivity : AppCompatActivity() {
                 imageViews[i][j].setImageResource(R.drawable.nothing)
             }
         }
+        arr = Array(7) { Array(6) { 0 } }
 
         // gameStartAPI()
     }
@@ -1298,7 +1308,10 @@ class GameActivity : AppCompatActivity() {
 
                         GlobalApplication.prefs.setString("gameList", "${java.util.Arrays.deepToString(response.body()?.list)}")
 
-
+                        response?.body()?.now?.let {
+                            GlobalApplication.prefs.setInt("white",
+                                it)
+                        }
 
 
                         // turn이 1이면 흰돌 두기
@@ -1334,7 +1347,7 @@ class GameActivity : AppCompatActivity() {
                         GlobalApplication.prefs.setString("gameTurnList", "${java.util.Arrays.deepToString(response.body()?.list)}")
 
 
-                        var gameList = GlobalApplication.prefs.getString("gameList", "").toList()
+                        var turnGOGO = GlobalApplication.prefs.getString("turnGOGO", "")
 
                         Log.d("GameTurnAPI", "성공 ${java.util.Arrays.deepToString(whiteArray)}")
 
