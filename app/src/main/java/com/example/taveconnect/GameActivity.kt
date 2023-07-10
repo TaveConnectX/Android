@@ -65,6 +65,8 @@ class GameActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
+
+
         val resumeGame = intent.getBooleanExtra("resumeGame", false)
         countDownTimer?.cancel()
         Log.d("GameActivity", "countDownTimer cancel() called")
@@ -79,6 +81,14 @@ class GameActivity : AppCompatActivity() {
         c_col5 = col5.clone()
         c_col6 = col6.clone()
         c_col7 = col7.clone()
+        col1 = r_col1.clone()
+        col2 = r_col2.clone()
+        col3 = r_col3.clone()
+        col4 = r_col4.clone()
+        col5 = r_col5.clone()
+        col6 = r_col6.clone()
+        col7 = r_col7.clone()
+
         choice_c = choice
         Log.d("GameActivity", "onPause() called")
 
@@ -102,8 +112,14 @@ class GameActivity : AppCompatActivity() {
 
             if(gamePaused)
                 countDownTimer?.start()
-
-            // 게임 상태 배열 복원
+// 게임 상태 배열 복원
+            r_col1 = col1.clone()
+            r_col2 = col2.clone()
+            r_col3 = col3.clone()
+            r_col4 = col4.clone()
+            r_col5 = col5.clone()
+            r_col6 = col6.clone()
+            r_col7 = col7.clone()
             col1 = c_col1.clone()
             col2 = c_col2.clone()
             col3 = c_col3.clone()
@@ -290,7 +306,10 @@ class GameActivity : AppCompatActivity() {
 
         var soundId = soundPool.load(this, R.raw.hit, 1)
 
-
+        if(turn==0)
+            setTurn(0)
+        else if(turn==1)
+            setTurn(1)
 
         val intent2 = Intent(this, ReviewActivity::class.java)
         //val intent = Intent(this, DifficultyActivity::class.java)
@@ -306,6 +325,9 @@ class GameActivity : AppCompatActivity() {
         c_col7 = col7.clone()
 
         val difficulty = intent.getStringExtra("difficulty")
+
+
+
 
         if (gameGOGO == 1) {
             gameStartAPI()
@@ -1217,7 +1239,7 @@ class GameActivity : AppCompatActivity() {
             gameEndAPI(GameEndDTO(
                 difficulty = GlobalApplication.prefs.getString("difficulty", ""),
                 gameIdx = GlobalApplication.prefs.getInt("gameIdx", 0),
-                list = whiteArray,
+                list = arraysGame,
                 turn = reIndex,
                 winner = 2,
                 now = 0

@@ -19,7 +19,9 @@ class ReviewActivity : AppCompatActivity() {
     private lateinit var binding: ActivityReviewBinding
     private lateinit var imageViews: List<ImageView> // 이미지뷰들을 저장할 리스트 변수
     private var arr = Array(7) { Array(6) { 0 } }
+    private var recommendationList : MutableList<Int> = mutableListOf()
 
+    private var first : Int = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityReviewBinding.inflate(layoutInflater)
@@ -27,6 +29,10 @@ class ReviewActivity : AppCompatActivity() {
         setContentView(view)
 
         gameReviewAPI()
+
+        binding.btnHint.setOnClickListener {
+            gameReviewAPI()
+        }
         showBurger()
 
 
@@ -54,17 +60,29 @@ class ReviewActivity : AppCompatActivity() {
 
         binding.btnHint.isVisible = false
 
-        // 1열 이미지뷰 상태 복원
+        first = GlobalApplication.prefs.getInt("first", 0)
+        Log.d("GameActivity", "$first")
+
+
+        // 1열 이미지뷰 상태 복원전
         if (col1 != null) {
             for (i in 0 until col1.size) {
                 val coord = "iv_gm_1_" + (i + 1)
                 val packageName = packageName
                 val ivId = resources.getIdentifier(coord, "id", packageName)
                 val imageView = findViewById<ImageView>(ivId)
-                if (col1[i] % 2 == 0 && col1[i] != 0) {
-                    imageView.setImageResource(R.drawable.ic_white)
-                } else if (col1[i] % 2 == 1) {
-                    imageView.setImageResource(R.drawable.ic_black)
+                if(first == 1) {
+                    if (col1[i] % 2 == 0 && col1[i] != 0) {
+                        imageView.setImageResource(R.drawable.ic_white)
+                    } else if (col1[i] % 2 == 1) {
+                        imageView.setImageResource(R.drawable.ic_black)
+                    }
+                } else if(first == 2) {
+                    if (col1[i] % 2 == 0 && col1[i] != 0) {
+                        imageView.setImageResource(R.drawable.ic_black)
+                    } else if (col1[i] % 2 == 1) {
+                        imageView.setImageResource(R.drawable.ic_white)
+                    }
                 }
             }
         }
@@ -75,10 +93,18 @@ class ReviewActivity : AppCompatActivity() {
                 val packageName = packageName
                 val ivId = resources.getIdentifier(coord, "id", packageName)
                 val imageView = findViewById<ImageView>(ivId)
-                if (col2[i] % 2 == 0 && col2[i] != 0) {
-                    imageView.setImageResource(R.drawable.ic_white)
-                } else if (col2[i] % 2 == 1) {
-                    imageView.setImageResource(R.drawable.ic_black)
+                if(first == 1) {
+                    if (col1[i] % 2 == 0 && col1[i] != 0) {
+                        imageView.setImageResource(R.drawable.ic_white)
+                    } else if (col1[i] % 2 == 1) {
+                        imageView.setImageResource(R.drawable.ic_black)
+                    }
+                } else if(first == 2) {
+                    if (col1[i] % 2 == 0 && col1[i] != 0) {
+                        imageView.setImageResource(R.drawable.ic_black)
+                    } else if (col1[i] % 2 == 1) {
+                        imageView.setImageResource(R.drawable.ic_white)
+                    }
                 }
             }
         }
@@ -89,10 +115,18 @@ class ReviewActivity : AppCompatActivity() {
                 val packageName = packageName
                 val ivId = resources.getIdentifier(coord, "id", packageName)
                 val imageView = findViewById<ImageView>(ivId)
-                if (col3[i] % 2 == 0 && col3[i] != 0) {
-                    imageView.setImageResource(R.drawable.ic_white)
-                } else if (col3[i] % 2 == 1) {
-                    imageView.setImageResource(R.drawable.ic_black)
+                if(first == 1) {
+                    if (col1[i] % 2 == 0 && col1[i] != 0) {
+                        imageView.setImageResource(R.drawable.ic_white)
+                    } else if (col1[i] % 2 == 1) {
+                        imageView.setImageResource(R.drawable.ic_black)
+                    }
+                } else if(first == 2) {
+                    if (col1[i] % 2 == 0 && col1[i] != 0) {
+                        imageView.setImageResource(R.drawable.ic_black)
+                    } else if (col1[i] % 2 == 1) {
+                        imageView.setImageResource(R.drawable.ic_white)
+                    }
                 }
             }
         }
@@ -103,10 +137,18 @@ class ReviewActivity : AppCompatActivity() {
                 val packageName = packageName
                 val ivId = resources.getIdentifier(coord, "id", packageName)
                 val imageView = findViewById<ImageView>(ivId)
-                if (col4[i] % 2 == 0 && col4[i] != 0) {
-                    imageView.setImageResource(R.drawable.ic_white)
-                } else if (col4[i] % 2 == 1) {
-                    imageView.setImageResource(R.drawable.ic_black)
+                if(first == 1) {
+                    if (col1[i] % 2 == 0 && col1[i] != 0) {
+                        imageView.setImageResource(R.drawable.ic_white)
+                    } else if (col1[i] % 2 == 1) {
+                        imageView.setImageResource(R.drawable.ic_black)
+                    }
+                } else if(first == 2) {
+                    if (col1[i] % 2 == 0 && col1[i] != 0) {
+                        imageView.setImageResource(R.drawable.ic_black)
+                    } else if (col1[i] % 2 == 1) {
+                        imageView.setImageResource(R.drawable.ic_white)
+                    }
                 }
             }
         }
@@ -117,10 +159,18 @@ class ReviewActivity : AppCompatActivity() {
                 val packageName = packageName
                 val ivId = resources.getIdentifier(coord, "id", packageName)
                 val imageView = findViewById<ImageView>(ivId)
-                if (col5[i] % 2 == 0 && col5[i] != 0) {
-                    imageView.setImageResource(R.drawable.ic_white)
-                } else if (col5[i] % 2 == 1) {
-                    imageView.setImageResource(R.drawable.ic_black)
+                if(first == 1) {
+                    if (col1[i] % 2 == 0 && col1[i] != 0) {
+                        imageView.setImageResource(R.drawable.ic_white)
+                    } else if (col1[i] % 2 == 1) {
+                        imageView.setImageResource(R.drawable.ic_black)
+                    }
+                } else if(first == 2) {
+                    if (col1[i] % 2 == 0 && col1[i] != 0) {
+                        imageView.setImageResource(R.drawable.ic_black)
+                    } else if (col1[i] % 2 == 1) {
+                        imageView.setImageResource(R.drawable.ic_white)
+                    }
                 }
             }
         }
@@ -131,10 +181,18 @@ class ReviewActivity : AppCompatActivity() {
                 val packageName = packageName
                 val ivId = resources.getIdentifier(coord, "id", packageName)
                 val imageView = findViewById<ImageView>(ivId)
-                if (col6[i] % 2 == 0 && col6[i] != 0) {
-                    imageView.setImageResource(R.drawable.ic_white)
-                } else if (col6[i] % 2 == 1) {
-                    imageView.setImageResource(R.drawable.ic_black)
+                if(first == 1) {
+                    if (col1[i] % 2 == 0 && col1[i] != 0) {
+                        imageView.setImageResource(R.drawable.ic_white)
+                    } else if (col1[i] % 2 == 1) {
+                        imageView.setImageResource(R.drawable.ic_black)
+                    }
+                } else if(first == 2) {
+                    if (col1[i] % 2 == 0 && col1[i] != 0) {
+                        imageView.setImageResource(R.drawable.ic_black)
+                    } else if (col1[i] % 2 == 1) {
+                        imageView.setImageResource(R.drawable.ic_white)
+                    }
                 }
             }
         }
@@ -145,10 +203,18 @@ class ReviewActivity : AppCompatActivity() {
                 val packageName = packageName
                 val ivId = resources.getIdentifier(coord, "id", packageName)
                 val imageView = findViewById<ImageView>(ivId)
-                if (col7[i] % 2 == 0 && col7[i] != 0) {
-                    imageView.setImageResource(R.drawable.ic_white)
-                } else if (col7[i] % 2 == 1) {
-                    imageView.setImageResource(R.drawable.ic_black)
+                if(first == 1) {
+                    if (col1[i] % 2 == 0 && col1[i] != 0) {
+                        imageView.setImageResource(R.drawable.ic_white)
+                    } else if (col1[i] % 2 == 1) {
+                        imageView.setImageResource(R.drawable.ic_black)
+                    }
+                } else if(first == 2) {
+                    if (col1[i] % 2 == 0 && col1[i] != 0) {
+                        imageView.setImageResource(R.drawable.ic_black)
+                    } else if (col1[i] % 2 == 1) {
+                        imageView.setImageResource(R.drawable.ic_white)
+                    }
                 }
             }
         }
@@ -156,6 +222,8 @@ class ReviewActivity : AppCompatActivity() {
         binding.btnNext.setOnClickListener {
             if (nowIndex < gameIndex) {
                 nowIndex++
+                accessRecommendationList(nowIndex)
+
                 for (i in 0 until col1.size) {
                     val coord = "iv_gm_1_" + (i + 1)
                     val packageName = packageName
@@ -347,6 +415,9 @@ class ReviewActivity : AppCompatActivity() {
                     }
                 }
                 nowIndex--
+
+                accessRecommendationList(nowIndex)
+
                 if (nowIndex % 2 == 0) {
                     binding.btnHint.isVisible = false
                 } else {
@@ -375,19 +446,35 @@ class ReviewActivity : AppCompatActivity() {
     fun gameReviewAPI() {
         val gameAPI = RetrofitClient.getInstance().create(RetroiftAPI::class.java)
 
-        gameAPI.getGameReview()
-            .enqueue(object: Callback<GameReviewData> {
-                override fun onResponse(call: Call<GameReviewData>, response: Response<GameReviewData>) {
-                    if (response.isSuccessful) {
-                        Log.d("GameReviewAPI", "성공 ${response.body().toString()}")
+        gameAPI.getGameReview().enqueue(object: Callback<GameReviewData> {
+            override fun onResponse(call: Call<GameReviewData>, response: Response<GameReviewData>) {
+                if (response.isSuccessful) {
+                    response.body()?.let { gameReviewData ->
+                        val firstList: MutableList<Int> = mutableListOf()
+
+                        // 받아온 데이터를 순회하면서 recommendation 값과 first 값을 추출하여 리스트에 추가
+                        for (gameReviewDataItem in gameReviewData) {
+                            recommendationList.add(gameReviewDataItem.recommendation)
+                            firstList.add(gameReviewDataItem.first)
+                        }
+
+
+                        // 추출한 recommendation 값들을 확인
+                        Log.d("RecommendationList", recommendationList.toString())
+                        // 추출한 first 값들을 확인
+                        Log.d("FirstList", firstList[0].toString())
+
+                        GlobalApplication.prefs.setInt("first", firstList[0])
+
                     }
+                    Log.d("GameReviewAPI", "성공 ${response.body().toString()}")
                 }
+            }
 
-                override fun onFailure(call: Call<GameReviewData>, t: Throwable) {
-                    Log.d("GameReviewAPI", "실패")
-                }
-            })
-
+            override fun onFailure(call: Call<GameReviewData>, t: Throwable) {
+                Log.d("GameReviewAPI", "실패")
+            }
+        })
     }
 
 
@@ -421,6 +508,17 @@ class ReviewActivity : AppCompatActivity() {
     }
 
 
+    // 버튼 클릭 시 nowIndex에 따라 RecommendationList에 저장된 리스트에 접근하는 함수
+    fun accessRecommendationList(nowIndex: Int) {
+        // nowIndex가 유효한 범위 내에 있는지 확인
+        if (nowIndex >= 0 && nowIndex < recommendationList.size) {
+            val recommendationValue = recommendationList[nowIndex]
+            Log.d("추천", recommendationValue.toString())
+            binding.tvHint.text = recommendationValue.toString()
+
+        } else {
+        }
+    }
+
 
 }
-
