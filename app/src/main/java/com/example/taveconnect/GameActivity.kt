@@ -79,8 +79,10 @@ class GameActivity : AppCompatActivity() {
         if (resumeGame || gamePaused) {
             // 게임이 일시 중지된 상태에서 재개되는 경우에 수행할 동작
             Log.d("GameActivity", "이전 게임 called")
+
             if(gamePaused)
                 countDownTimer?.start()
+
             // 게임 상태 배열 복원
             col1 = c_col1.clone()
             col2 = c_col2.clone()
