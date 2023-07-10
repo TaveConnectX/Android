@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.example.taveconnect.databinding.ActivityReviewBinding
 import com.example.taveconnect.game.GameReviewData
 import com.example.taveconnect.retrofit.RetrofitClient
@@ -50,6 +51,8 @@ class ReviewActivity : AppCompatActivity() {
         // Use the received data as needed
         Log.d("Review_GameActivity", "Index = $gameIndex")
         Log.d("GameActivity", "현재 3열: ${col3[1]}")
+
+        binding.btnHint.isVisible = false
 
         // 1열 이미지뷰 상태 복원
         if (col1 != null) {
@@ -161,8 +164,10 @@ class ReviewActivity : AppCompatActivity() {
                     if (col1[i] == nowIndex) {
                         if (nowIndex % 2 == 0) {
                             imageView.setImageResource(R.drawable.ic_white)
+                            binding.btnHint.isVisible = false
                         } else {
                             imageView.setImageResource(R.drawable.ic_black)
+                            binding.btnHint.isVisible = true
                         }
                         break
                     }
@@ -175,8 +180,10 @@ class ReviewActivity : AppCompatActivity() {
                     if (col2[i] == nowIndex) {
                         if (nowIndex % 2 == 0) {
                             imageView.setImageResource(R.drawable.ic_white)
+                            binding.btnHint.isVisible = false
                         } else {
                             imageView.setImageResource(R.drawable.ic_black)
+                            binding.btnHint.isVisible = true
                         }
                         break
                     }
@@ -189,8 +196,10 @@ class ReviewActivity : AppCompatActivity() {
                     if (col3[i] == nowIndex) {
                         if (nowIndex % 2 == 0) {
                             imageView.setImageResource(R.drawable.ic_white)
+                            binding.btnHint.isVisible = false
                         } else {
                             imageView.setImageResource(R.drawable.ic_black)
+                            binding.btnHint.isVisible = true
                         }
                         break
                     }
@@ -203,8 +212,10 @@ class ReviewActivity : AppCompatActivity() {
                     if (col4[i] == nowIndex) {
                         if (nowIndex % 2 == 0) {
                             imageView.setImageResource(R.drawable.ic_white)
+                            binding.btnHint.isVisible = false
                         } else {
                             imageView.setImageResource(R.drawable.ic_black)
+                            binding.btnHint.isVisible = true
                         }
                         break
                     }
@@ -217,8 +228,10 @@ class ReviewActivity : AppCompatActivity() {
                     if (col5[i] == nowIndex) {
                         if (nowIndex % 2 == 0) {
                             imageView.setImageResource(R.drawable.ic_white)
+                            binding.btnHint.isVisible = false
                         } else {
                             imageView.setImageResource(R.drawable.ic_black)
+                            binding.btnHint.isVisible = true
                         }
                         break
                     }
@@ -231,8 +244,10 @@ class ReviewActivity : AppCompatActivity() {
                     if (col6[i] == nowIndex) {
                         if (nowIndex % 2 == 0) {
                             imageView.setImageResource(R.drawable.ic_white)
+                            binding.btnHint.isVisible = false
                         } else {
                             imageView.setImageResource(R.drawable.ic_black)
+                            binding.btnHint.isVisible = true
                         }
                         break
                     }
@@ -245,8 +260,10 @@ class ReviewActivity : AppCompatActivity() {
                     if (col7[i] == nowIndex) {
                         if (nowIndex % 2 == 0) {
                             imageView.setImageResource(R.drawable.ic_white)
+                            binding.btnHint.isVisible = false
                         } else {
                             imageView.setImageResource(R.drawable.ic_black)
+                            binding.btnHint.isVisible = true
                         }
                         break
                     }
@@ -330,10 +347,19 @@ class ReviewActivity : AppCompatActivity() {
                     }
                 }
                 nowIndex--
+                if (nowIndex % 2 == 0) {
+                    binding.btnHint.isVisible = false
+                } else {
+                    binding.btnHint.isVisible = true
+                }
             } else if (nowIndex == 1) {
                 nowIndex--
                 Toast.makeText(this@ReviewActivity, "돌아갈 수가 없습니다.", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        binding.btnHint.setOnClickListener {
+            // 힌트 누르면 AI 추천 수 보여주기
         }
 
     }
