@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
+import android.provider.Settings.Global
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
@@ -24,6 +25,8 @@ import java.util.Random
 
 
 private var turn: Int = 0
+private lateinit var view: View
+
 
 private var col1 = IntArray(6) { 0 }
 private var col2 = IntArray(6) { 0 }
@@ -34,13 +37,22 @@ private var col6 = IntArray(6) { 0 }
 private var col7 = IntArray(6) { 0 }
 private var choice = "normal"
 
+
+
 class GameActivity : AppCompatActivity() {
 
     var gamePaused = false
     private lateinit var binding: ActivityGameBinding
-    val soundPool = SoundPool.Builder().build()
 
     private var countDownTimer: CountDownTimer? = null
+
+    // 효과음
+    val soundPool = SoundPool.Builder().build()
+
+
+    private lateinit var whiteArray : Array<Array<Int>>
+
+
 
     var canOrCannot = 2
     var choice_c = "normal"
@@ -93,6 +105,7 @@ class GameActivity : AppCompatActivity() {
             choice = choice_c
 
             var arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
+
 
             if(checkFourConnectedB(arrays))
             {
@@ -260,8 +273,12 @@ class GameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityGameBinding.inflate(layoutInflater)
-        val view = binding.root
+        view = binding.root
         setContentView(view)
+
+        var soundId = soundPool.load(this, R.raw.hit, 1)
+
+
 
         val intent2 = Intent(this, ReviewActivity::class.java)
         //val intent = Intent(this, DifficultyActivity::class.java)
@@ -282,8 +299,6 @@ class GameActivity : AppCompatActivity() {
 
 
 
-        // 효과음
-        var soundId = soundPool.load(this, R.raw.hit, 1)
 
         // 타이머 구현
         val tv_sec = findViewById<TextView>(R.id.tv_second)
@@ -346,6 +361,16 @@ class GameActivity : AppCompatActivity() {
 
         showBurger()
 
+
+        var myTurn = GlobalApplication.prefs.getInt("myTurn", 0)
+        if (myTurn == 1) {
+        }
+
+
+        var arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
+
+
+
         // 1열
         fun onImageViewClick1(view: View) {
             if (countDownTimer != null) {
@@ -357,6 +382,16 @@ class GameActivity : AppCompatActivity() {
                     if (col1[i] == 0 && turn == 0) {
                         col1[i] = 1
                         c_col1[i] = 1
+
+
+                        arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
+                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index + 1))
+
+                        whiteArray = arraysGame
+
+
+                        Log.d("2차원 배열", java.util.Arrays.deepToString(arraysGame))
+
                         reIndex ++
                         r_col1[i] = reIndex
                         Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
@@ -377,7 +412,7 @@ class GameActivity : AppCompatActivity() {
                         turn = 1
                         setTurn(turn)
                         Handler(Looper.getMainLooper()).postDelayed({
-                            whiteRandom()
+                            whiteValue()
                             soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                             turn = 0
                             setTurn(turn)
@@ -407,6 +442,16 @@ class GameActivity : AppCompatActivity() {
                     if (col2[i] == 0 && turn == 0) {
                         col2[i] = 1
                         c_col2[i] = 1
+
+
+                        arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
+
+                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list =  arraysGame, index + 1))
+                        whiteArray = arraysGame
+
+
+                        Log.d("2차원 배열", java.util.Arrays.deepToString(arraysGame))
+
                         reIndex ++
                         r_col2[i] = reIndex
                         Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
@@ -427,7 +472,7 @@ class GameActivity : AppCompatActivity() {
                         turn = 1
                         setTurn(turn)
                         Handler(Looper.getMainLooper()).postDelayed({
-                            whiteRandom()
+                            whiteValue()
                             soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                             turn = 0
                             setTurn(turn)
@@ -456,6 +501,16 @@ class GameActivity : AppCompatActivity() {
                     if (col3[i] == 0 && turn == 0) {
                         col3[i] = 1
                         c_col3[i] = 1
+
+
+                        arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
+
+                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index + 1))
+                        whiteArray = arraysGame
+
+
+                        Log.d("2차원 배열", java.util.Arrays.deepToString(arraysGame))
+
                         reIndex ++
                         r_col3[i] = reIndex
                         Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
@@ -476,7 +531,7 @@ class GameActivity : AppCompatActivity() {
                         turn = 1
                         setTurn(turn)
                         Handler(Looper.getMainLooper()).postDelayed({
-                            whiteRandom()
+                            whiteValue()
                             soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                             turn = 0
                             setTurn(turn)
@@ -505,6 +560,17 @@ class GameActivity : AppCompatActivity() {
                     if (col4[i] == 0 && turn == 0) {
                         col4[i] = 1
                         c_col4[i] = 1
+
+
+                        arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
+
+                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index + 1))
+                        whiteArray = arraysGame
+
+
+                        Log.d("2차원 배열", arraysGame.toString())
+
+
                         reIndex ++
                         r_col4[i] = reIndex
                         Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
@@ -525,7 +591,7 @@ class GameActivity : AppCompatActivity() {
                         turn = 1
                         setTurn(turn)
                         Handler(Looper.getMainLooper()).postDelayed({
-                            whiteRandom()
+                            whiteValue()
                             soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                             turn = 0
                             setTurn(turn)
@@ -554,6 +620,14 @@ class GameActivity : AppCompatActivity() {
                     if (col5[i] == 0 && turn == 0) {
                         col5[i] = 1
                         c_col5[i] = 1
+
+                        arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
+                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index + 1))
+                        whiteArray = arraysGame
+
+                        Log.d("2차원 배열", arraysGame.toString())
+
+
                         reIndex ++
                         r_col5[i] = reIndex
                         Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
@@ -574,7 +648,7 @@ class GameActivity : AppCompatActivity() {
                         turn = 1
                         setTurn(turn)
                         Handler(Looper.getMainLooper()).postDelayed({
-                            whiteRandom()
+                            whiteValue()
                             soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                             turn = 0
                             setTurn(turn)
@@ -594,6 +668,10 @@ class GameActivity : AppCompatActivity() {
         }
 
         fun onImageViewClick6(view: View) {
+
+
+
+
             if (countDownTimer != null) {
                 countDownTimer!!.onFinish()
                 countDownTimer!!.start()
@@ -601,8 +679,17 @@ class GameActivity : AppCompatActivity() {
                 val coo = "iv_gm_6_"
                 while (i < col6.size) {
                     if (col6[i] == 0 && turn == 0) {
+
                         col6[i] = 1
                         c_col6[i] = 1
+
+                        arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
+                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index + 1))
+                        whiteArray = arraysGame
+
+                        Log.d("2차원 배열", arraysGame.toString())
+
+
                         reIndex ++
                         r_col6[i] = reIndex
                         Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
@@ -623,7 +710,7 @@ class GameActivity : AppCompatActivity() {
                         turn = 1
                         setTurn(turn)
                         Handler(Looper.getMainLooper()).postDelayed({
-                            whiteRandom()
+                            whiteValue()
                             soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                             turn = 0
                             setTurn(turn)
@@ -652,6 +739,15 @@ class GameActivity : AppCompatActivity() {
                     if (col7[i] == 0 && turn == 0) {
                         col7[i] = 1
                         c_col7[i] = 1
+
+                        arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
+                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index + 1))
+                        whiteArray = convertTo2DArray(r_col1, r_col2, r_col3, r_col4, r_col5, r_col6, r_col7)
+
+                        Log.d("2차원 배열", arraysGame.toString())
+
+
+
                         reIndex ++
                         r_col7[i] = reIndex
                         Log.d("GameActivity", "인덱스 값은 "+reIndex.toString())
@@ -672,13 +768,15 @@ class GameActivity : AppCompatActivity() {
                         turn = 1
                         setTurn(turn)
                         Handler(Looper.getMainLooper()).postDelayed({
-                            whiteRandom()
+                            whiteValue()
                             soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                             turn = 0
                             setTurn(turn)
                             countDownTimer!!.onFinish()
                             countDownTimer!!.start()
                             if(checkFourConnectedB(arrays) == true) {
+
+                                // gameEndAPI()
                                 countDownTimer!!.onFinish()
                                 turn = 3
                                 setTurn(turn)
@@ -692,178 +790,137 @@ class GameActivity : AppCompatActivity() {
         }
 
         binding.ivGm11.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 1)), index + 1))
             onImageViewClick1(it)
         }
         binding.ivGm12.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 1)), index + 1))
             onImageViewClick1(it)
         }
         binding.ivGm13.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 1)), index + 1))
             onImageViewClick1(it)
         }
         binding.ivGm14.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 1)), index + 1))
             onImageViewClick1(it)
         }
         binding.ivGm15.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 1)), index + 1))
             onImageViewClick1(it)
         }
         binding.ivGm16.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 1)), index + 1))
             onImageViewClick1(it)
         }
 
         binding.ivGm21.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 2)), index + 1))
             onImageViewClick2(it)
         }
         binding.ivGm22.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 2)), index + 1))
             onImageViewClick2(it)
         }
         binding.ivGm23.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 2)), index + 1))
             onImageViewClick2(it)
         }
         binding.ivGm24.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 2)), index + 1))
             onImageViewClick2(it)
         }
         binding.ivGm25.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 2)), index + 1))
             onImageViewClick2(it)
         }
         binding.ivGm26.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 2)), index + 1))
             onImageViewClick2(it)
         }
 
         binding.ivGm31.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 3)), index + 1))
             onImageViewClick3(it)
         }
         binding.ivGm32.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 3)), index + 1))
             onImageViewClick3(it)
         }
         binding.ivGm33.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 3)), index + 1))
             onImageViewClick3(it)
         }
         binding.ivGm34.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 3)), index + 1))
             onImageViewClick3(it)
         }
         binding.ivGm35.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 3)), index + 1))
             onImageViewClick3(it)
         }
         binding.ivGm36.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 3)), index + 1))
             onImageViewClick3(it)
         }
         binding.ivGm41.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 4)), index + 1))
             onImageViewClick4(it)
         }
         binding.ivGm42.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 4)), index + 1))
             onImageViewClick4(it)
         }
         binding.ivGm43.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 4)), index + 1))
             onImageViewClick4(it)
         }
         binding.ivGm44.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 4)), index + 1))
             onImageViewClick4(it)
         }
         binding.ivGm45.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 4)), index + 1))
             onImageViewClick4(it)
         }
         binding.ivGm46.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 4)), index + 1))
             onImageViewClick4(it)
         }
 
         binding.ivGm51.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 5)), index + 1))
             onImageViewClick5(it)
         }
         binding.ivGm52.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 5)), index + 1))
             onImageViewClick5(it)
         }
         binding.ivGm53.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 5)), index + 1))
             onImageViewClick5(it)
         }
         binding.ivGm54.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 5)), index + 1))
             onImageViewClick5(it)
         }
         binding.ivGm55.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 5)), index + 1))
             onImageViewClick5(it)
         }
         binding.ivGm56.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 5)), index + 1))
             onImageViewClick5(it)
         }
 
         binding.ivGm61.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 6)), index + 1))
             onImageViewClick6(it)
         }
         binding.ivGm62.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 6)), index + 1))
             onImageViewClick6(it)
         }
         binding.ivGm63.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 6)), index + 1))
             onImageViewClick6(it)
         }
         binding.ivGm64.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 6)), index + 1))
             onImageViewClick6(it)
         }
         binding.ivGm65.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 6)), index + 1))
             onImageViewClick6(it)
         }
         binding.ivGm66.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 6)), index + 1))
             onImageViewClick6(it)
         }
-
         binding.ivGm71.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 6)), index + 1))
             onImageViewClick7(it)
         }
         binding.ivGm72.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 7)), index + 1))
             onImageViewClick7(it)
         }
         binding.ivGm73.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 7)), index + 1))
             onImageViewClick7(it)
         }
         binding.ivGm74.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 7)), index + 1))
             onImageViewClick7(it)
         }
         binding.ivGm75.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 7)), index + 1))
             onImageViewClick7(it)
         }
         binding.ivGm76.setOnClickListener {
-            gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 7)), index + 1))
             onImageViewClick7(it)
         }
+
+
 
     }
 
@@ -924,11 +981,13 @@ class GameActivity : AppCompatActivity() {
     }
 
     // 백돌 랜덤 함수
-    private fun whiteRandom() {
-        val random = Random()
-        val ranNum = random.nextInt(6) + 1
+    fun whiteValue() {
 
-        if(ranNum == 1) {
+        // val random = Random()
+        val white_a = GlobalApplication.prefs.getInt("white", 0)
+        val white = white_a + 1
+
+        if(white == 1) {
             var i = 0
             val coo = "iv_gm_1_"
             while (i < col1.size) {
@@ -950,7 +1009,7 @@ class GameActivity : AppCompatActivity() {
                 i++
             }
         }
-        else if(ranNum == 2) {
+        else if(white == 2) {
             var i = 0
             val coo = "iv_gm_2_"
             while (i < col2.size) {
@@ -971,7 +1030,7 @@ class GameActivity : AppCompatActivity() {
                 i++
             }
         }
-        else if(ranNum == 3) {
+        else if(white == 3) {
             var i = 0
             val coo = "iv_gm_3_"
             while (i < col3.size) {
@@ -992,7 +1051,7 @@ class GameActivity : AppCompatActivity() {
                 i++
             }
         }
-        else if(ranNum == 4) {
+        else if(white == 4) {
             var i = 0
             val coo = "iv_gm_4_"
             while (i < col4.size) {
@@ -1014,7 +1073,7 @@ class GameActivity : AppCompatActivity() {
                 i++
             }
         }
-        else if(ranNum == 5) {
+        else if(white == 5) {
             var i = 0
             val coo = "iv_gm_5_"
             while (i < col5.size) {
@@ -1035,7 +1094,7 @@ class GameActivity : AppCompatActivity() {
                 i++
             }
         }
-        else if(ranNum == 6) {
+        else if(white == 6) {
             var i = 0
             val coo = "iv_gm_6_"
             while (i < col6.size) {
@@ -1078,7 +1137,11 @@ class GameActivity : AppCompatActivity() {
                 i++
             }
         }
+
+
     }
+
+
 
     fun setTurn(t: Int) {
 
@@ -1185,6 +1248,8 @@ class GameActivity : AppCompatActivity() {
     }
 
 
+
+
     fun gameStartAPI() {
         // API
         val gameAPI = RetrofitClient.getInstance().create(RetroiftAPI::class.java)
@@ -1212,17 +1277,15 @@ class GameActivity : AppCompatActivity() {
 
 
                         GlobalApplication.prefs.setString("gameList", "${java.util.Arrays.deepToString(response.body()?.list)}")
-                        GlobalApplication.prefs.setString("gameTurnList", "${java.util.Arrays.deepToString(response.body()?.list)}")
-
-                        Log.d("GameStart", "성공 ${response.body().toString()}")
 
 
+                        var firstTurn = java.util.Arrays.deepToString(response.body()?.list?.get(5))
 
-                        // turn에 따라 선공 정하기
-                        if (response.body()?.turn == 0) {
-                        } else if (response.body()?.turn == 1) {
-                            //
-                            whiteRandom()
+
+                        // turn이 1이면 흰돌 두기
+                        if (response.body()?.turn == 1) {
+                            Log.d("선공이면", firstTurn)
+                            firstTurn
                         }
 
 
@@ -1251,18 +1314,24 @@ class GameActivity : AppCompatActivity() {
                         GlobalApplication.prefs.setString("gameTurnList", "${java.util.Arrays.deepToString(response.body()?.list)}")
 
 
+                        var gameList = GlobalApplication.prefs.getString("gameList", "").toList()
+
                         Log.d("GameTurnAPI", "성공 ${response.body().toString()}")
-                        Log.d("GameList", "${GlobalApplication.prefs.getString("gameList", "")}")
-                        Log.d("GameTurnList", "성공 ${GlobalApplication.prefs.getString("gameTurnList", "")}")
+                        Log.d("GameList", "$gameList")
 
 
+                        response?.body()?.now?.let {
+                            GlobalApplication.prefs.setInt("white",
+                                it)
+                        }
+                        Log.d("흰 돌 위치", "${GlobalApplication.prefs.getInt("white", 0)}")
 
                         val gameTurnList = GlobalApplication.prefs.getString("gameTurnList", "")
                         val parsedList = Gson().fromJson(gameTurnList, Array<Array<Int>>::class.java)
                         val myTurn = parsedList[0][1]
+                        val whiteNewArray = GlobalApplication.prefs.getInt("white", 0)
 
-                        GlobalApplication.prefs.setInt("myTurn", myTurn)
-                        Log.d("MyTurn", "내가 둔 열: $myTurn")
+
 
 
                     }
@@ -1292,4 +1361,21 @@ class GameActivity : AppCompatActivity() {
             })
 
     }
+
+
+    fun convertTo2DArray(col1: IntArray, col2: IntArray, col3: IntArray, col4: IntArray, col5: IntArray, col6: IntArray, col7: IntArray): Array<Array<Int>> {
+        val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
+        val numRows = col1.size
+        val numCols = arrays.size
+
+        val result = Array(numRows) { row ->
+            Array(numCols) { col ->
+                arrays[col][row]
+            }
+        }
+
+        return result
+    }
+
+
 }
