@@ -28,6 +28,9 @@ private var turn: Int = 0
 private lateinit var view: View
 
 
+private var arr = Array(7) { Array(6) { 0 } }
+
+
 private var col1 = IntArray(6) { 0 }
 private var col2 = IntArray(6) { 0 }
 private var col3 = IntArray(6) { 0 }
@@ -49,6 +52,7 @@ class GameActivity : AppCompatActivity() {
     // 효과음
     val soundPool = SoundPool.Builder().build()
 
+    private var arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
 
     private lateinit var whiteArray : Array<Array<Int>>
 
@@ -367,7 +371,6 @@ class GameActivity : AppCompatActivity() {
         }
 
 
-        var arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
 
 
 
@@ -385,7 +388,7 @@ class GameActivity : AppCompatActivity() {
 
 
                         arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
-                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index + 1))
+                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index + 1, 0))
 
                         whiteArray = arraysGame
 
@@ -404,6 +407,7 @@ class GameActivity : AppCompatActivity() {
                         soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                         val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
                         if(checkFourConnectedB(arrays) == true) {
+
                             countDownTimer!!.onFinish()
                             turn = 2
                             setTurn(turn)
@@ -446,7 +450,7 @@ class GameActivity : AppCompatActivity() {
 
                         arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
 
-                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list =  arraysGame, index + 1))
+                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list =  arraysGame, index + 1, 0))
                         whiteArray = arraysGame
 
 
@@ -464,6 +468,7 @@ class GameActivity : AppCompatActivity() {
                         soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                         val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
                         if(checkFourConnectedB(arrays) == true) {
+
                             countDownTimer!!.onFinish()
                             turn = 2
                             setTurn(turn)
@@ -479,6 +484,7 @@ class GameActivity : AppCompatActivity() {
                             countDownTimer!!.onFinish()
                             countDownTimer!!.start()
                             if(checkFourConnectedB(arrays) == true) {
+
                                 countDownTimer!!.onFinish()
                                 turn = 3
                                 setTurn(turn)
@@ -505,7 +511,7 @@ class GameActivity : AppCompatActivity() {
 
                         arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
 
-                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index + 1))
+                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index + 1, 0))
                         whiteArray = arraysGame
 
 
@@ -523,6 +529,7 @@ class GameActivity : AppCompatActivity() {
                         soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                         val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
                         if(checkFourConnectedB(arrays) == true) {
+
                             countDownTimer!!.onFinish()
                             turn = 2
                             setTurn(turn)
@@ -538,6 +545,7 @@ class GameActivity : AppCompatActivity() {
                             countDownTimer!!.onFinish()
                             countDownTimer!!.start()
                             if(checkFourConnectedB(arrays) == true) {
+
                                 countDownTimer!!.onFinish()
                                 turn = 3
                                 setTurn(turn)
@@ -564,7 +572,7 @@ class GameActivity : AppCompatActivity() {
 
                         arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
 
-                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index + 1))
+                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index + 1, 0))
                         whiteArray = arraysGame
 
 
@@ -583,6 +591,7 @@ class GameActivity : AppCompatActivity() {
                         soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                         val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
                         if(checkFourConnectedB(arrays) == true) {
+
                             countDownTimer!!.onFinish()
                             turn = 2
                             setTurn(turn)
@@ -598,6 +607,7 @@ class GameActivity : AppCompatActivity() {
                             countDownTimer!!.onFinish()
                             countDownTimer!!.start()
                             if(checkFourConnectedB(arrays) == true) {
+
                                 countDownTimer!!.onFinish()
                                 turn = 3
                                 setTurn(turn)
@@ -622,7 +632,7 @@ class GameActivity : AppCompatActivity() {
                         c_col5[i] = 1
 
                         arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
-                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index + 1))
+                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index + 1, 0))
                         whiteArray = arraysGame
 
                         Log.d("2차원 배열", arraysGame.toString())
@@ -640,6 +650,7 @@ class GameActivity : AppCompatActivity() {
                         soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                         val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
                         if(checkFourConnectedB(arrays) == true) {
+
                             countDownTimer!!.onFinish()
                             turn = 2
                             setTurn(turn)
@@ -655,6 +666,7 @@ class GameActivity : AppCompatActivity() {
                             countDownTimer!!.onFinish()
                             countDownTimer!!.start()
                             if(checkFourConnectedB(arrays) == true) {
+
                                 countDownTimer!!.onFinish()
                                 turn = 3
                                 setTurn(turn)
@@ -670,8 +682,6 @@ class GameActivity : AppCompatActivity() {
         fun onImageViewClick6(view: View) {
 
 
-
-
             if (countDownTimer != null) {
                 countDownTimer!!.onFinish()
                 countDownTimer!!.start()
@@ -684,7 +694,7 @@ class GameActivity : AppCompatActivity() {
                         c_col6[i] = 1
 
                         arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
-                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index + 1))
+                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index + 1, 0))
                         whiteArray = arraysGame
 
                         Log.d("2차원 배열", arraysGame.toString())
@@ -702,6 +712,7 @@ class GameActivity : AppCompatActivity() {
                         soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                         val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
                         if(checkFourConnectedB(arrays) == true) {
+
                             countDownTimer!!.onFinish()
                             turn = 2
                             setTurn(turn)
@@ -717,6 +728,7 @@ class GameActivity : AppCompatActivity() {
                             countDownTimer!!.onFinish()
                             countDownTimer!!.start()
                             if(checkFourConnectedB(arrays) == true) {
+
                                 countDownTimer!!.onFinish()
                                 turn = 3
                                 setTurn(turn)
@@ -741,7 +753,7 @@ class GameActivity : AppCompatActivity() {
                         c_col7[i] = 1
 
                         arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
-                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index + 1))
+                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index + 1, 0))
                         whiteArray = convertTo2DArray(r_col1, r_col2, r_col3, r_col4, r_col5, r_col6, r_col7)
 
                         Log.d("2차원 배열", arraysGame.toString())
@@ -760,6 +772,8 @@ class GameActivity : AppCompatActivity() {
                         soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
                         val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
                         if(checkFourConnectedB(arrays) == true) {
+
+
                             countDownTimer!!.onFinish()
                             turn = 2
                             setTurn(turn)
@@ -776,7 +790,6 @@ class GameActivity : AppCompatActivity() {
                             countDownTimer!!.start()
                             if(checkFourConnectedB(arrays) == true) {
 
-                                // gameEndAPI()
                                 countDownTimer!!.onFinish()
                                 turn = 3
                                 setTurn(turn)
@@ -1161,11 +1174,11 @@ class GameActivity : AppCompatActivity() {
             gameEndAPI(GameEndDTO(
                 difficulty = GlobalApplication.prefs.getString("difficulty", ""),
                 gameIdx = GlobalApplication.prefs.getInt("gameIdx", 0),
-                list = arrayOf(arrayOf(6, 1)),
-                turn = index,
-                winner = 1
+                list = arraysGame,
+                turn = reIndex,
+                winner = 1,
+                now = 0
             ))
-
 
             tv_turn.text = "You Win!!"
             val intent = Intent(this, EndActivity::class.java)
@@ -1181,11 +1194,14 @@ class GameActivity : AppCompatActivity() {
             intent.putExtra("r_col7", r_col7)
             startActivity(intent)
         } else if (t == 3) {
-            gameEndAPI(GameEndDTO(GlobalApplication.prefs.getString("difficulty", ""), GlobalApplication.prefs.getInt("gameIdx", 0), list = arrayOf(arrayOf(6, 6)), index, 2))
-
-
-
-
+            gameEndAPI(GameEndDTO(
+                difficulty = GlobalApplication.prefs.getString("difficulty", ""),
+                gameIdx = GlobalApplication.prefs.getInt("gameIdx", 0),
+                list = whiteArray,
+                turn = reIndex,
+                winner = 2,
+                now = 0
+            ))
             tv_turn.text = "You Lost.."
             val intent = Intent(this, EndActivity::class.java)
             Log.d("GameActivity", "reIndex 값 : " + reIndex)
@@ -1220,6 +1236,7 @@ class GameActivity : AppCompatActivity() {
         c_col5 = IntArray(6) { 0 }
         c_col6 = IntArray(6) { 0 }
         c_col7 = IntArray(6) { 0 }
+        arr = Array(7) { Array(6) { 0 } }
 
         val imageViews = arrayOf(
             arrayOf(binding.ivGm11, binding.ivGm12, binding.ivGm13, binding.ivGm14, binding.ivGm15, binding.ivGm16),
@@ -1236,6 +1253,8 @@ class GameActivity : AppCompatActivity() {
                 imageViews[i][j].setImageResource(R.drawable.nothing)
             }
         }
+
+        // gameStartAPI()
     }
 
     //   Fragment 클릭 이벤트
@@ -1275,17 +1294,18 @@ class GameActivity : AppCompatActivity() {
 
                         setTurn(GlobalApplication.prefs.getInt("initIndex", 0))
 
+                        Log.d("게임 시작", response.body().toString())
 
                         GlobalApplication.prefs.setString("gameList", "${java.util.Arrays.deepToString(response.body()?.list)}")
 
 
-                        var firstTurn = java.util.Arrays.deepToString(response.body()?.list?.get(5))
 
 
                         // turn이 1이면 흰돌 두기
                         if (response.body()?.turn == 1) {
-                            Log.d("선공이면", firstTurn)
-                            firstTurn
+                            Log.d("AI 선공이면", "")
+                            whiteValue()
+                            setTurn(0)
                         }
 
 
@@ -1316,9 +1336,7 @@ class GameActivity : AppCompatActivity() {
 
                         var gameList = GlobalApplication.prefs.getString("gameList", "").toList()
 
-                        Log.d("GameTurnAPI", "성공 ${response.body().toString()}")
-                        Log.d("GameList", "$gameList")
-
+                        Log.d("GameTurnAPI", "성공 ${java.util.Arrays.deepToString(whiteArray)}")
 
                         response?.body()?.now?.let {
                             GlobalApplication.prefs.setInt("white",
@@ -1363,10 +1381,20 @@ class GameActivity : AppCompatActivity() {
     }
 
 
+
+    /*
+    {000000}
+
+
+
+
+*/
+
     fun convertTo2DArray(col1: IntArray, col2: IntArray, col3: IntArray, col4: IntArray, col5: IntArray, col6: IntArray, col7: IntArray): Array<Array<Int>> {
         val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
         val numRows = col1.size
         val numCols = arrays.size
+
 
         val result = Array(numRows) { row ->
             Array(numCols) { col ->
@@ -1374,7 +1402,20 @@ class GameActivity : AppCompatActivity() {
             }
         }
 
-        return result
+        Log.d("Tlqkf2", "${java.util.Arrays.deepToString(arr)}")
+
+
+        for (i in 0 until 6) {
+            arr[0][i] = col1[i]
+            arr[1][i] = col2[i]
+            arr[2][i] = col3[i]
+            arr[3][i] = col4[i]
+            arr[4][i] = col5[i]
+            arr[5][i] = col6[i]
+            arr[6][i] = col7[i]
+        }
+
+        return arr
     }
 
 
