@@ -7,8 +7,6 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.taveconnect.databinding.ActivityReviewBinding
-import com.example.taveconnect.game.GameEndDTO
-import com.example.taveconnect.game.GameEndData
 import com.example.taveconnect.game.GameReviewData
 import com.example.taveconnect.retrofit.RetrofitClient
 import com.example.taveconnect.retrofit.RetroiftAPI
@@ -19,6 +17,7 @@ import retrofit2.Response
 class ReviewActivity : AppCompatActivity() {
     private lateinit var binding: ActivityReviewBinding
     private lateinit var imageViews: List<ImageView> // 이미지뷰들을 저장할 리스트 변수
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

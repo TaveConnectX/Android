@@ -16,6 +16,7 @@ import com.example.taveconnect.databinding.ActivityGameBinding
 import com.example.taveconnect.game.*
 import com.example.taveconnect.retrofit.RetrofitClient
 import com.example.taveconnect.retrofit.RetroiftAPI
+import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -1084,6 +1085,9 @@ class GameActivity : AppCompatActivity() {
         val tv_turn = findViewById<TextView>(R.id.tv_yourturn)
 
 
+        Log.d("Turn", turn.toString())
+
+
         if (t == 1) {
             tv_turn.text = "Opponent Turn"
             index++
@@ -1136,9 +1140,8 @@ class GameActivity : AppCompatActivity() {
     }
 
     fun reset() {
-        turn = 0
-        setTurn(turn)
-        index = 0
+        setTurn(GlobalApplication.prefs.getInt("initTurn", 0))
+        index = GlobalApplication.prefs.getInt("initIndex", 0)
         arrays = emptyArray()
         col1 = IntArray(6) { 0 }
         col2 = IntArray(6) { 0 }
@@ -1189,21 +1192,40 @@ class GameActivity : AppCompatActivity() {
 
 
         gameAPI.getGameStart(difficulty.toString())
-            .enqueue(object: retrofit2.Callback<GameStartData> {
+            .enqueue(object: Callback<GameStartData> {
                 override fun onResponse(
                     call: Call<GameStartData>,
                     response: Response<GameStartData>
                 ) {
                     if (response.isSuccessful) {
+
                         response?.body()?.gameIdx?.let {
                             GlobalApplication.prefs.setInt("gameIdx",
                                 it)
                         }
+                        response?.body()?.turn?.let {
+                            GlobalApplication.prefs.setInt("initIndex",
+                                it)
+                        }
 
+                        setTurn(GlobalApplication.prefs.getInt("initIndex", 0))
 
 
                         GlobalApplication.prefs.setString("gameList", "${java.util.Arrays.deepToString(response.body()?.list)}")
+                        GlobalApplication.prefs.setString("gameTurnList", "${java.util.Arrays.deepToString(response.body()?.list)}")
+
                         Log.d("GameStart", "성공 ${response.body().toString()}")
+
+
+
+                        // turn에 따라 선공 정하기
+                        if (response.body()?.turn == 0) {
+                        } else if (response.body()?.turn == 1) {
+                            //
+                            whiteRandom()
+                        }
+
+
 
                     }
                 }
@@ -1226,8 +1248,23 @@ class GameActivity : AppCompatActivity() {
                     response: Response<GameTurnData>
                 ) {
                     if (response.isSuccessful) {
+                        GlobalApplication.prefs.setString("gameTurnList", "${java.util.Arrays.deepToString(response.body()?.list)}")
+
+
                         Log.d("GameTurnAPI", "성공 ${response.body().toString()}")
                         Log.d("GameList", "${GlobalApplication.prefs.getString("gameList", "")}")
+                        Log.d("GameTurnList", "성공 ${GlobalApplication.prefs.getString("gameTurnList", "")}")
+
+
+
+                        val gameTurnList = GlobalApplication.prefs.getString("gameTurnList", "")
+                        val parsedList = Gson().fromJson(gameTurnList, Array<Array<Int>>::class.java)
+                        val myTurn = parsedList[0][1]
+
+                        GlobalApplication.prefs.setInt("myTurn", myTurn)
+                        Log.d("MyTurn", "내가 둔 열: $myTurn")
+
+
                     }
                 }
 
