@@ -99,8 +99,10 @@ class GameActivity : AppCompatActivity() {
             gameGOGO = 2
             // 게임이 일시 중지된 상태에서 재개되는 경우에 수행할 동작
             Log.d("GameActivity", "이전 게임 called")
+
             if(gamePaused)
                 countDownTimer?.start()
+
             // 게임 상태 배열 복원
             col1 = c_col1.clone()
             col2 = c_col2.clone()
@@ -116,8 +118,11 @@ class GameActivity : AppCompatActivity() {
 
             if(checkFourConnectedB(arrays))
             {
+                val intent_d = Intent(this, DifficultyActivity::class.java)
                 reset()
                 Toast.makeText(this, "이어할 게임이 없어 새 게임을 시작합니다.", Toast.LENGTH_SHORT).show()
+                startActivity(intent_d)
+
             } else if(arrays == {0})
                 Toast.makeText(this, "이어할 게임이 없어 새 게임을 시작합니다.", Toast.LENGTH_SHORT).show()
 
@@ -137,7 +142,7 @@ class GameActivity : AppCompatActivity() {
                 }
             }
 
-            // 1열 이미지뷰 상태 복원
+            // 2열 이미지뷰 상태 복원
             for (i in 0 until col2.size) {
                 val coord = "iv_gm_2_" + (i + 1)
                 val packageName = packageName
@@ -153,7 +158,7 @@ class GameActivity : AppCompatActivity() {
                 }
             }
 
-            // 1열 이미지뷰 상태 복원
+            // 3열 이미지뷰 상태 복원
             for (i in 0 until col3.size) {
                 val coord = "iv_gm_3_" + (i + 1)
                 val packageName = packageName
@@ -169,7 +174,7 @@ class GameActivity : AppCompatActivity() {
                 }
             }
 
-            // 1열 이미지뷰 상태 복원
+            // 4열 이미지뷰 상태 복원
             for (i in 0 until col4.size) {
                 val coord = "iv_gm_4_" + (i + 1)
                 val packageName = packageName
@@ -185,7 +190,7 @@ class GameActivity : AppCompatActivity() {
                 }
             }
 
-            // 1열 이미지뷰 상태 복원
+            // 5열 이미지뷰 상태 복원
             for (i in 0 until col5.size) {
                 val coord = "iv_gm_5_" + (i + 1)
                 val packageName = packageName
@@ -201,7 +206,7 @@ class GameActivity : AppCompatActivity() {
                 }
             }
 
-            // 1열 이미지뷰 상태 복원
+            // 6열 이미지뷰 상태 복원
             for (i in 0 until col6.size) {
                 val coord = "iv_gm_6_" + (i + 1)
                 val packageName = packageName
@@ -217,7 +222,7 @@ class GameActivity : AppCompatActivity() {
                 }
             }
 
-            // 1열 이미지뷰 상태 복원
+            // 7열 이미지뷰 상태 복원
             for (i in 0 until col7.size) {
                 val coord = "iv_gm_7_" + (i + 1)
                 val packageName = packageName
