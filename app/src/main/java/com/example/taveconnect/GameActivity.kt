@@ -310,7 +310,6 @@ class GameActivity : AppCompatActivity() {
         if (gameGOGO == 1) {
             gameStartAPI()
         } else {
-            /*
             if (GlobalApplication.prefs.getInt("turnGOGO", 0) % 2 == 0) {
                 gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index + 1, 0))
                 gameGOGO = 1
@@ -319,7 +318,7 @@ class GameActivity : AppCompatActivity() {
                 gameGOGO = 1
             }
 
-             */
+             
         }
 
 
