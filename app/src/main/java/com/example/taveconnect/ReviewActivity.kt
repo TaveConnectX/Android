@@ -8,6 +8,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.taveconnect.databinding.ActivityReviewBinding
+import com.example.taveconnect.game.GameEndDTO
+import com.example.taveconnect.game.GameEndData
 import com.example.taveconnect.game.GameReviewData
 import com.example.taveconnect.retrofit.RetrofitClient
 import com.example.taveconnect.retrofit.RetroiftAPI
@@ -18,7 +20,6 @@ import retrofit2.Response
 class ReviewActivity : AppCompatActivity() {
     private lateinit var binding: ActivityReviewBinding
     private lateinit var imageViews: List<ImageView> // 이미지뷰들을 저장할 리스트 변수
-    private var arr = Array(7) { Array(6) { 0 } }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +30,7 @@ class ReviewActivity : AppCompatActivity() {
         gameReviewAPI()
         showBurger()
 
-
+        val gameIndex = intent.getIntExtra("reIndex", 0)
         val col1 = intent.getIntArrayExtra("r_col1") ?: IntArray(6)
         val col2 = intent.getIntArrayExtra("r_col2") ?: IntArray(6)
         val col3 = intent.getIntArrayExtra("r_col3") ?: IntArray(6)
@@ -37,11 +38,6 @@ class ReviewActivity : AppCompatActivity() {
         val col5 = intent.getIntArrayExtra("r_col5") ?: IntArray(6)
         val col6 = intent.getIntArrayExtra("r_col6") ?: IntArray(6)
         val col7 = intent.getIntArrayExtra("r_col7") ?: IntArray(6)
-
-        var arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
-
-        val gameIndex = intent.getIntExtra("reIndex", 0)
-
 
         var nowIndex = gameIndex
 
@@ -389,37 +385,6 @@ class ReviewActivity : AppCompatActivity() {
             })
 
     }
-
-
-
-    fun convertTo2DArray(col1: IntArray, col2: IntArray, col3: IntArray, col4: IntArray, col5: IntArray, col6: IntArray, col7: IntArray): Array<Array<Int>> {
-        val arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
-        val numRows = col1.size
-        val numCols = arrays.size
-
-
-        val result = Array(numRows) { row ->
-            Array(numCols) { col ->
-                arrays[col][row]
-            }
-        }
-
-        Log.d("Tlqkf2", "${java.util.Arrays.deepToString(arr)}")
-
-
-        for (i in 0 until 6) {
-            arr[0][i] = col1[i]
-            arr[1][i] = col2[i]
-            arr[2][i] = col3[i]
-            arr[3][i] = col4[i]
-            arr[4][i] = col5[i]
-            arr[5][i] = col6[i]
-            arr[6][i] = col7[i]
-        }
-
-        return arr
-    }
-
 
 
 }
