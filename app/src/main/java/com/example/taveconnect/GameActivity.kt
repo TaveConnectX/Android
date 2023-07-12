@@ -257,6 +257,7 @@ class GameActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         countDownTimer?.cancel()
+        turn = 0
     }
 
     var index: Int = 0
@@ -287,6 +288,7 @@ class GameActivity : AppCompatActivity() {
         binding = ActivityGameBinding.inflate(layoutInflater)
         view = binding.root
         setContentView(view)
+        turn = 0
 
         var soundId = soundPool.load(this, R.raw.hit, 1)
 
