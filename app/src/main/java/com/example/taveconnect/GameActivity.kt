@@ -65,6 +65,8 @@ class GameActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
+
+
         val resumeGame = intent.getBooleanExtra("resumeGame", false)
         countDownTimer?.cancel()
         Log.d("GameActivity", "countDownTimer cancel() called")
@@ -79,6 +81,14 @@ class GameActivity : AppCompatActivity() {
         c_col5 = col5.clone()
         c_col6 = col6.clone()
         c_col7 = col7.clone()
+        col1 = r_col1.clone()
+        col2 = r_col2.clone()
+        col3 = r_col3.clone()
+        col4 = r_col4.clone()
+        col5 = r_col5.clone()
+        col6 = r_col6.clone()
+        col7 = r_col7.clone()
+
         choice_c = choice
         Log.d("GameActivity", "onPause() called")
 
@@ -89,6 +99,7 @@ class GameActivity : AppCompatActivity() {
 
     public override fun onResume() {
         super.onResume()
+
         Log.d("GameActivity", "onResume() called")
         val resumeGame = intent.getBooleanExtra("resumeGame", false)
         Log.d("GameActivity", "resumeGame "+resumeGame.toString())
@@ -102,8 +113,14 @@ class GameActivity : AppCompatActivity() {
 
             if(gamePaused)
                 countDownTimer?.start()
-
-            // 게임 상태 배열 복원
+// 게임 상태 배열 복원
+            r_col1 = col1.clone()
+            r_col2 = col2.clone()
+            r_col3 = col3.clone()
+            r_col4 = col4.clone()
+            r_col5 = col5.clone()
+            r_col6 = col6.clone()
+            r_col7 = col7.clone()
             col1 = c_col1.clone()
             col2 = c_col2.clone()
             col3 = c_col3.clone()
@@ -290,7 +307,10 @@ class GameActivity : AppCompatActivity() {
 
         var soundId = soundPool.load(this, R.raw.hit, 1)
 
-
+        if(turn==0)
+            setTurn(0)
+        else if(turn==1)
+            setTurn(1)
 
         val intent2 = Intent(this, ReviewActivity::class.java)
         //val intent = Intent(this, DifficultyActivity::class.java)
@@ -307,18 +327,25 @@ class GameActivity : AppCompatActivity() {
 
         val difficulty = intent.getStringExtra("difficulty")
 
+
+
         if (gameGOGO == 1) {
             gameStartAPI()
         } else {
+            /*
             if (GlobalApplication.prefs.getInt("turnGOGO", 0) % 2 == 0) {
+
+                gameStartAPI()
                 gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index + 1, 0))
                 gameGOGO = 1
             } else {
+                gameStartAPI()
+
                 whiteValue()
                 gameGOGO = 1
             }
+             */
 
-             
         }
 
 
@@ -407,7 +434,7 @@ class GameActivity : AppCompatActivity() {
 
 
                         arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
-                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index + 1, 0))
+                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index, 0))
 
                         whiteArray = arraysGame
 
@@ -469,7 +496,7 @@ class GameActivity : AppCompatActivity() {
 
                         arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
 
-                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list =  arraysGame, index + 1, 0))
+                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list =  arraysGame, index, 0))
                         whiteArray = arraysGame
 
 
@@ -530,7 +557,7 @@ class GameActivity : AppCompatActivity() {
 
                         arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
 
-                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index + 1, 0))
+                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index, 0))
                         whiteArray = arraysGame
 
 
@@ -591,7 +618,7 @@ class GameActivity : AppCompatActivity() {
 
                         arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
 
-                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index + 1, 0))
+                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index, 0))
                         whiteArray = arraysGame
 
 
@@ -651,7 +678,7 @@ class GameActivity : AppCompatActivity() {
                         c_col5[i] = 1
 
                         arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
-                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index + 1, 0))
+                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index, 0))
                         whiteArray = arraysGame
 
                         Log.d("2차원 배열", arraysGame.toString())
@@ -713,7 +740,7 @@ class GameActivity : AppCompatActivity() {
                         c_col6[i] = 1
 
                         arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
-                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index + 1, 0))
+                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index, 0))
                         whiteArray = arraysGame
 
                         Log.d("2차원 배열", arraysGame.toString())
@@ -772,7 +799,7 @@ class GameActivity : AppCompatActivity() {
                         c_col7[i] = 1
 
                         arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
-                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index + 1, 0))
+                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index, 0))
                         whiteArray = convertTo2DArray(r_col1, r_col2, r_col3, r_col4, r_col5, r_col6, r_col7)
 
                         Log.d("2차원 배열", arraysGame.toString())
@@ -1216,7 +1243,7 @@ class GameActivity : AppCompatActivity() {
             gameEndAPI(GameEndDTO(
                 difficulty = GlobalApplication.prefs.getString("difficulty", ""),
                 gameIdx = GlobalApplication.prefs.getInt("gameIdx", 0),
-                list = whiteArray,
+                list = arraysGame,
                 turn = reIndex,
                 winner = 2,
                 now = 0
@@ -1238,6 +1265,7 @@ class GameActivity : AppCompatActivity() {
     }
 
     fun reset() {
+
         setTurn(GlobalApplication.prefs.getInt("initTurn", 0))
         index = GlobalApplication.prefs.getInt("initIndex", 0)
         arrays = emptyArray()

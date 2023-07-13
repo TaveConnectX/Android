@@ -23,15 +23,16 @@
         app:strokeWidth="5dp" />
 
     <TextView
-        android:id="@+id/tvHint"
+        android:id="@+id/tv_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="_"
+        android:text=""
         android:textColor="@color/black"
-        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_hint" />
+
 
     <Button
         android:id="@+id/btn_burger"
