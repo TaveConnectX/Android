@@ -18,11 +18,12 @@ import retrofit2.Response
 class ReviewActivity : AppCompatActivity() {
     private lateinit var binding: ActivityReviewBinding
     private lateinit var imageViews: List<ImageView> // 이미지뷰들을 저장할 리스트 변수
-    private var arr = Array(7) { Array(6) { 0 } }
+    private var arr = Array(7) { IntArray(6) }
     private var recommendationList: MutableList<Int> = mutableListOf()
 
     private var first: Int = 1
     private var nowIndex: Int = 0
+    private var nowTurn: Int = 0
     private lateinit var col1: IntArray
     private lateinit var col2: IntArray
     private lateinit var col3: IntArray
@@ -51,6 +52,8 @@ class ReviewActivity : AppCompatActivity() {
         nowIndex = gameIndex
         gameReviewAPI { maxTurnData ->
             if (maxTurnData.list.size >= 7) {
+                nowTurn = maxTurnData.turn
+                Log.d("지금 턴", nowTurn.toString())
                 val col1Row = maxTurnData.list[0]
                 val col2Row = maxTurnData.list[1]
                 val col3Row = maxTurnData.list[2]
@@ -210,6 +213,7 @@ class ReviewActivity : AppCompatActivity() {
                             callback(maxTurnData)
                         }
                     }
+
                     Log.d("GameReviewAPI", "성공 ${response.body().toString()}")
                 }
             }
