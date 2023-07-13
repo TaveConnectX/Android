@@ -1238,6 +1238,8 @@ class GameActivity : AppCompatActivity() {
             intent.putExtra("r_col5", r_col5)
             intent.putExtra("r_col6", r_col6)
             intent.putExtra("r_col7", r_col7)
+            reset()
+
             startActivity(intent)
         } else if (t == 3) {
             gameEndAPI(GameEndDTO(
@@ -1260,6 +1262,8 @@ class GameActivity : AppCompatActivity() {
             intent.putExtra("r_col5", r_col5)
             intent.putExtra("r_col6", r_col6)
             intent.putExtra("r_col7", r_col7)
+            reset()
+
             startActivity(intent)
         }
     }
@@ -1317,6 +1321,7 @@ class GameActivity : AppCompatActivity() {
 
 
     fun gameStartAPI() {
+
         // API
         val gameAPI = RetrofitClient.getInstance().create(RetroiftAPI::class.java)
         var difficulty = intent.getStringExtra("difficulty")
