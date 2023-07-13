@@ -34,7 +34,6 @@
         app:layout_constraintTop_toBottomOf="@+id/btn_hint" />
 
 
-
     <Button
         android:id="@+id/btn_burger"
         android:layout_width="48dp"

@@ -334,16 +334,18 @@ class GameActivity : AppCompatActivity() {
         } else {
             /*
             if (GlobalApplication.prefs.getInt("turnGOGO", 0) % 2 == 0) {
+
                 gameStartAPI()
                 gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index + 1, 0))
                 gameGOGO = 1
             } else {
                 gameStartAPI()
+
                 whiteValue()
                 gameGOGO = 1
             }
-
              */
+
         }
 
 

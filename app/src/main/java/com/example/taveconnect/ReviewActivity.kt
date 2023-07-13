@@ -18,6 +18,7 @@ import retrofit2.Response
 class ReviewActivity : AppCompatActivity() {
     private lateinit var binding: ActivityReviewBinding
     private lateinit var imageViews: List<ImageView> // 이미지뷰들을 저장할 리스트 변수
+
     private var arr = Array(7) { IntArray(6) }
     private var recommendationList: MutableList<Int> = mutableListOf()
 
@@ -31,6 +32,7 @@ class ReviewActivity : AppCompatActivity() {
     private lateinit var col5: IntArray
     private lateinit var col6: IntArray
     private lateinit var col7: IntArray
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +50,7 @@ class ReviewActivity : AppCompatActivity() {
 
         val gameIndex = intent.getIntExtra("reIndex", 0)
         Log.d("지금 인덱스", gameIndex.toString())
+
 
         nowIndex = gameIndex
         gameReviewAPI { maxTurnData ->
@@ -141,6 +144,7 @@ class ReviewActivity : AppCompatActivity() {
             }
         }
 
+
         binding.btnNext.setOnClickListener {
             if (nowIndex < gameIndex) {
                 nowIndex++
@@ -153,6 +157,7 @@ class ReviewActivity : AppCompatActivity() {
                 setImageViews(col5, 5)
                 setImageViews(col6, 6)
                 setImageViews(col7, 7)
+
 
             } else {
                 Toast.makeText(this@ReviewActivity, "더 볼 수가 없습니다.", Toast.LENGTH_SHORT).show()
