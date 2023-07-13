@@ -55,13 +55,11 @@ ListFragment : Fragment(R.layout.fragment_list) {
             val intent = Intent(requireActivity(), ReviewActivity::class.java)
             Log.d("GameActivity", "btnClicked &gameIndex")
             if (gameIndex != null) {
-                intent.putExtra("reIndex", gameIndex-1)
+                intent.putExtra("reIndex", gameIndex - 1)
             }
             Log.d("복기", gameIndex.toString())
-            intent.putExtra("r_col1", col1)
-            Log.d("복기", "${java.util.Arrays.deepToString(arrayOf(col1))}")
+            intent.putExtra("r_col1", col1) // col1 추가
             intent.putExtra("r_col2", col2)
-            Log.d("복기", "${java.util.Arrays.deepToString(arrayOf(col1))}")
             intent.putExtra("r_col3", col3)
             intent.putExtra("r_col4", col4)
             intent.putExtra("r_col5", col5)
@@ -69,6 +67,7 @@ ListFragment : Fragment(R.layout.fragment_list) {
             intent.putExtra("r_col7", col7)
             startActivity(intent)
         }
+
 
         binding.btnGameIng.setOnClickListener {
             val intent = Intent(requireActivity(), GameActivity::class.java)
