@@ -436,6 +436,10 @@ class GameActivity : AppCompatActivity() {
                         arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
                         gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, GlobalApplication.prefs.getInt("nowTurn", 0), 0))
 
+                        Log.d("노말 이상해 말배열", "${java.util.Arrays.deepToString(arraysGame)}")
+
+
+
                         whiteArray = arraysGame
 
 
@@ -498,6 +502,7 @@ class GameActivity : AppCompatActivity() {
 
                         gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list =  arraysGame, GlobalApplication.prefs.getInt("nowTurn", 0), 0))
                         whiteArray = arraysGame
+                        Log.d("노말 이상해 말배열", "${java.util.Arrays.deepToString(arraysGame)}")
 
 
                         Log.d("2차원 배열", java.util.Arrays.deepToString(arraysGame))
@@ -560,6 +565,7 @@ class GameActivity : AppCompatActivity() {
                         gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, GlobalApplication.prefs.getInt("nowTurn", 0), 0))
                         whiteArray = arraysGame
 
+                        Log.d("노말 이상해 말배열", "${java.util.Arrays.deepToString(arraysGame)}")
 
                         Log.d("2차원 배열", java.util.Arrays.deepToString(arraysGame))
 
@@ -620,6 +626,7 @@ class GameActivity : AppCompatActivity() {
 
                         gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, GlobalApplication.prefs.getInt("nowTurn", 0), 0))
                         whiteArray = arraysGame
+                        Log.d("노말 이상해 말배열", "${java.util.Arrays.deepToString(arraysGame)}")
 
 
                         Log.d("2차원 배열", arraysGame.toString())
@@ -680,6 +687,7 @@ class GameActivity : AppCompatActivity() {
                         arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
                         gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, GlobalApplication.prefs.getInt("nowTurn", 0), 0))
                         whiteArray = arraysGame
+                        Log.d("노말 이상해 말배열", "${java.util.Arrays.deepToString(arraysGame)}")
 
                         Log.d("2차원 배열", arraysGame.toString())
 
@@ -742,6 +750,7 @@ class GameActivity : AppCompatActivity() {
                         arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
                         gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, GlobalApplication.prefs.getInt("nowTurn", 0), 0))
                         whiteArray = arraysGame
+                        Log.d("노말 이상해 말배열", "${java.util.Arrays.deepToString(arraysGame)}")
 
                         Log.d("2차원 배열", arraysGame.toString())
 
@@ -800,7 +809,8 @@ class GameActivity : AppCompatActivity() {
 
                         arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
                         gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, GlobalApplication.prefs.getInt("nowTurn", 0), 0))
-                        whiteArray = convertTo2DArray(r_col1, r_col2, r_col3, r_col4, r_col5, r_col6, r_col7)
+                        whiteArray = arraysGame
+                        Log.d("노말 이상해 말배열", "${java.util.Arrays.deepToString(arraysGame)}")
 
                         Log.d("2차원 배열", arraysGame.toString())
 
@@ -1399,6 +1409,9 @@ class GameActivity : AppCompatActivity() {
                                 it)
                         }
 
+                        Log.d("노말 이상해 배열", "${java.util.Arrays.deepToString(response.body()?.list)}")
+
+
 
                         var turnGOGO = GlobalApplication.prefs.getString("turnGOGO", "")
 
@@ -1468,7 +1481,6 @@ class GameActivity : AppCompatActivity() {
             }
         }
 
-        Log.d("Tlqkf2", "${java.util.Arrays.deepToString(arr)}")
 
 
         for (i in 0 until 6) {
