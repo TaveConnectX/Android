@@ -28,6 +28,7 @@ import java.util.Random
 
 private var turn: Int = 0
 private lateinit var view: View
+private val globalDifficulty = GlobalApplication.prefs.setString("difficulty", "normal")
 
 private var gameGOGO: Int = 1
 
@@ -60,16 +61,22 @@ class GameActivity : AppCompatActivity() {
 
     private lateinit var whiteArray : Array<Array<Int>>
 
-
+    private var resumeGameIdx = 0
 
     var canOrCannot = 2
     var choice_c = "normal"
 
     override fun onPause() {
+        gameGOGO = 2
         super.onPause()
-
-
         val resumeGame = intent.getBooleanExtra("resumeGame", false)
+        val gameIdx = resumeGame
+
+
+        Log.d("이어하기 인덱스", resumeGameIdx.toString())
+        Log.d("이어하기 게임 인덱스", gameIdx.toString())
+
+
         countDownTimer?.cancel()
         Log.d("GameActivity", "countDownTimer cancel() called")
         if(resumeGame) {
@@ -83,14 +90,6 @@ class GameActivity : AppCompatActivity() {
         c_col5 = col5.clone()
         c_col6 = col6.clone()
         c_col7 = col7.clone()
-        col1 = r_col1.clone()
-        col2 = r_col2.clone()
-        col3 = r_col3.clone()
-        col4 = r_col4.clone()
-        col5 = r_col5.clone()
-        col6 = r_col6.clone()
-        col7 = r_col7.clone()
-
         choice_c = choice
         Log.d("GameActivity", "onPause() called")
 
@@ -100,34 +99,28 @@ class GameActivity : AppCompatActivity() {
     }
 
 
-
     public override fun onResume() {
         super.onResume()
+
+        // 저장된 gameIdx 확인
+        val pausedGameIdx = GlobalApplication.prefs.getInt("pausedGameIdx", 0)
+
+
 
         Log.d("GameActivity", "onResume() called")
         val resumeGame = intent.getBooleanExtra("resumeGame", false)
         Log.d("GameActivity", "resumeGame "+resumeGame.toString())
         Log.d("GameActivity", "gamePaused "+gamePaused.toString())
         // 게임 액티비티가 다시 재개되는 경우에 수행할 동작을 여기에 작성
-
-
-
         // 예: 게임 재개, 타이머 다시 시작 등
         if (resumeGame || gamePaused) {
-            gameGOGO = 2
-            // 게임이 일시 중지된 상태에서 재개되는 경우에 수행할 동작
-            Log.d("GameActivity", "이전 게임 called")
+            val resumeDifficulty = intent.getBooleanArrayExtra("resumedifficulty")
 
+            // 게임이 일시 중지된 상태에서 재개되는 경우에 수행할 동작
+            Log.d("GameActivity", "$resumeDifficulty")
             if(gamePaused)
                 countDownTimer?.start()
-// 게임 상태 배열 복원
-            r_col1 = col1.clone()
-            r_col2 = col2.clone()
-            r_col3 = col3.clone()
-            r_col4 = col4.clone()
-            r_col5 = col5.clone()
-            r_col6 = col6.clone()
-            r_col7 = col7.clone()
+            // 게임 상태 배열 복원
             col1 = c_col1.clone()
             col2 = c_col2.clone()
             col3 = c_col3.clone()
@@ -139,14 +132,10 @@ class GameActivity : AppCompatActivity() {
 
             var arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
 
-
             if(checkFourConnectedB(arrays))
             {
-                val intent_d = Intent(this, DifficultyActivity::class.java)
                 reset()
                 Toast.makeText(this, "이어할 게임이 없어 새 게임을 시작합니다.", Toast.LENGTH_SHORT).show()
-                startActivity(intent_d)
-
             } else if(arrays == {0})
                 Toast.makeText(this, "이어할 게임이 없어 새 게임을 시작합니다.", Toast.LENGTH_SHORT).show()
 
@@ -166,7 +155,7 @@ class GameActivity : AppCompatActivity() {
                 }
             }
 
-            // 2열 이미지뷰 상태 복원
+            // 1열 이미지뷰 상태 복원
             for (i in 0 until col2.size) {
                 val coord = "iv_gm_2_" + (i + 1)
                 val packageName = packageName
@@ -182,7 +171,7 @@ class GameActivity : AppCompatActivity() {
                 }
             }
 
-            // 3열 이미지뷰 상태 복원
+            // 1열 이미지뷰 상태 복원
             for (i in 0 until col3.size) {
                 val coord = "iv_gm_3_" + (i + 1)
                 val packageName = packageName
@@ -198,7 +187,7 @@ class GameActivity : AppCompatActivity() {
                 }
             }
 
-            // 4열 이미지뷰 상태 복원
+            // 1열 이미지뷰 상태 복원
             for (i in 0 until col4.size) {
                 val coord = "iv_gm_4_" + (i + 1)
                 val packageName = packageName
@@ -214,7 +203,7 @@ class GameActivity : AppCompatActivity() {
                 }
             }
 
-            // 5열 이미지뷰 상태 복원
+            // 1열 이미지뷰 상태 복원
             for (i in 0 until col5.size) {
                 val coord = "iv_gm_5_" + (i + 1)
                 val packageName = packageName
@@ -230,7 +219,7 @@ class GameActivity : AppCompatActivity() {
                 }
             }
 
-            // 6열 이미지뷰 상태 복원
+            // 1열 이미지뷰 상태 복원
             for (i in 0 until col6.size) {
                 val coord = "iv_gm_6_" + (i + 1)
                 val packageName = packageName
@@ -246,7 +235,7 @@ class GameActivity : AppCompatActivity() {
                 }
             }
 
-            // 7열 이미지뷰 상태 복원
+            // 1열 이미지뷰 상태 복원
             for (i in 0 until col7.size) {
                 val coord = "iv_gm_7_" + (i + 1)
                 val packageName = packageName
@@ -273,7 +262,6 @@ class GameActivity : AppCompatActivity() {
 
         else {
             reset()
-
             Log.d("GameActivity", "리셋 called")
             gamePaused = true
         }
@@ -336,6 +324,8 @@ class GameActivity : AppCompatActivity() {
         c_col7 = col7.clone()
 
         val difficulty = intent.getStringExtra("difficulty")
+        GlobalApplication.prefs.setString("difficulty", difficulty.toString())
+
 
 
 
@@ -365,19 +355,8 @@ class GameActivity : AppCompatActivity() {
             Log.d("턴 초기화 하라고", "$turn")
             gameStartAPI()
         } else {
-            /*
-            if (GlobalApplication.prefs.getInt("turnGOGO", 0) % 2 == 0) {
-
-                gameStartAPI()
-                gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index + 1, 0))
-                gameGOGO = 1
-            } else {
-                gameStartAPI()
-
-                whiteValue()
-                gameGOGO = 1
-            }
-             */
+            gameRestartAPI ()
+            gameGOGO = 1
 
         }
 
@@ -387,8 +366,7 @@ class GameActivity : AppCompatActivity() {
         // 타이머 구현
         val tv_sec = findViewById<TextView>(R.id.tv_second)
         var sec = 30000
-        GlobalApplication.prefs.setString("difficulty", difficulty.toString())
-        Log.d("난이도", "${GlobalApplication.prefs.getString(" difficulty ", "")}")
+        Log.d("난이도", "$globalDifficulty")
 
 
         if (difficulty != null) {
@@ -441,6 +419,9 @@ class GameActivity : AppCompatActivity() {
             }
 
         }.start()
+
+        resumeGameIdx = GlobalApplication.prefs.getInt("gameIdx", 0)
+        Log.d("이어하라고", resumeGameIdx.toString())
 
         showBurger()
 
@@ -1480,6 +1461,46 @@ class GameActivity : AppCompatActivity() {
                     Log.d("GameTurnAPI", "실패")
                 }
             })
+    }
+
+    fun gameRestartAPI() {
+        // API
+        val gameAPI = RetrofitClient.getInstance().create(RetroiftAPI::class.java)
+
+        gameAPI.getGameRestart(gameIdx = GlobalApplication.prefs.getInt("gameIdx", 0))
+            .enqueue(object: Callback<GameRestartData> {
+                override fun onResponse(
+                    call: Call<GameRestartData>,
+                    response: Response<GameRestartData>
+                ) {
+                    if (response.isSuccessful) {
+                        Log.d("이어해라", resumeGameIdx.toString())
+                        Log.d("이어해라 성공", response.body().toString())
+
+
+                        response.body()?.let { gameRestartData ->
+                            Log.d("GameRestart", "이어하기: ${gameRestartData}")
+
+                            val nextTurnData = gameRestartData.isNextTurn
+                            Log.d("nextTurn", "${nextTurnData}")
+                            GlobalApplication.prefs.setInt("nowTurn", nextTurnData)
+                            GlobalApplication.prefs.setInt("initIndex", gameRestartData.totalTurnCount)
+                            GlobalApplication.prefs.setInt("gameIdx", gameRestartData.gameIdx)
+                            GlobalApplication.prefs.setString("difficulty", gameRestartData.difficulty)
+                            Log.d("이어하기 난이도", "${GlobalApplication.prefs.getString("difficulty", "")}")
+
+
+
+                        }
+
+                    }
+                }
+
+                override fun onFailure(call: Call<GameRestartData>, t: Throwable) {
+                    Log.d("GameStart", "실패")
+                }
+            })
+
     }
 
 
