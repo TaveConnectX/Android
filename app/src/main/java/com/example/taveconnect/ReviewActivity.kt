@@ -47,8 +47,12 @@ class ReviewActivity : AppCompatActivity() {
         col6 = intent.getIntArrayExtra("r_col6") ?: IntArray(6)
         col7 = intent.getIntArrayExtra("r_col7") ?: IntArray(6)
 
-        val gameIndex = intent.getIntExtra("reIndex", 0)
-        Log.d("지금 인덱스", gameIndex.toString())
+        first = GlobalApplication.prefs.getInt("first", 0)
+        Log.d("퍼스트", "$first")
+        showBurger()
+
+        val gameIndex = GlobalApplication.prefs.getInt("nowTurn", 0)
+        Log.d("지금 인덱스", "$gameIndex")
 
         nowIndex = gameIndex
         gameReviewAPI { maxTurnData ->
@@ -65,6 +69,11 @@ class ReviewActivity : AppCompatActivity() {
                 nowTurn = maxTurnData.turn
 
                 Log.d("지금 turn", nowTurn.toString())
+
+                first = maxTurnData.first
+
+                Log.d("퍼스트", "$first")
+
 
 
                 nowRecommend = maxTurnData.recommendation
@@ -155,8 +164,17 @@ class ReviewActivity : AppCompatActivity() {
 
         binding.btnBefore.setOnClickListener {
             nowTurn -= 1
+
+            if (nowTurn < 1) {
+                Toast.makeText(this@ReviewActivity, "돌아갈 수가 없습니다.", Toast.LENGTH_SHORT).show()
+                nowTurn += 1 // 이전 턴이 없을 때 다시 원래대로 돌려줍니다.
+                return@setOnClickListener
+            }
+
+
             gameReviewAPI { nowTurnData ->
-                if (nowTurnData.list.size >= 7 && nowTurn <= nowTurnData.turn) {                    Log.d("이전 턴", nowTurnData.toString())
+                if (nowTurnData.list.size >= 7 && nowTurn <= nowTurnData.turn) {
+                    Log.d("이전 턴", nowTurnData.toString())
 
                     val col1Row = nowTurnData.list[0]
                     val col2Row = nowTurnData.list[1]
@@ -194,6 +212,29 @@ class ReviewActivity : AppCompatActivity() {
                     Log.d("추천", nowRecommend.toString())
 
 
+                    if (nowTurnData.first == 1) {
+
+                        binding.btnHint.isVisible = nowTurn % 2 != 0
+                        if (nowTurn % 2 == 0) {
+                            binding.tvHint.text = ""
+                        } else {
+                            binding.btnHint.setOnClickListener {
+                                binding.tvHint.text = nowRecommend.toString()
+                            }
+                        }
+                    } else if (nowTurnData.first == 2) {
+                        if (first == 2 && nowTurn % 2 == 0) {
+                            binding.btnHint.setOnClickListener {
+                                binding.tvHint.text = nowRecommend.toString()
+                            }
+                            binding.btnHint.isVisible = true
+                        } else {
+                            binding.tvHint.text = ""
+                            binding.btnHint.isVisible = false
+                        }
+
+                    }
+
                     setImageViews(col1, 1)
                     setImageViews(col2, 2)
                     setImageViews(col3, 3)
@@ -206,20 +247,17 @@ class ReviewActivity : AppCompatActivity() {
                     Toast.makeText(this@ReviewActivity, "돌아갈 수가 없습니다.", Toast.LENGTH_SHORT).show()
                 }
 
-
-                binding.btnHint.isVisible = nowTurn % 2 != 0
-                if (nowTurn % 2 == 0) {
-                    binding.tvHint.text = ""
-                } else {
-                    binding.btnHint.setOnClickListener {
-                        binding.tvHint.text = nowRecommend.toString()
-                    }
-                }
             }
         }
 
         binding.btnNext.setOnClickListener {
             nowTurn += 1
+
+            if (nowTurn > gameIndex) {
+                Toast.makeText(this@ReviewActivity, "더 볼 수가 없습니다.", Toast.LENGTH_SHORT).show()
+                nowTurn -= 1 // 이전 턴이 없을 때 다시 원래대로 돌려줍니다.
+                return@setOnClickListener
+            }
 
             gameReviewAPI { nowTurnData ->
                 if (nowTurnData.list.size >= 7 && nowTurn <= nowTurnData.turn) {
@@ -262,6 +300,31 @@ class ReviewActivity : AppCompatActivity() {
                     Toast.makeText(this@ReviewActivity, "돌아갈 수가 없습니다.", Toast.LENGTH_SHORT).show()
                 }
 
+
+                if (nowTurnData.first == 1) {
+
+                    binding.btnHint.isVisible = nowTurn % 2 != 0
+                    if (nowTurn % 2 == 0) {
+                        binding.tvHint.text = ""
+                    } else {
+                        binding.btnHint.setOnClickListener {
+                            binding.tvHint.text = nowRecommend.toString()
+                        }
+                    }
+                } else if (nowTurnData.first == 2) {
+                    if (first == 2 && nowTurn % 2 == 0) {
+                        binding.btnHint.setOnClickListener {
+                            binding.tvHint.text = nowRecommend.toString()
+                        }
+                        binding.btnHint.isVisible = true
+                    } else {
+                        binding.tvHint.text = ""
+                        binding.btnHint.isVisible = false
+                    }
+
+                }
+
+
                 setImageViews(col1, 1)
                 setImageViews(col2, 2)
                 setImageViews(col3, 3)
@@ -271,15 +334,16 @@ class ReviewActivity : AppCompatActivity() {
                 setImageViews(col7, 7)
 
 
-
-                binding.btnHint.isVisible = nowTurn % 2 != 0
-                if (nowTurn % 2 == 0) {
-                    binding.tvHint.text = ""
-                } else {
-                    binding.btnHint.setOnClickListener {
-                        binding.tvHint.text = nowRecommend.toString()
-                    }
-                }
+//
+//                binding.btnHint.isVisible = nowTurn % 2 != 0
+//                if (nowTurn % 2 == 0) {
+//                    binding.tvHint.text = ""
+//                } else {
+//                    binding.btnHint.setOnClickListener {
+//                        binding.tvHint.text = nowRecommend.toString()
+//                    }
+//                }
+//
             }
         }
     }
@@ -331,6 +395,16 @@ class ReviewActivity : AppCompatActivity() {
             }
         })
     }
+
+
+    fun showBurger() {
+        binding.btnBurger.setOnClickListener {
+            val intent = Intent(this, BurgerActivity::class.java)
+            //intent.putExtra("gamePaused", gamePaused) // gamePaused 변수를 Intent에 담아서 전달
+            startActivity(intent)
+        }
+    }
+
 }
 
 

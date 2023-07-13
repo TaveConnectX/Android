@@ -1,5 +1,6 @@
 package com.example.taveconnect
 
+import android.content.Context
 import android.content.Intent
 import android.media.SoundPool
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings.Global
+import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
@@ -97,6 +99,8 @@ class GameActivity : AppCompatActivity() {
         gamePaused = true
     }
 
+
+
     public override fun onResume() {
         super.onResume()
 
@@ -105,6 +109,9 @@ class GameActivity : AppCompatActivity() {
         Log.d("GameActivity", "resumeGame "+resumeGame.toString())
         Log.d("GameActivity", "gamePaused "+gamePaused.toString())
         // 게임 액티비티가 다시 재개되는 경우에 수행할 동작을 여기에 작성
+
+
+
         // 예: 게임 재개, 타이머 다시 시작 등
         if (resumeGame || gamePaused) {
             gameGOGO = 2
@@ -266,6 +273,7 @@ class GameActivity : AppCompatActivity() {
 
         else {
             reset()
+
             Log.d("GameActivity", "리셋 called")
             gamePaused = true
         }
@@ -312,6 +320,8 @@ class GameActivity : AppCompatActivity() {
         else if(turn==1)
             setTurn(1)
 
+
+
         val intent2 = Intent(this, ReviewActivity::class.java)
         //val intent = Intent(this, DifficultyActivity::class.java)
 
@@ -330,6 +340,29 @@ class GameActivity : AppCompatActivity() {
 
 
         if (gameGOGO == 1) {
+            Log.d("턴 초기화 할래?", "${GlobalApplication.prefs.getInt("initTurn", 0)}")
+            Log.d("인덱스 초기화 할래?", "${GlobalApplication.prefs.getInt("initIndex", 0)}")
+
+
+            if(turn==0) {
+                turn = GlobalApplication.prefs.getInt("initTurn", 0)
+                setTurn(turn)
+            }
+            else if(turn==1) {
+                turn = GlobalApplication.prefs.getInt("initTurn", 0)
+                setTurn(turn)
+            }
+            else if(turn==2) {
+                turn = GlobalApplication.prefs.getInt("initTurn", 0)
+                setTurn(turn)
+            }
+            else {
+                turn = GlobalApplication.prefs.getInt("initTurn", 0)
+                setTurn(turn)
+            }
+
+
+            Log.d("턴 초기화 하라고", "$turn")
             gameStartAPI()
         } else {
             /*
@@ -410,14 +443,6 @@ class GameActivity : AppCompatActivity() {
         }.start()
 
         showBurger()
-
-/*
-        var myTurn = GlobalApplication.prefs.getInt("myTurn", 0)
-        if (myTurn == 1) {
-        }
-
-*/
-
 
 
         // 1열
@@ -849,6 +874,7 @@ class GameActivity : AppCompatActivity() {
                                 countDownTimer!!.onFinish()
                                 turn = 3
                                 setTurn(turn)
+
                             }
                         }, 3000)
                         break
@@ -1049,12 +1075,16 @@ class GameActivity : AppCompatActivity() {
         return false
     }
 
-    // 백돌 랜덤 함수
     fun whiteValue() {
 
-        // val random = Random()
         val white_a = GlobalApplication.prefs.getInt("white", 0)
+        Log.d("노말 화이트_a", "$white_a")
+
+
         val white = white_a + 1
+
+        Log.d("노말 화이트", "$white")
+
 
         if(white == 1) {
             var i = 0
@@ -1216,7 +1246,6 @@ class GameActivity : AppCompatActivity() {
 
         val tv_turn = findViewById<TextView>(R.id.tv_yourturn)
 
-
         Log.d("Turn", turn.toString())
 
 
@@ -1249,6 +1278,7 @@ class GameActivity : AppCompatActivity() {
             intent.putExtra("r_col6", r_col6)
             intent.putExtra("r_col7", r_col7)
             reset()
+            finish()
 
             startActivity(intent)
         } else if (t == 3) {
@@ -1279,9 +1309,11 @@ class GameActivity : AppCompatActivity() {
     }
 
     fun reset() {
+        PreferenceUtil(applicationContext)
 
-        setTurn(GlobalApplication.prefs.getInt("initTurn", 0))
-        index = GlobalApplication.prefs.getInt("initIndex", 0)
+//        GlobalApplication.prefs.setInt("nowTurn", 0)
+        turn = 0
+        index = 0
         arrays = emptyArray()
         col1 = IntArray(6) { 0 }
         col2 = IntArray(6) { 0 }
@@ -1331,7 +1363,6 @@ class GameActivity : AppCompatActivity() {
 
 
     fun gameStartAPI() {
-
         // API
         val gameAPI = RetrofitClient.getInstance().create(RetroiftAPI::class.java)
         var difficulty = intent.getStringExtra("difficulty")
@@ -1344,9 +1375,15 @@ class GameActivity : AppCompatActivity() {
                     response: Response<GameStartData>
                 ) {
                     if (response.isSuccessful) {
+                        response.body()?.turn?.let {
+                            GlobalApplication.prefs.setInt("nowTurn",
+                                it)
+                        }
+
+                        GlobalApplication.prefs.setString("gameTurnList", "${java.util.Arrays.deepToString(response.body()?.list)}")
 
                         response?.body()?.turn?.let {
-                            GlobalApplication.prefs.setInt("nowTurn",
+                            GlobalApplication.prefs.setInt("initTurn",
                                 it)
                         }
 
@@ -1359,21 +1396,24 @@ class GameActivity : AppCompatActivity() {
                                 it)
                         }
 
-                        setTurn(GlobalApplication.prefs.getInt("initIndex", 0))
-
-                        Log.d("게임 시작", response.body().toString())
-
-                        GlobalApplication.prefs.setString("gameList", "${java.util.Arrays.deepToString(response.body()?.list)}")
 
                         response?.body()?.now?.let {
                             GlobalApplication.prefs.setInt("white",
                                 it)
                         }
 
+                        reset()
+                        setTurn(GlobalApplication.prefs.getInt("initIndex", 0))
+
+                        Log.d("게임 시작", response.body().toString())
+
+                        GlobalApplication.prefs.setString("gameList", "${java.util.Arrays.deepToString(response.body()?.list)}")
+
+
 
                         // turn이 1이면 흰돌 두기
                         if (response.body()?.turn == 1) {
-                            Log.d("AI 선공이면", "")
+                            Log.d("AI 선공", "")
                             whiteValue()
                             setTurn(0)
                         }
@@ -1409,6 +1449,8 @@ class GameActivity : AppCompatActivity() {
                                 it)
                         }
 
+
+
                         Log.d("노말 이상해 배열", "${java.util.Arrays.deepToString(response.body()?.list)}")
 
 
@@ -1421,12 +1463,12 @@ class GameActivity : AppCompatActivity() {
                             GlobalApplication.prefs.setInt("white",
                                 it)
                         }
+
                         Log.d("흰 돌 위치", "${GlobalApplication.prefs.getInt("white", 0)}")
 
                         val gameTurnList = GlobalApplication.prefs.getString("gameTurnList", "")
                         val parsedList = Gson().fromJson(gameTurnList, Array<Array<Int>>::class.java)
                         val myTurn = parsedList[0][1]
-                        val whiteNewArray = GlobalApplication.prefs.getInt("white", 0)
 
 
 
@@ -1449,6 +1491,8 @@ class GameActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<GameEndData>, response: Response<GameEndData>) {
                     if (response.isSuccessful) {
                         Log.d("GameEndAPI", "성공 ${response.body().toString()}")
+
+
                     }
                 }
 
