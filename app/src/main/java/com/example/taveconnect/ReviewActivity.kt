@@ -18,9 +18,9 @@ import retrofit2.Response
 class ReviewActivity : AppCompatActivity() {
     private lateinit var binding: ActivityReviewBinding
     private lateinit var imageViews: List<ImageView> // 이미지뷰들을 저장할 리스트 변수
-
     private var arr = Array(7) { IntArray(6) }
     private var recommendationList: MutableList<Int> = mutableListOf()
+    private var nowRecommend: Int = 0
 
     private var first: Int = 1
     private var nowIndex: Int = 0
@@ -32,7 +32,6 @@ class ReviewActivity : AppCompatActivity() {
     private lateinit var col5: IntArray
     private lateinit var col6: IntArray
     private lateinit var col7: IntArray
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,12 +50,10 @@ class ReviewActivity : AppCompatActivity() {
         val gameIndex = intent.getIntExtra("reIndex", 0)
         Log.d("지금 인덱스", gameIndex.toString())
 
-
         nowIndex = gameIndex
         gameReviewAPI { maxTurnData ->
             if (maxTurnData.list.size >= 7) {
-                nowTurn = maxTurnData.turn
-                Log.d("지금 턴", nowTurn.toString())
+                Log.d("지금 초기 턴", nowTurn.toString())
                 val col1Row = maxTurnData.list[0]
                 val col2Row = maxTurnData.list[1]
                 val col3Row = maxTurnData.list[2]
@@ -64,6 +61,16 @@ class ReviewActivity : AppCompatActivity() {
                 val col5Row = maxTurnData.list[4]
                 val col6Row = maxTurnData.list[5]
                 val col7Row = maxTurnData.list[6]
+
+                nowTurn = maxTurnData.turn
+
+                Log.d("지금 turn", nowTurn.toString())
+
+
+                nowRecommend = maxTurnData.recommendation
+
+                Log.d("지금 추천", nowRecommend.toString())
+
 
                 col1Row.indices.forEach { index ->
                     col1[index] = col1Row[index]
@@ -86,6 +93,8 @@ class ReviewActivity : AppCompatActivity() {
                 col7Row.indices.forEach { index ->
                     col7[index] = col7Row[index]
                 }
+
+
             }
 
             // col1부터 col7까지의 값이 변경되었음
@@ -144,51 +153,134 @@ class ReviewActivity : AppCompatActivity() {
             }
         }
 
+        binding.btnBefore.setOnClickListener {
+            nowTurn -= 1
+            gameReviewAPI { nowTurnData ->
+                if (nowTurnData.list.size >= 7 && nowTurn <= nowTurnData.turn) {                    Log.d("이전 턴", nowTurnData.toString())
+
+                    val col1Row = nowTurnData.list[0]
+                    val col2Row = nowTurnData.list[1]
+                    val col3Row = nowTurnData.list[2]
+                    val col4Row = nowTurnData.list[3]
+                    val col5Row = nowTurnData.list[4]
+                    val col6Row = nowTurnData.list[5]
+                    val col7Row = nowTurnData.list[6]
+
+                    col1Row.indices.forEach { index ->
+                        col1[index] = col1Row[index]
+                    }
+                    col2Row.indices.forEach { index ->
+                        col2[index] = col2Row[index]
+                    }
+                    col3Row.indices.forEach { index ->
+                        col3[index] = col3Row[index]
+                    }
+                    col4Row.indices.forEach { index ->
+                        col4[index] = col4Row[index]
+                    }
+                    col5Row.indices.forEach { index ->
+                        col5[index] = col5Row[index]
+                    }
+                    col6Row.indices.forEach { index ->
+                        col6[index] = col6Row[index]
+                    }
+                    col7Row.indices.forEach { index ->
+                        col7[index] = col7Row[index]
+                    }
+
+
+                    nowRecommend = nowTurnData.recommendation
+                    nowRecommend += 1
+                    Log.d("추천", nowRecommend.toString())
+
+
+                    setImageViews(col1, 1)
+                    setImageViews(col2, 2)
+                    setImageViews(col3, 3)
+                    setImageViews(col4, 4)
+                    setImageViews(col5, 5)
+                    setImageViews(col6, 6)
+                    setImageViews(col7, 7)
+                } else {
+                    nowTurn += 1
+                    Toast.makeText(this@ReviewActivity, "돌아갈 수가 없습니다.", Toast.LENGTH_SHORT).show()
+                }
+
+
+                binding.btnHint.isVisible = nowTurn % 2 != 0
+                if (nowTurn % 2 == 0) {
+                    binding.tvHint.text = ""
+                } else {
+                    binding.btnHint.setOnClickListener {
+                        binding.tvHint.text = nowRecommend.toString()
+                    }
+                }
+            }
+        }
 
         binding.btnNext.setOnClickListener {
-            if (nowIndex < gameIndex) {
-                nowIndex++
-                accessRecommendationList(nowIndex)
+            nowTurn += 1
 
-                setImageViews(col1, 1)
-                setImageViews(col2, 2)
-                setImageViews(col3, 3)
-                setImageViews(col4, 4)
-                setImageViews(col5, 5)
-                setImageViews(col6, 6)
-                setImageViews(col7, 7)
+            gameReviewAPI { nowTurnData ->
+                if (nowTurnData.list.size >= 7 && nowTurn <= nowTurnData.turn) {
+                    Log.d("다음 턴", nowTurnData.toString())
 
+                    val col1Row = nowTurnData.list[0]
+                    val col2Row = nowTurnData.list[1]
+                    val col3Row = nowTurnData.list[2]
+                    val col4Row = nowTurnData.list[3]
+                    val col5Row = nowTurnData.list[4]
+                    val col6Row = nowTurnData.list[5]
+                    val col7Row = nowTurnData.list[6]
 
-            } else {
-                Toast.makeText(this@ReviewActivity, "더 볼 수가 없습니다.", Toast.LENGTH_SHORT).show()
-            }
-        }
+                    col1Row.indices.forEach { index ->
+                        col1[index] = col1Row[index]
+                    }
+                    col2Row.indices.forEach { index ->
+                        col2[index] = col2Row[index]
+                    }
+                    col3Row.indices.forEach { index ->
+                        col3[index] = col3Row[index]
+                    }
+                    col4Row.indices.forEach { index ->
+                        col4[index] = col4Row[index]
+                    }
+                    col5Row.indices.forEach { index ->
+                        col5[index] = col5Row[index]
+                    }
+                    col6Row.indices.forEach { index ->
+                        col6[index] = col6Row[index]
+                    }
+                    col7Row.indices.forEach { index ->
+                        col7[index] = col7Row[index]
+                    }
 
-        binding.btnBefore.setOnClickListener {
-            if (nowIndex > 0) {
-                nowIndex--
-                accessRecommendationList(nowIndex)
-
-                setImageViews(col1, 1)
-                setImageViews(col2, 2)
-                setImageViews(col3, 3)
-                setImageViews(col4, 4)
-                setImageViews(col5, 5)
-                setImageViews(col6, 6)
-                setImageViews(col7, 7)
-
-                if (nowIndex % 2 == 0) {
-                    binding.btnHint.isVisible = false
+                    nowRecommend = nowTurnData.recommendation
+                    nowRecommend += 1
+                    Log.d("추천", nowRecommend.toString())
                 } else {
-                    binding.btnHint.isVisible = true
+                    Toast.makeText(this@ReviewActivity, "돌아갈 수가 없습니다.", Toast.LENGTH_SHORT).show()
                 }
-            } else {
-                Toast.makeText(this@ReviewActivity, "돌아갈 수가 없습니다.", Toast.LENGTH_SHORT).show()
-            }
-        }
 
-        binding.btnHint.setOnClickListener {
-            // 힌트 누르면 AI 추천 수 보여주기
+                setImageViews(col1, 1)
+                setImageViews(col2, 2)
+                setImageViews(col3, 3)
+                setImageViews(col4, 4)
+                setImageViews(col5, 5)
+                setImageViews(col6, 6)
+                setImageViews(col7, 7)
+
+
+
+                binding.btnHint.isVisible = nowTurn % 2 != 0
+                if (nowTurn % 2 == 0) {
+                    binding.tvHint.text = ""
+                } else {
+                    binding.btnHint.setOnClickListener {
+                        binding.tvHint.text = nowRecommend.toString()
+                    }
+                }
+            }
         }
     }
 
@@ -198,10 +290,11 @@ class ReviewActivity : AppCompatActivity() {
             val packageName = packageName
             val ivId = resources.getIdentifier(coord, "id", packageName)
             val imageView = findViewById<ImageView>(ivId)
-            if (col[rowIndex] == 1) {  // 값이 1인 경우
-                imageView.setImageResource(R.drawable.ic_black)
-            } else if (col[rowIndex] == 2) {  // 값이 2인 경우
-                imageView.setImageResource(R.drawable.ic_white)
+
+            when (col[rowIndex]) {
+                1 -> imageView.setImageResource(R.drawable.ic_black)
+                2 -> imageView.setImageResource(R.drawable.ic_white)
+                else -> imageView.setImageDrawable(null)
             }
         }
     }
@@ -218,6 +311,16 @@ class ReviewActivity : AppCompatActivity() {
                             callback(maxTurnData)
                         }
                     }
+                    response.body()?.let { gameReviewItem ->
+                        Log.d("GameReviewAPI", "Turn: ${gameReviewItem}")
+
+                        val nowTurnData = gameReviewItem.find { it.turn == nowTurn }
+                        Log.d("nowTurn", "${nowTurnData}")
+
+                        nowTurnData?.let { nowTurnData ->
+                            callback(nowTurnData)
+                        }
+                    }
 
                     Log.d("GameReviewAPI", "성공 ${response.body().toString()}")
                 }
@@ -228,16 +331,6 @@ class ReviewActivity : AppCompatActivity() {
             }
         })
     }
-
-    // 버튼 클릭 시 nowIndex에 따라 RecommendationList에 저장된 리스트에 접근하는 함수
-    private fun accessRecommendationList(nowIndex: Int) {
-        // nowIndex가 유효한 범위 내에 있는지 확인
-        if (nowIndex >= 0 && nowIndex < recommendationList.size) {
-            val recommendationValue = recommendationList[nowIndex]
-            Log.d("추천", recommendationValue.toString())
-            binding.tvHint.text = recommendationValue.toString()
-        } else {
-            // 범위를 벗어난 경우 처리
-        }
-    }
 }
+
+
