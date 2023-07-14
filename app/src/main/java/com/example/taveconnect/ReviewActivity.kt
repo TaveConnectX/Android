@@ -74,12 +74,9 @@ class ReviewActivity : AppCompatActivity() {
 
                 Log.d("퍼스트", "$first")
 
-
-
                 nowRecommend = maxTurnData.recommendation
 
                 Log.d("지금 추천", nowRecommend.toString())
-
 
                 col1Row.indices.forEach { index ->
                     col1[index] = col1Row[index]
@@ -102,8 +99,6 @@ class ReviewActivity : AppCompatActivity() {
                 col7Row.indices.forEach { index ->
                     col7[index] = col7Row[index]
                 }
-
-
             }
 
             // col1부터 col7까지의 값이 변경되었음
@@ -171,7 +166,6 @@ class ReviewActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-
             gameReviewAPI { nowTurnData ->
                 if (nowTurnData.list.size >= 7 && nowTurn <= nowTurnData.turn) {
                     Log.d("이전 턴", nowTurnData.toString())
@@ -206,14 +200,11 @@ class ReviewActivity : AppCompatActivity() {
                         col7[index] = col7Row[index]
                     }
 
-
                     nowRecommend = nowTurnData.recommendation
                     nowRecommend += 1
                     Log.d("추천", nowRecommend.toString())
 
-
                     if (nowTurnData.first == 1) {
-
                         binding.btnHint.isVisible = nowTurn % 2 != 0
                         if (nowTurn % 2 == 0) {
                             binding.tvHint.text = ""
@@ -232,7 +223,6 @@ class ReviewActivity : AppCompatActivity() {
                             binding.tvHint.text = ""
                             binding.btnHint.isVisible = false
                         }
-
                     }
 
                     setImageViews(col1, 1)
@@ -300,7 +290,6 @@ class ReviewActivity : AppCompatActivity() {
                     Toast.makeText(this@ReviewActivity, "돌아갈 수가 없습니다.", Toast.LENGTH_SHORT).show()
                 }
 
-
                 if (nowTurnData.first == 1) {
 
                     binding.btnHint.isVisible = nowTurn % 2 != 0
@@ -324,7 +313,6 @@ class ReviewActivity : AppCompatActivity() {
 
                 }
 
-
                 setImageViews(col1, 1)
                 setImageViews(col2, 2)
                 setImageViews(col3, 3)
@@ -332,7 +320,6 @@ class ReviewActivity : AppCompatActivity() {
                 setImageViews(col5, 5)
                 setImageViews(col6, 6)
                 setImageViews(col7, 7)
-
 
 //
 //                binding.btnHint.isVisible = nowTurn % 2 != 0
@@ -385,17 +372,14 @@ class ReviewActivity : AppCompatActivity() {
                             callback(nowTurnData)
                         }
                     }
-
                     Log.d("GameReviewAPI", "성공 ${response.body().toString()}")
                 }
             }
-
             override fun onFailure(call: Call<GameReviewData>, t: Throwable) {
                 Log.d("GameReviewAPI", "실패")
             }
         })
     }
-
 
     fun showBurger() {
         binding.btnBurger.setOnClickListener {
@@ -404,7 +388,6 @@ class ReviewActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
 }
 
 

@@ -49,7 +49,6 @@ class HomeActivity : AppCompatActivity() {
         showFragment(listFragment)
     }
 
-
     // 초기 Fragment 설정
     fun showInit() {
         val transaction = manager.beginTransaction()
@@ -76,7 +75,4 @@ class HomeActivity : AppCompatActivity() {
             return@setOnItemSelectedListener true
         }
     }
-
-
-
 }
