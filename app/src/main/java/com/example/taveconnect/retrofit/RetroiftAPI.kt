@@ -32,6 +32,14 @@ interface RetroiftAPI {
         @Body gameEndDTO: GameEndDTO,
     ): Call<GameEndData>
 
+
+
+    @GET("/games/{gameIdx}")
+    fun getGameRestart(
+        @Path(value = "gameIdx") gameIdx : Int
+    ): Call<GameRestartData>
+
+
     @GET("/games/review")
     fun getGameReview(
     ): Call<GameReviewData>

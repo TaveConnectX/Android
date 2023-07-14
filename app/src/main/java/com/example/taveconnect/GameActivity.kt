@@ -1,5 +1,6 @@
 package com.example.taveconnect
 
+import android.content.Context
 import android.content.Intent
 import android.media.SoundPool
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings.Global
+import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
@@ -26,6 +28,7 @@ import java.util.Random
 
 private var turn: Int = 0
 private lateinit var view: View
+private val globalDifficulty = GlobalApplication.prefs.setString("difficulty", "normal")
 
 private var gameGOGO: Int = 1
 
@@ -58,16 +61,22 @@ class GameActivity : AppCompatActivity() {
 
     private lateinit var whiteArray : Array<Array<Int>>
 
-
+    private var resumeGameIdx = 0
 
     var canOrCannot = 2
     var choice_c = "normal"
 
     override fun onPause() {
+        gameGOGO = 2
         super.onPause()
-
-
         val resumeGame = intent.getBooleanExtra("resumeGame", false)
+        val gameIdx = resumeGame
+
+
+        Log.d("이어하기 인덱스", resumeGameIdx.toString())
+        Log.d("이어하기 게임 인덱스", gameIdx.toString())
+
+
         countDownTimer?.cancel()
         Log.d("GameActivity", "countDownTimer cancel() called")
         if(resumeGame) {
@@ -81,14 +90,6 @@ class GameActivity : AppCompatActivity() {
         c_col5 = col5.clone()
         c_col6 = col6.clone()
         c_col7 = col7.clone()
-        col1 = r_col1.clone()
-        col2 = r_col2.clone()
-        col3 = r_col3.clone()
-        col4 = r_col4.clone()
-        col5 = r_col5.clone()
-        col6 = r_col6.clone()
-        col7 = r_col7.clone()
-
         choice_c = choice
         Log.d("GameActivity", "onPause() called")
 
@@ -97,8 +98,14 @@ class GameActivity : AppCompatActivity() {
         gamePaused = true
     }
 
+
     public override fun onResume() {
         super.onResume()
+
+        // 저장된 gameIdx 확인
+        val pausedGameIdx = GlobalApplication.prefs.getInt("pausedGameIdx", 0)
+
+
 
         Log.d("GameActivity", "onResume() called")
         val resumeGame = intent.getBooleanExtra("resumeGame", false)
@@ -107,20 +114,13 @@ class GameActivity : AppCompatActivity() {
         // 게임 액티비티가 다시 재개되는 경우에 수행할 동작을 여기에 작성
         // 예: 게임 재개, 타이머 다시 시작 등
         if (resumeGame || gamePaused) {
-            gameGOGO = 2
-            // 게임이 일시 중지된 상태에서 재개되는 경우에 수행할 동작
-            Log.d("GameActivity", "이전 게임 called")
+            val resumeDifficulty = intent.getBooleanArrayExtra("resumedifficulty")
 
+            // 게임이 일시 중지된 상태에서 재개되는 경우에 수행할 동작
+            Log.d("GameActivity", "$resumeDifficulty")
             if(gamePaused)
                 countDownTimer?.start()
-// 게임 상태 배열 복원
-            r_col1 = col1.clone()
-            r_col2 = col2.clone()
-            r_col3 = col3.clone()
-            r_col4 = col4.clone()
-            r_col5 = col5.clone()
-            r_col6 = col6.clone()
-            r_col7 = col7.clone()
+            // 게임 상태 배열 복원
             col1 = c_col1.clone()
             col2 = c_col2.clone()
             col3 = c_col3.clone()
@@ -132,14 +132,10 @@ class GameActivity : AppCompatActivity() {
 
             var arrays = arrayOf(col1, col2, col3, col4, col5, col6, col7)
 
-
             if(checkFourConnectedB(arrays))
             {
-                val intent_d = Intent(this, DifficultyActivity::class.java)
                 reset()
                 Toast.makeText(this, "이어할 게임이 없어 새 게임을 시작합니다.", Toast.LENGTH_SHORT).show()
-                startActivity(intent_d)
-
             } else if(arrays == {0})
                 Toast.makeText(this, "이어할 게임이 없어 새 게임을 시작합니다.", Toast.LENGTH_SHORT).show()
 
@@ -159,7 +155,7 @@ class GameActivity : AppCompatActivity() {
                 }
             }
 
-            // 2열 이미지뷰 상태 복원
+            // 1열 이미지뷰 상태 복원
             for (i in 0 until col2.size) {
                 val coord = "iv_gm_2_" + (i + 1)
                 val packageName = packageName
@@ -175,7 +171,7 @@ class GameActivity : AppCompatActivity() {
                 }
             }
 
-            // 3열 이미지뷰 상태 복원
+            // 1열 이미지뷰 상태 복원
             for (i in 0 until col3.size) {
                 val coord = "iv_gm_3_" + (i + 1)
                 val packageName = packageName
@@ -191,7 +187,7 @@ class GameActivity : AppCompatActivity() {
                 }
             }
 
-            // 4열 이미지뷰 상태 복원
+            // 1열 이미지뷰 상태 복원
             for (i in 0 until col4.size) {
                 val coord = "iv_gm_4_" + (i + 1)
                 val packageName = packageName
@@ -207,7 +203,7 @@ class GameActivity : AppCompatActivity() {
                 }
             }
 
-            // 5열 이미지뷰 상태 복원
+            // 1열 이미지뷰 상태 복원
             for (i in 0 until col5.size) {
                 val coord = "iv_gm_5_" + (i + 1)
                 val packageName = packageName
@@ -223,7 +219,7 @@ class GameActivity : AppCompatActivity() {
                 }
             }
 
-            // 6열 이미지뷰 상태 복원
+            // 1열 이미지뷰 상태 복원
             for (i in 0 until col6.size) {
                 val coord = "iv_gm_6_" + (i + 1)
                 val packageName = packageName
@@ -239,7 +235,7 @@ class GameActivity : AppCompatActivity() {
                 }
             }
 
-            // 7열 이미지뷰 상태 복원
+            // 1열 이미지뷰 상태 복원
             for (i in 0 until col7.size) {
                 val coord = "iv_gm_7_" + (i + 1)
                 val packageName = packageName
@@ -312,6 +308,8 @@ class GameActivity : AppCompatActivity() {
         else if(turn==1)
             setTurn(1)
 
+
+
         val intent2 = Intent(this, ReviewActivity::class.java)
         //val intent = Intent(this, DifficultyActivity::class.java)
 
@@ -326,25 +324,39 @@ class GameActivity : AppCompatActivity() {
         c_col7 = col7.clone()
 
         val difficulty = intent.getStringExtra("difficulty")
+        GlobalApplication.prefs.setString("difficulty", difficulty.toString())
+
 
 
 
         if (gameGOGO == 1) {
+            Log.d("턴 초기화 할래?", "${GlobalApplication.prefs.getInt("initTurn", 0)}")
+            Log.d("인덱스 초기화 할래?", "${GlobalApplication.prefs.getInt("initIndex", 0)}")
+
+
+            if(turn==0) {
+                turn = GlobalApplication.prefs.getInt("initTurn", 0)
+                setTurn(turn)
+            }
+            else if(turn==1) {
+                turn = GlobalApplication.prefs.getInt("initTurn", 0)
+                setTurn(turn)
+            }
+            else if(turn==2) {
+                turn = GlobalApplication.prefs.getInt("initTurn", 0)
+                setTurn(turn)
+            }
+            else {
+                turn = GlobalApplication.prefs.getInt("initTurn", 0)
+                setTurn(turn)
+            }
+
+
+            Log.d("턴 초기화 하라고", "$turn")
             gameStartAPI()
         } else {
-            /*
-            if (GlobalApplication.prefs.getInt("turnGOGO", 0) % 2 == 0) {
-
-                gameStartAPI()
-                gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index + 1, 0))
-                gameGOGO = 1
-            } else {
-                gameStartAPI()
-
-                whiteValue()
-                gameGOGO = 1
-            }
-             */
+            gameRestartAPI ()
+            gameGOGO = 1
 
         }
 
@@ -354,8 +366,7 @@ class GameActivity : AppCompatActivity() {
         // 타이머 구현
         val tv_sec = findViewById<TextView>(R.id.tv_second)
         var sec = 30000
-        GlobalApplication.prefs.setString("difficulty", difficulty.toString())
-        Log.d("난이도", "${GlobalApplication.prefs.getString(" difficulty ", "")}")
+        Log.d("난이도", "$globalDifficulty")
 
 
         if (difficulty != null) {
@@ -409,15 +420,10 @@ class GameActivity : AppCompatActivity() {
 
         }.start()
 
+        resumeGameIdx = GlobalApplication.prefs.getInt("gameIdx", 0)
+        Log.d("이어하라고", resumeGameIdx.toString())
+
         showBurger()
-
-
-        var myTurn = GlobalApplication.prefs.getInt("myTurn", 0)
-        if (myTurn == 1) {
-        }
-
-
-
 
 
         // 1열
@@ -434,7 +440,11 @@ class GameActivity : AppCompatActivity() {
 
 
                         arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
-                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index, 0))
+                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, GlobalApplication.prefs.getInt("nowTurn", 0), 0))
+
+                        Log.d("노말 이상해 말배열", "${java.util.Arrays.deepToString(arraysGame)}")
+
+
 
                         whiteArray = arraysGame
 
@@ -496,8 +506,9 @@ class GameActivity : AppCompatActivity() {
 
                         arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
 
-                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list =  arraysGame, index, 0))
+                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list =  arraysGame, GlobalApplication.prefs.getInt("nowTurn", 0), 0))
                         whiteArray = arraysGame
+                        Log.d("노말 이상해 말배열", "${java.util.Arrays.deepToString(arraysGame)}")
 
 
                         Log.d("2차원 배열", java.util.Arrays.deepToString(arraysGame))
@@ -557,9 +568,10 @@ class GameActivity : AppCompatActivity() {
 
                         arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
 
-                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index, 0))
+                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, GlobalApplication.prefs.getInt("nowTurn", 0), 0))
                         whiteArray = arraysGame
 
+                        Log.d("노말 이상해 말배열", "${java.util.Arrays.deepToString(arraysGame)}")
 
                         Log.d("2차원 배열", java.util.Arrays.deepToString(arraysGame))
 
@@ -618,8 +630,9 @@ class GameActivity : AppCompatActivity() {
 
                         arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
 
-                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index, 0))
+                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, GlobalApplication.prefs.getInt("nowTurn", 0), 0))
                         whiteArray = arraysGame
+                        Log.d("노말 이상해 말배열", "${java.util.Arrays.deepToString(arraysGame)}")
 
 
                         Log.d("2차원 배열", arraysGame.toString())
@@ -678,8 +691,9 @@ class GameActivity : AppCompatActivity() {
                         c_col5[i] = 1
 
                         arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
-                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index, 0))
+                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, GlobalApplication.prefs.getInt("nowTurn", 0), 0))
                         whiteArray = arraysGame
+                        Log.d("노말 이상해 말배열", "${java.util.Arrays.deepToString(arraysGame)}")
 
                         Log.d("2차원 배열", arraysGame.toString())
 
@@ -740,8 +754,9 @@ class GameActivity : AppCompatActivity() {
                         c_col6[i] = 1
 
                         arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
-                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index, 0))
+                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, GlobalApplication.prefs.getInt("nowTurn", 0), 0))
                         whiteArray = arraysGame
+                        Log.d("노말 이상해 말배열", "${java.util.Arrays.deepToString(arraysGame)}")
 
                         Log.d("2차원 배열", arraysGame.toString())
 
@@ -799,8 +814,9 @@ class GameActivity : AppCompatActivity() {
                         c_col7[i] = 1
 
                         arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
-                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, index, 0))
-                        whiteArray = convertTo2DArray(r_col1, r_col2, r_col3, r_col4, r_col5, r_col6, r_col7)
+                        gameTurnAPI(GameTurnDTO(difficulty, GlobalApplication.prefs.getInt("gameIdx", 0), list = arraysGame, GlobalApplication.prefs.getInt("nowTurn", 0), 0))
+                        whiteArray = arraysGame
+                        Log.d("노말 이상해 말배열", "${java.util.Arrays.deepToString(arraysGame)}")
 
                         Log.d("2차원 배열", arraysGame.toString())
 
@@ -839,6 +855,7 @@ class GameActivity : AppCompatActivity() {
                                 countDownTimer!!.onFinish()
                                 turn = 3
                                 setTurn(turn)
+
                             }
                         }, 3000)
                         break
@@ -1039,12 +1056,16 @@ class GameActivity : AppCompatActivity() {
         return false
     }
 
-    // 백돌 랜덤 함수
     fun whiteValue() {
 
-        // val random = Random()
         val white_a = GlobalApplication.prefs.getInt("white", 0)
+        Log.d("노말 화이트_a", "$white_a")
+
+
         val white = white_a + 1
+
+        Log.d("노말 화이트", "$white")
+
 
         if(white == 1) {
             var i = 0
@@ -1206,7 +1227,6 @@ class GameActivity : AppCompatActivity() {
 
         val tv_turn = findViewById<TextView>(R.id.tv_yourturn)
 
-
         Log.d("Turn", turn.toString())
 
 
@@ -1238,6 +1258,9 @@ class GameActivity : AppCompatActivity() {
             intent.putExtra("r_col5", r_col5)
             intent.putExtra("r_col6", r_col6)
             intent.putExtra("r_col7", r_col7)
+            reset()
+            finish()
+
             startActivity(intent)
         } else if (t == 3) {
             gameEndAPI(GameEndDTO(
@@ -1260,14 +1283,18 @@ class GameActivity : AppCompatActivity() {
             intent.putExtra("r_col5", r_col5)
             intent.putExtra("r_col6", r_col6)
             intent.putExtra("r_col7", r_col7)
+            reset()
+
             startActivity(intent)
         }
     }
 
     fun reset() {
+        PreferenceUtil(applicationContext)
 
-        setTurn(GlobalApplication.prefs.getInt("initTurn", 0))
-        index = GlobalApplication.prefs.getInt("initIndex", 0)
+//        GlobalApplication.prefs.setInt("nowTurn", 0)
+        turn = 0
+        index = 0
         arrays = emptyArray()
         col1 = IntArray(6) { 0 }
         col2 = IntArray(6) { 0 }
@@ -1329,6 +1356,17 @@ class GameActivity : AppCompatActivity() {
                     response: Response<GameStartData>
                 ) {
                     if (response.isSuccessful) {
+                        response.body()?.turn?.let {
+                            GlobalApplication.prefs.setInt("nowTurn",
+                                it)
+                        }
+
+                        GlobalApplication.prefs.setString("gameTurnList", "${java.util.Arrays.deepToString(response.body()?.list)}")
+
+                        response?.body()?.turn?.let {
+                            GlobalApplication.prefs.setInt("initTurn",
+                                it)
+                        }
 
                         response?.body()?.gameIdx?.let {
                             GlobalApplication.prefs.setInt("gameIdx",
@@ -1339,21 +1377,24 @@ class GameActivity : AppCompatActivity() {
                                 it)
                         }
 
-                        setTurn(GlobalApplication.prefs.getInt("initIndex", 0))
-
-                        Log.d("게임 시작", response.body().toString())
-
-                        GlobalApplication.prefs.setString("gameList", "${java.util.Arrays.deepToString(response.body()?.list)}")
 
                         response?.body()?.now?.let {
                             GlobalApplication.prefs.setInt("white",
                                 it)
                         }
 
+                        reset()
+                        setTurn(GlobalApplication.prefs.getInt("initIndex", 0))
+
+                        Log.d("게임 시작", response.body().toString())
+
+                        GlobalApplication.prefs.setString("gameList", "${java.util.Arrays.deepToString(response.body()?.list)}")
+
+
 
                         // turn이 1이면 흰돌 두기
                         if (response.body()?.turn == 1) {
-                            Log.d("AI 선공이면", "")
+                            Log.d("AI 선공", "")
                             whiteValue()
                             setTurn(0)
                         }
@@ -1381,23 +1422,34 @@ class GameActivity : AppCompatActivity() {
                     response: Response<GameTurnData>
                 ) {
                     if (response.isSuccessful) {
+
                         GlobalApplication.prefs.setString("gameTurnList", "${java.util.Arrays.deepToString(response.body()?.list)}")
+
+                        response?.body()?.turn?.let {
+                            GlobalApplication.prefs.setInt("nowTurn",
+                                it)
+                        }
+
+
+
+                        Log.d("노말 이상해 배열", "${java.util.Arrays.deepToString(response.body()?.list)}")
+
 
 
                         var turnGOGO = GlobalApplication.prefs.getString("turnGOGO", "")
 
-                        Log.d("GameTurnAPI", "성공 ${java.util.Arrays.deepToString(whiteArray)}")
+                        Log.d("GameTurnAPI", "성공 ${GlobalApplication.prefs.getInt("nowTurn", 0)}")
 
                         response?.body()?.now?.let {
                             GlobalApplication.prefs.setInt("white",
                                 it)
                         }
+
                         Log.d("흰 돌 위치", "${GlobalApplication.prefs.getInt("white", 0)}")
 
                         val gameTurnList = GlobalApplication.prefs.getString("gameTurnList", "")
                         val parsedList = Gson().fromJson(gameTurnList, Array<Array<Int>>::class.java)
                         val myTurn = parsedList[0][1]
-                        val whiteNewArray = GlobalApplication.prefs.getInt("white", 0)
 
 
 
@@ -1411,6 +1463,46 @@ class GameActivity : AppCompatActivity() {
             })
     }
 
+    fun gameRestartAPI() {
+        // API
+        val gameAPI = RetrofitClient.getInstance().create(RetroiftAPI::class.java)
+
+        gameAPI.getGameRestart(gameIdx = GlobalApplication.prefs.getInt("gameIdx", 0))
+            .enqueue(object: Callback<GameRestartData> {
+                override fun onResponse(
+                    call: Call<GameRestartData>,
+                    response: Response<GameRestartData>
+                ) {
+                    if (response.isSuccessful) {
+                        Log.d("이어해라", resumeGameIdx.toString())
+                        Log.d("이어해라 성공", response.body().toString())
+
+
+                        response.body()?.let { gameRestartData ->
+                            Log.d("GameRestart", "이어하기: ${gameRestartData}")
+
+                            val nextTurnData = gameRestartData.isNextTurn
+                            Log.d("nextTurn", "${nextTurnData}")
+                            GlobalApplication.prefs.setInt("nowTurn", nextTurnData)
+                            GlobalApplication.prefs.setInt("initIndex", gameRestartData.totalTurnCount)
+                            GlobalApplication.prefs.setInt("gameIdx", gameRestartData.gameIdx)
+                            GlobalApplication.prefs.setString("difficulty", gameRestartData.difficulty)
+                            Log.d("이어하기 난이도", "${GlobalApplication.prefs.getString("difficulty", "")}")
+
+
+
+                        }
+
+                    }
+                }
+
+                override fun onFailure(call: Call<GameRestartData>, t: Throwable) {
+                    Log.d("GameStart", "실패")
+                }
+            })
+
+    }
+
 
     fun gameEndAPI(gameEndDTO: GameEndDTO) {
         val gameAPI = RetrofitClient.getInstance().create(RetroiftAPI::class.java)
@@ -1420,6 +1512,8 @@ class GameActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<GameEndData>, response: Response<GameEndData>) {
                     if (response.isSuccessful) {
                         Log.d("GameEndAPI", "성공 ${response.body().toString()}")
+
+
                     }
                 }
 
@@ -1452,7 +1546,6 @@ class GameActivity : AppCompatActivity() {
             }
         }
 
-        Log.d("Tlqkf2", "${java.util.Arrays.deepToString(arr)}")
 
 
         for (i in 0 until 6) {
