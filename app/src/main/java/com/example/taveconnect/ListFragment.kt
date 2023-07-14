@@ -68,7 +68,6 @@ ListFragment : Fragment(R.layout.fragment_list) {
             startActivity(intent)
         }
 
-
         binding.btnGameIng.setOnClickListener {
             val intent = Intent(requireActivity(), GameActivity::class.java)
             intent.putExtra("gamePaused", true)
