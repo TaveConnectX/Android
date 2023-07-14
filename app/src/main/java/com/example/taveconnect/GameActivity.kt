@@ -373,15 +373,15 @@ class GameActivity : AppCompatActivity() {
             choice = difficulty
             sec = when (difficulty) {
                 "easy" -> 60000 // 쉬운 난이도의 타이머 시간 (예: 60초)
-                "normal" -> 45000 // 보통 난이도의 타이머 시간 (예: 30초)
-                "hard" -> 30000 // 어려운 난이도의 타이머 시간 (예: 15초)
+                "normal" -> 60000 // 보통 난이도의 타이머 시간 (예: 30초)
+                "hard" -> 60000 // 어려운 난이도의 타이머 시간 (예: 15초)
                 else -> 10000 // 기본값으로 설정할 타이머 시간 (예: 30초)
             }
         } else{
             sec = when (choice) {
                 "easy" -> 60000 // 쉬운 난이도의 타이머 시간 (예: 60초)
-                "normal" -> 45000 // 보통 난이도의 타이머 시간 (예: 30초)
-                "hard" -> 30000 // 어려운 난이도의 타이머 시간 (예: 15초)
+                "normal" -> 60000 // 보통 난이도의 타이머 시간 (예: 30초)
+                "hard" -> 60000 // 어려운 난이도의 타이머 시간 (예: 15초)
                 else -> 10000 // 기본값으로 설정할 타이머 시간 (예: 30초)
             }
         }
@@ -501,7 +501,6 @@ class GameActivity : AppCompatActivity() {
                         col2[i] = 1
                         c_col2[i] = 1
 
-
                         arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
 
                    //     gameTurnAPI(GameTurnDTO(GlobalApplication.prefs.getString("difficulty", ""), GlobalApplication.prefs.getInt("gameIdx", 0), list =  arraysGame, GlobalApplication.prefs.getInt("nowTurn", 0), 0))
@@ -563,7 +562,6 @@ class GameActivity : AppCompatActivity() {
                     if (col3[i] == 0 && turn == 0) {
                         col3[i] = 1
                         c_col3[i] = 1
-
 
                         arraysGame = convertTo2DArray(col1, col2, col3, col4, col5, col6, col7)
 
